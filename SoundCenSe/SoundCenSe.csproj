@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2C19650D-0695-4619-9913-FA1839D2FE08}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SoundCenSe</RootNamespace>
+    <AssemblyName>SoundCenSe</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PrimaryVersionType>AssemblyFileVersionAttribute</PrimaryVersionType>
+    <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.None.IncrementOnDemandWithReset.Increment</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.None.IncrementOnDemandWithReset.Increment</AssemblyFileVersionSettings>
+    <AssemblyVersion>1.0.2.1</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Program.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio.Lame, Version=1.0.3.3048, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Lame.1.0.4\lib\net20\NAudio.Lame.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio.Vorbis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Vorbis.1.0.0.0\lib\net35\NAudio.Vorbis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio.WindowsMediaFormat, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Wma.1.0.1\lib\net35\NAudio.WindowsMediaFormat.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVorbis, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVorbis.0.8.4.0\lib\NVorbis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\CachedSound.cs" />
+    <Compile Include="Audio\CachedSoundSampleProvider.cs" />
+    <Compile Include="Audio\ChannelSound.cs" />
+    <Compile Include="Audio\MyMixingSampleProvider.cs" />
+    <Compile Include="Audio\WaveFormatExtension.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Configuration\ChannelData.cs" />
+    <Compile Include="Configuration\ConfigurationData.cs" />
+    <Compile Include="Configuration\Constants.cs" />
+    <Compile Include="Configuration\Sounds\Attribution.cs" />
+    <Compile Include="Configuration\Sounds\Playlist\IPlaylistParser.cs" />
+    <Compile Include="Configuration\Sounds\Playlist\M3UParser.cs" />
+    <Compile Include="Configuration\Sounds\Playlist\PLSParser.cs" />
+    <Compile Include="Configuration\Sounds\RepeatSound.cs" />
+    <Compile Include="Configuration\Sounds\Sound.cs" />
+    <Compile Include="Configuration\Sounds\SoundFile.cs" />
+    <Compile Include="Configuration\Sounds\SoundsXML.cs" />
+    <Compile Include="Configuration\XmlExtensions.cs" />
+    <Compile Include="Enums\Loop.cs" />
+    <Compile Include="Enums\Threshold.cs" />
+    <Compile Include="Events\ChannelFastForwardEventArgs.cs" />
+    <Compile Include="Events\ChannelMuteEventArgs.cs" />
+    <Compile Include="Events\ChannelVolumeEventArgs.cs" />
+    <Compile Include="Events\DwarfFortressRunningEventArgs.cs" />
+    <Compile Include="Events\DwarfFortressStoppedEventArgs.cs" />
+    <Compile Include="Events\GamelogEventArgs.cs" />
+    <Compile Include="Events\InitProgressBarEventArgs.cs" />
+    <Compile Include="Events\SoundPlayingEventArgs.cs" />
+    <Compile Include="Events\UpdateFinishedEventArgs.cs" />
+    <Compile Include="Events\XMLParseDoneEventArgs.cs" />
+    <Compile Include="Events\XMLParseProgressEventArgs.cs" />
+    <Compile Include="GUI\SoundPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\SoundPanel.Designer.cs">
+      <DependentUpon>SoundPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SoundPanelEntry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\SoundPanelEntry.Designer.cs">
+      <DependentUpon>SoundPanelEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ToolStripSignal.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IPlayerManager.cs" />
+    <Compile Include="Output\DummyPlayerManager.cs" />
+    <Compile Include="Output\DummySoundProcessor.cs" />
+    <Compile Include="SoundCenSeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoundCenSeForm.Designer.cs">
+      <DependentUpon>SoundCenSeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Input\LogFileListener.cs" />
+    <Compile Include="Interfaces\IStoppable.cs" />
+    <Compile Include="Output\PlayerManager.cs" />
+    <Compile Include="Output\SoundProcessor.cs" />
+    <Compile Include="Utility\ChannelThread.cs" />
+    <Compile Include="Utility\DwarfFortressAware.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\ISynchronizeInvokeExtension.cs" />
+    <Compile Include="Utility\SFXManagerThread.cs" />
+    <Compile Include="Utility\SFXQueue.cs" />
+    <Compile Include="Utility\StringExtension.cs" />
+    <Compile Include="Utility\Updater\DownloadEntry.cs" />
+    <Compile Include="Utility\Updater\DownloadFinishedEventArgs.cs" />
+    <Compile Include="Utility\Updater\DownloadResult.cs" />
+    <Compile Include="Utility\Updater\PackDownloader.cs" />
+    <Compile Include="Utility\Updater\XML\DirectoryData.cs" />
+    <Compile Include="Utility\Updater\XML\UpdateParser.cs" />
+    <Content Include="Program.ico" />
+    <None Include="Resources\Mute.png" />
+    <None Include="Resources\FastForward.png" />
+    <None Include="Resources\FastForwardImg.bmp" />
+    <EmbeddedResource Include="GUI\SoundPanel.resx">
+      <DependentUpon>SoundPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SoundPanelEntry.resx">
+      <DependentUpon>SoundPanelEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoundCenSeForm.resx">
+      <DependentUpon>SoundCenSeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libmp3lame.32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libmp3lame.64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

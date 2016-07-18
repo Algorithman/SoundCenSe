@@ -19,7 +19,7 @@
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyVersionSettings>None.None.IncrementOnDemandWithReset.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.IncrementOnDemandWithReset.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.2.1</AssemblyVersion>
+    <AssemblyVersion>1.0.2.2</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -159,6 +159,9 @@
     <Compile Include="Utility\Updater\XML\DirectoryData.cs" />
     <Compile Include="Utility\Updater\XML\UpdateParser.cs" />
     <Content Include="Program.ico" />
+    <None Include="Configuration.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Mute.png" />
     <None Include="Resources\FastForward.png" />
     <None Include="Resources\FastForwardImg.bmp" />

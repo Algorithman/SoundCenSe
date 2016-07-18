@@ -1,0 +1,21 @@
+{
+  "fileName": "configuration.xml",
+  "gamelogPath": "D:\\DF 0.43.03\\Dwarf Fortress 0.43.03\\gamelog.txt",
+  "gamelogEncoding": "Cp850",
+  "soundpacksPath": "./packs/",
+  "allowPackOverride": true,
+  "noWarnAbsolutePaths": false,
+  "volume": 0.0,
+  "playbackThreshold": 4,
+  "autoUpdateURLs": [
+    "http://df.zweistein.cz/soundsense/soundpack",
+    "http://www.armedassault.info/_hosted/soundsense/au"
+  ],
+  "replaceFiles": true,
+  "deleteFiles": false,
+  "gui": true,
+  "disabledSounds": [],
+  "mutedChannels": [],
+  "Channels": [],
+  "supplementalLogs": []
+}

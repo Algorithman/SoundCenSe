@@ -10,9 +10,12 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using SoundCenSe.Configuration;
 using SoundCenSe.Events;
+using SoundCenSe.Utility;
 
 namespace SoundCenSe.GUI
 {
@@ -32,13 +35,9 @@ namespace SoundCenSe.GUI
         {
             InitializeComponent();
         }
-
         public void Clear()
         {
-            foreach (SoundPanelEntry se in this.Controls.OfType<SoundPanelEntry>())
-            {
-                this.Controls.Remove(se);
-            }
+            tablePanel.Controls.Clear();
         }
 
         private void FastForwardInternal(object sender, ChannelFastForwardEventArgs channelFastForwardEventArgs)
@@ -50,17 +49,47 @@ namespace SoundCenSe.GUI
             }
         }
 
-        private int GetPosition(string channel)
+
+        public void FillEntries(List<string> channelNames)
         {
-            for (int i = 0; i < channelSort.Count; i++)
+            int rowCount = 0;
+            foreach (string s in channelNames)
             {
-                if (channelSort.ElementAt(i) == channel)
+                SoundPanelEntry spe = new SoundPanelEntry();
+                spe.ChannelName = s.Capitalize();
+                spe.Dock = DockStyle.Fill;
+                // spe.Width = this.tablePanel.Width;
+                if (s.ToLower() == "sfx")
                 {
-                    return i;
+                    spe.IsSFXPanel = true;
                 }
+                ChannelData cd = Config.Instance.Channels.FirstOrDefault(x => x.Channel == s.ToLower());
+                if (cd != null)
+                {
+                    spe.VolumeBar.Value = (int)(cd.Volume * 100);
+                    spe.btnMute.Checked = cd.Mute;
+                }
+
+
+                spe.FastForward += FastForwardInternal;
+                spe.Muting += MutingInternal;
+                spe.VolumeChanged += VolumeChangedInternal;
+                spe.SoundDisabled += SoundDisabledInternal;
+                spe.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+                this.tablePanel.Controls.Add(spe, 0, rowCount++);
             }
-            throw new Exception("Value not in Set");
         }
+        public EventHandler<DisableSoundEventArgs> SoundDisabled;
+        private void SoundDisabledInternal(object sender, DisableSoundEventArgs disableSoundEventArgs)
+        {
+            var handler = SoundDisabled;
+            if (handler != null)
+            {
+                handler(this, disableSoundEventArgs);
+            }
+        }
+
 
         private void MutingInternal(object sender, ChannelMuteEventArgs channelMuteEventArgs)
         {
@@ -71,81 +100,33 @@ namespace SoundCenSe.GUI
             }
         }
 
-        public void RemoveAndResort(string channelName)
-        {
-            channelSort.Remove(channelName);
-            channelSort = channelSort.OrderBy(x => (x.StartsWith("SFX") ? "Z" : "A") + x).ToList();
-        }
 
         public void SetValues(string channel, string file, int length, bool mute, float volume)
         {
-            SoundPanelEntry spe = this.Controls.OfType<SoundPanelEntry>().FirstOrDefault(x => x.ChannelName == channel);
+            SoundPanelEntry spe = this.tablePanel.Controls.OfType<SoundPanelEntry>().FirstOrDefault(x => x.ChannelName == channel);
             if (spe == null)
             {
-                this.SuspendLayout();
-                channelSort.Add(channel);
-                channelSort = channelSort.OrderBy(x => (x.StartsWith("SFX") ? "Z" : "A") + x).ToList();
-                // Create new one
-                spe = new SoundPanelEntry();
-                spe.btnMute.Checked = mute;
-                int order = GetPosition(channel);
-                spe.Location = new Point(0, order*spe.Height);
-                spe.Width = this.Width;
-                spe.ChannelName = channel;
-                spe.Filename = file;
-                spe.Length = length;
-                spe.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-                spe.VolumeBar.Value = (int) (volume*100);
-                spe.btnFastForward.Visible = !channel.ToLower().StartsWith("sfx");
-
-                foreach (SoundPanelEntry toOrder in this.Controls.OfType<SoundPanelEntry>())
-                {
-                    toOrder.Top = GetPosition(toOrder.ChannelName)*toOrder.Height;
-                }
-                spe.FastForward += FastForwardInternal;
-                spe.Muting += MutingInternal;
-                spe.VolumeChanged += VolumeChangedInternal;
-                this.Controls.Add(spe);
-                this.ResumeLayout(true);
+                throw new Exception("Channel not initialized yet? (" + channel + ")");
             }
             else
             {
+                spe.VolumeBar.Value = (int)(volume * 100);
+                spe.btnMute.Checked = mute;
                 if (spe.Filename != file)
                 {
                     spe.ChannelName = channel;
                     spe.Filename = file;
                     spe.Length = length;
                 }
+                spe.AddEntry(file);
             }
-        }
-
-        private void SoundPanel_Resize(object sender, EventArgs e)
-        {
         }
 
         public void Tick()
         {
-            int count = this.Controls.OfType<SoundPanelEntry>().Count();
-            foreach (SoundPanelEntry s in this.Controls.OfType<SoundPanelEntry>())
+            foreach (SoundPanelEntry s in this.tablePanel.Controls.OfType<SoundPanelEntry>())
             {
                 s.Tick();
-            }
-            List<SoundPanelEntry> entries = this.Controls.OfType<SoundPanelEntry>().ToList();
-
-            if (count != entries.Count)
-            {
-                channelSort.Clear();
-                foreach (SoundPanelEntry toOrder in entries)
-                {
-                    channelSort.Add(toOrder.ChannelName);
-                }
-
-                channelSort = channelSort.OrderBy(x => (x.StartsWith("SFX") ? "Z" : "A") + x).ToList();
-
-                foreach (SoundPanelEntry toOrder in entries)
-                {
-                    toOrder.Top = GetPosition(toOrder.ChannelName)*toOrder.Height;
-                }
             }
         }
 

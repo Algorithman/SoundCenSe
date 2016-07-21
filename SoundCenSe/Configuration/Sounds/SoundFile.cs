@@ -28,6 +28,8 @@ namespace SoundCenSe.Configuration.Sounds
         public CachedSound Cache;
         public int Weight = 100;
 
+        public bool Disabled { get; set; }
+
         #endregion
 
         #region Properties

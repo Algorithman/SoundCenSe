@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: PackDownloader.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-21 21:42
 
 #region Usings
 
@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
@@ -35,6 +34,8 @@ namespace SoundCenSe.Utility.Updater
 
         private bool autoUpdateFileDownloaded;
 
+        public EventHandler<StartDownloadEventArgs> DownloadStarted;
+
         public EventHandler<DownloadFinishedEventArgs> FinishedFile;
 
         private bool stop;
@@ -48,10 +49,6 @@ namespace SoundCenSe.Utility.Updater
         public List<DownloadEntry> DownloadedFiles { get; set; }
         private List<DownloadEntry> FilesInProgress { get; }
         private Queue<DownloadEntry> FilesToDownload { get; }
-
-        public string MainPath { get; set; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)
-            .Replace("file://", "")
-            .Replace("file:\\", "");
 
         #endregion
 
@@ -157,6 +154,15 @@ namespace SoundCenSe.Utility.Updater
             return FilesInProgress.Count > 0;
         }
 
+        private void OnStartDownload(DownloadEntry file)
+        {
+            var handler = DownloadStarted;
+            if (handler != null)
+            {
+                handler(this, new StartDownloadEventArgs(file));
+            }
+        }
+
         private void OnUpdateFinished()
         {
             var handler = UpdateFinished;
@@ -168,6 +174,7 @@ namespace SoundCenSe.Utility.Updater
 
         private void StartDownload(DownloadEntry file, string fromServer)
         {
+            OnStartDownload(file);
             int tries = 5;
             while (tries > 0)
             {
@@ -239,7 +246,7 @@ namespace SoundCenSe.Utility.Updater
             DownloadEntry de = new DownloadEntry
             {
                 SourceURL = "/autoUpdater.xml",
-                DestinationPath = Path.Combine(MainPath, "newautoupdate.xml")
+                DestinationPath = Path.Combine(Config.Instance.soundpacksPath, "autoUpdater.xml")
             };
 
             de.FinishedFile += FinishedAutoUpdateFile;
@@ -258,7 +265,12 @@ namespace SoundCenSe.Utility.Updater
             foreach (DirectoryData dd in list)
             {
                 DownloadEntry d = new DownloadEntry();
-                d.DestinationPath = Path.Combine(MainPath, dd.RelativePath, dd.Filename);
+                d.DestinationPath =
+                    Path.Combine(Config.Instance.soundpacksPath, dd.RelativePath, dd.Filename)
+                        .Replace(
+                            Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar + "packs" +
+                            Path.DirectorySeparatorChar,
+                            Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar);
                 d.SourceURL = "/" + Path.Combine(dd.RelativePath, dd.Filename).Replace("\\", "/");
                 d.SourceURL = d.SourceURL.Replace("/packs/", "/");
                 d.ExpectedSHA = dd.SHA1;
@@ -266,5 +278,12 @@ namespace SoundCenSe.Utility.Updater
                 AddFileForDownload(d);
             }
         }
+
+
+        /*
+        public string MainPath { get; set; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)
+            .Replace("file://", "")
+            .Replace("file:\\", "");
+            */
     }
 }

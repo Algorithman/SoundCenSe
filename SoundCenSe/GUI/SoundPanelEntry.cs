@@ -1,13 +1,15 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: SoundPanelEntry.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-18 20:14
 
 using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using SoundCenSe.Events;
 
@@ -22,6 +24,7 @@ namespace SoundCenSe.GUI
 
         public EventHandler<ChannelFastForwardEventArgs> FastForward;
         private string filename = "";
+        private bool isSfxPanel;
         private int length;
         public EventHandler<ChannelMuteEventArgs> Muting;
         public EventHandler<ChannelVolumeEventArgs> VolumeChanged;
@@ -45,8 +48,18 @@ namespace SoundCenSe.GUI
             get { return filename; }
             set
             {
-                labelFile.Text = value;
+                labelFile.Text = Path.GetFileNameWithoutExtension(value);
                 filename = value;
+            }
+        }
+
+        public bool IsSFXPanel
+        {
+            get { return isSfxPanel; }
+            set
+            {
+                isSfxPanel = value;
+                btnFastForward.Visible = !isSfxPanel;
             }
         }
 
@@ -61,11 +74,62 @@ namespace SoundCenSe.GUI
             }
         }
 
+        public void AddEntry(string filename)
+        {
+            if (!string.IsNullOrEmpty(filename.Trim()))
+            {
+                SoundDisabler sd = new SoundDisabler(filename);
+                sd.Width = tablePanel.Width;
+                sd.SoundDisabled+=SoundDisabledInternal;
+                sd.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                AddInFront(sd);
+            }
+        }
+
+        public EventHandler<DisableSoundEventArgs> SoundDisabled;
+
+        private void SoundDisabledInternal(object sender, DisableSoundEventArgs disableSoundEventArgs)
+        {
+            var handler = SoundDisabled;
+            if (handler != null)
+            {
+                handler(this, disableSoundEventArgs);
+            }
+        }
+
         #endregion
 
         public SoundPanelEntry()
         {
             InitializeComponent();
+            
+        }
+
+        private void AddInFront(SoundDisabler sd)
+        {
+            RowStyle rs = new RowStyle(SizeType.AutoSize);
+            tablePanel.RowStyles.Insert(0, rs);
+            tablePanel.RowCount++;
+            for (int i = tablePanel.Controls.Count - 1; i >= 0; i--)
+            {
+                tablePanel.SetRow(tablePanel.Controls[i],i+1); 
+            }
+
+            tablePanel.Controls.Add(sd, 0, 0);
+
+
+            sd.BringToFront();
+            if (tablePanel.Controls.Count > 5)
+            {
+                foreach (Control control in tablePanel.Controls)
+                {
+                    if (tablePanel.GetRow(control) >= 5)
+                    {
+                        tablePanel.Controls.Remove(control);
+                    }
+                }
+                tablePanel.RowCount--;
+            }
         }
 
         private void FastForwardClick(object sender, EventArgs e)
@@ -94,15 +158,10 @@ namespace SoundCenSe.GUI
             }
             else
             {
-                this.Parent.Controls.Remove(this);
-                SoundPanel x = (SoundPanel) this.Parent;
-                if (x != null)
-                {
-                    x.RemoveAndResort(channelName);
-                }
+                labelLength.Text = "";
+                labelFile.Text = "";
             }
         }
-
 
         private void VolumeBarValueChanged(object sender, EventArgs e)
         {
@@ -111,6 +170,25 @@ namespace SoundCenSe.GUI
             {
                 handler(this, new ChannelVolumeEventArgs(channelName, VolumeBar.Value/100.0f));
             }
+        }
+
+        private bool isDown = false;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+            if (!isDown)
+            {
+                btnDwnUp.ImageIndex = 1;
+                this.Height = 226;
+            }
+            else
+            {
+                btnDwnUp.ImageIndex = 0;
+                this.Height = 121;
+            }
+            this.ResumeLayout(true);
+            isDown = !isDown;
         }
     }
 }

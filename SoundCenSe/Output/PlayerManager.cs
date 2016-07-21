@@ -29,7 +29,6 @@ namespace SoundCenSe.Output
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private readonly MyMixingSampleProvider channelMixer;
-        private readonly MyMixingSampleProvider mixer;
 
         public EventHandler<SoundPlayingEventArgs> Playing;
         private readonly SFXManagerThread SFX;
@@ -37,7 +36,9 @@ namespace SoundCenSe.Output
         private readonly MyMixingSampleProvider SFXMixer;
         private float volume = 1.0f;
 
-        private readonly IWavePlayer waveOutputDevice;
+        private readonly IWavePlayer musicOutputDevice;
+
+        private readonly IWavePlayer sfxOutputDevice;
 
         #endregion
 
@@ -54,19 +55,19 @@ namespace SoundCenSe.Output
                     Constants.AudioChannels));
             SFX = new SFXManagerThread();
             SFXMixer = SFX.mixer;
-            mixer =
-                new MyMixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(Constants.Samplerate,
-                    Constants.AudioChannels));
-            mixer.AddMixerInput(channelMixer);
-            mixer.AddMixerInput(SFXMixer);
+
             SFX.Threshold = Threshold;
             SFX.Volume = Config.Instance.GetChannelData("sfx").Volume;
             SFX.Mute = Config.Instance.GetChannelData("sfx").Mute;
             SFX.SoundPlaying += SoundPlaying;
             SFX.Start();
-            waveOutputDevice = new WaveOutEvent();
-            waveOutputDevice.Init(mixer);
-            waveOutputDevice.Play();
+            musicOutputDevice = new WaveOutEvent();
+            musicOutputDevice.Init(channelMixer);
+            musicOutputDevice.Play();
+
+            sfxOutputDevice = new WaveOutEvent();
+            sfxOutputDevice.Init(SFXMixer);
+            sfxOutputDevice.Play();
         }
 
         #region IDisposable Members
@@ -122,9 +123,9 @@ namespace SoundCenSe.Output
             }
             else
             {
-                if (channels.ContainsKey(channel))
+                if (channels.ContainsKey(channel.ToLower()))
                 {
-                    channels[channel].Volume = vol;
+                    channels[channel.ToLower()].Volume = vol;
                 }
             }
         }
@@ -134,8 +135,8 @@ namespace SoundCenSe.Output
             if (disposing)
             {
                 Stop();
-                waveOutputDevice.Stop();
-                waveOutputDevice.Dispose();
+                musicOutputDevice.Stop();
+                musicOutputDevice.Dispose();
             }
         }
 
@@ -143,7 +144,7 @@ namespace SoundCenSe.Output
         {
             if (!channel.ToLower().StartsWith("sfx"))
             {
-                if (channels.ContainsKey(channel))
+                if (channels.ContainsKey(channel.ToLower()))
                 {
                     ChannelThread ct = channels[channel.ToLower()];
                     channelMixer.RemoveMixerInput(ct.GetPlaying());
@@ -166,9 +167,9 @@ namespace SoundCenSe.Output
             }
             else
             {
-                if (channels.ContainsKey(channel))
+                if (channels.ContainsKey(channel.ToLower()))
                 {
-                    ChannelThread ct = channels[channel];
+                    ChannelThread ct = channels[channel.ToLower()];
                     ct.Mute = mute;
                 }
             }

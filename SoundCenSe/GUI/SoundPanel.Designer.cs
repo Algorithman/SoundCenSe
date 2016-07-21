@@ -28,19 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.tablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
+            // 
+            // tablePanel
+            // 
+            this.tablePanel.ColumnCount = 1;
+            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tablePanel.Location = new System.Drawing.Point(0, 0);
+            this.tablePanel.Name = "tablePanel";
+            this.tablePanel.RowCount = 1;
+            this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tablePanel.Size = new System.Drawing.Size(284, 362);
+            this.tablePanel.TabIndex = 0;
             // 
             // SoundPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tablePanel);
             this.Name = "SoundPanel";
             this.Size = new System.Drawing.Size(284, 362);
-            this.Resize += new System.EventHandler(this.SoundPanel_Resize);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.TableLayoutPanel tablePanel;
     }
 }

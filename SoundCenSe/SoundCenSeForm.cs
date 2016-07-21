@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: SoundCenSeForm.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-21 20:28
 
 using System;
 using System.Collections.Generic;
@@ -57,7 +57,7 @@ namespace SoundCenSe
 
         private void AddProgress(long expectedSize)
         {
-            toolStripProgressBar1.Value += (int) expectedSize;
+            toolStripProgressBar1.Value += (int)expectedSize;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -77,12 +77,35 @@ namespace SoundCenSe
             PD.Start();
         }
 
+
         public void DFRunning(object sender, DwarfFortressRunningEventArgs e)
         {
             if (closing)
             {
                 return;
             }
+            allSounds = new SoundsXML(Config.Instance.soundpacksPath);
+            SetDisabledSounds();
+            List<string> channelNames = new List<string>();
+            channelNames.Add("SFX");
+            foreach (Sound s in allSounds.Sounds)
+            {
+                if (channelNames.Contains(s.Channel))
+                {
+                    continue;
+                }
+                if (!string.IsNullOrEmpty(s.Channel))
+                {
+                    channelNames.Add(s.Channel);
+                }
+            }
+
+            soundPanel.InvokeIfRequired(() =>
+            {
+                soundPanel.Clear();
+                soundPanel.FillEntries(channelNames);
+            });
+
             if (PM != null)
             {
                 PM.Dispose();
@@ -95,10 +118,11 @@ namespace SoundCenSe
                 LL.Stop();
                 LL.Dispose();
             }
-            allSounds = new SoundsXML(Config.Instance.soundpacksPath);
             Config.Instance.gamelogPath = DF.GameLogPath;
-            SP = new SoundProcessor(new SoundsXML(Config.Instance.soundpacksPath), PM);
             Dictionary<string, Sound> oldMusics = GetOldMusic(allSounds);
+            allSounds = new SoundsXML(Config.Instance.soundpacksPath);
+            SP = new SoundProcessor(allSounds, PM);
+            SetDisabledSounds();
             if (oldMusics.ContainsKey("music"))
             {
                 PM.Play(oldMusics["music"], 0, 0, 0);
@@ -249,14 +273,31 @@ namespace SoundCenSe
             }
 
             string soundFile = Path.GetFileNameWithoutExtension(soundPlayingEventArgs.SoundFile.Filename);
-            int soundLength = soundPlayingEventArgs.SoundFile.Cache.AudioData.Length/
-                              (Constants.AudioChannels*Constants.Samplerate/1000);
+            int soundLength = soundPlayingEventArgs.SoundFile.Cache.AudioData.Length /
+                              (Constants.AudioChannels * Constants.Samplerate / 1000);
             this.InvokeIfRequired(
                 () =>
                 {
                     soundPanel.SetValues(channel, soundFile, soundLength, soundPlayingEventArgs.Mute,
                         soundPlayingEventArgs.Volume);
                 });
+        }
+
+        private void SetDisabledSounds()
+        {
+            foreach (Sound s in allSounds.Sounds)
+            {
+                foreach (SoundFile sf in s.SoundFiles)
+                {
+                    foreach (string disabledSound in Config.Instance.disabledSounds)
+                    {
+                        if (sf.Filename == disabledSound)
+                        {
+                            sf.Disabled = true;
+                        }
+                    }
+                }
+            }
         }
 
         private void ShowLogInStatus(object sender, GamelogEventArgs gamelogEventArgs)

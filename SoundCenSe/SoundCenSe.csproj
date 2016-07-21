@@ -19,7 +19,7 @@
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyVersionSettings>None.None.IncrementOnDemandWithReset.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.IncrementOnDemandWithReset.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.2.2</AssemblyVersion>
+    <AssemblyVersion>1.0.2.12</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -108,6 +108,7 @@
     <Compile Include="Events\ChannelFastForwardEventArgs.cs" />
     <Compile Include="Events\ChannelMuteEventArgs.cs" />
     <Compile Include="Events\ChannelVolumeEventArgs.cs" />
+    <Compile Include="Events\DisableSoundEventArgs.cs" />
     <Compile Include="Events\DwarfFortressRunningEventArgs.cs" />
     <Compile Include="Events\DwarfFortressStoppedEventArgs.cs" />
     <Compile Include="Events\GamelogEventArgs.cs" />
@@ -116,6 +117,12 @@
     <Compile Include="Events\UpdateFinishedEventArgs.cs" />
     <Compile Include="Events\XMLParseDoneEventArgs.cs" />
     <Compile Include="Events\XMLParseProgressEventArgs.cs" />
+    <Compile Include="GUI\SoundDisabler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\SoundDisabler.designer.cs">
+      <DependentUpon>SoundDisabler.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\SoundPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -159,12 +166,18 @@
     <Compile Include="Utility\Updater\XML\DirectoryData.cs" />
     <Compile Include="Utility\Updater\XML\UpdateParser.cs" />
     <Content Include="Program.ico" />
+    <None Include="Resources\ArrowUp.png" />
+    <None Include="Resources\ArrowDown.png" />
+    <None Include="Resources\DisableSound 15x15.png" />
     <None Include="Configuration.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Mute.png" />
     <None Include="Resources\FastForward.png" />
     <None Include="Resources\FastForwardImg.bmp" />
+    <EmbeddedResource Include="GUI\SoundDisabler.resx">
+      <DependentUpon>SoundDisabler.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\SoundPanel.resx">
       <DependentUpon>SoundPanel.cs</DependentUpon>
     </EmbeddedResource>

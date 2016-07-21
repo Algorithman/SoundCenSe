@@ -28,15 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoundPanelEntry));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelFile = new System.Windows.Forms.Label();
             this.labelLength = new System.Windows.Forms.Label();
             this.labelChannel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnFastForward = new System.Windows.Forms.Button();
-            this.btnMute = new System.Windows.Forms.CheckBox();
             this.VolumeBar = new System.Windows.Forms.TrackBar();
+            this.tablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.btnMute = new System.Windows.Forms.CheckBox();
+            this.btnFastForward = new System.Windows.Forms.Button();
+            this.btnDwnUp = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,9 +59,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 23);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Length:";
+            this.label2.Text = "Remaining:";
             // 
             // labelFile
             // 
@@ -91,16 +96,31 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Channel:";
             // 
-            // btnFastForward
+            // VolumeBar
             // 
-            this.btnFastForward.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFastForward.Image = global::SoundCenSe.Properties.Resources.FastForward;
-            this.btnFastForward.Location = new System.Drawing.Point(356, 3);
-            this.btnFastForward.Name = "btnFastForward";
-            this.btnFastForward.Size = new System.Drawing.Size(38, 38);
-            this.btnFastForward.TabIndex = 6;
-            this.btnFastForward.UseVisualStyleBackColor = true;
-            this.btnFastForward.Click += new System.EventHandler(this.FastForwardClick);
+            this.VolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.VolumeBar.Location = new System.Drawing.Point(310, -1);
+            this.VolumeBar.Maximum = 100;
+            this.VolumeBar.Name = "VolumeBar";
+            this.VolumeBar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.VolumeBar.Size = new System.Drawing.Size(45, 93);
+            this.VolumeBar.TabIndex = 9;
+            this.VolumeBar.TickFrequency = 10;
+            this.VolumeBar.ValueChanged += new System.EventHandler(this.VolumeBarValueChanged);
+            // 
+            // tablePanel
+            // 
+            this.tablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tablePanel.ColumnCount = 1;
+            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tablePanel.Location = new System.Drawing.Point(1, 97);
+            this.tablePanel.Name = "tablePanel";
+            this.tablePanel.RowCount = 1;
+            this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tablePanel.Size = new System.Drawing.Size(395, 23);
+            this.tablePanel.TabIndex = 10;
             // 
             // btnMute
             // 
@@ -115,21 +135,43 @@
             this.btnMute.UseVisualStyleBackColor = true;
             this.btnMute.CheckedChanged += new System.EventHandler(this.MuteClick);
             // 
-            // VolumeBar
+            // btnFastForward
             // 
-            this.VolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.VolumeBar.Location = new System.Drawing.Point(93, 3);
-            this.VolumeBar.Maximum = 100;
-            this.VolumeBar.Name = "VolumeBar";
-            this.VolumeBar.Size = new System.Drawing.Size(257, 45);
-            this.VolumeBar.TabIndex = 9;
-            this.VolumeBar.TickFrequency = 10;
-            this.VolumeBar.ValueChanged += new System.EventHandler(this.VolumeBarValueChanged);
+            this.btnFastForward.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFastForward.Image = global::SoundCenSe.Properties.Resources.FastForward;
+            this.btnFastForward.Location = new System.Drawing.Point(356, 3);
+            this.btnFastForward.Name = "btnFastForward";
+            this.btnFastForward.Size = new System.Drawing.Size(38, 38);
+            this.btnFastForward.TabIndex = 6;
+            this.btnFastForward.UseVisualStyleBackColor = true;
+            this.btnFastForward.Click += new System.EventHandler(this.FastForwardClick);
+            // 
+            // btnDwnUp
+            // 
+            this.btnDwnUp.FlatAppearance.BorderSize = 0;
+            this.btnDwnUp.ImageIndex = 0;
+            this.btnDwnUp.ImageList = this.imageList1;
+            this.btnDwnUp.Location = new System.Drawing.Point(1, 69);
+            this.btnDwnUp.Name = "btnDwnUp";
+            this.btnDwnUp.Size = new System.Drawing.Size(23, 23);
+            this.btnDwnUp.TabIndex = 11;
+            this.btnDwnUp.TabStop = false;
+            this.btnDwnUp.UseVisualStyleBackColor = true;
+            this.btnDwnUp.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "ArrowDown.png");
+            this.imageList1.Images.SetKeyName(1, "ArrowUp.png");
             // 
             // SoundPanelEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnDwnUp);
+            this.Controls.Add(this.tablePanel);
             this.Controls.Add(this.VolumeBar);
             this.Controls.Add(this.btnMute);
             this.Controls.Add(this.btnFastForward);
@@ -140,7 +182,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "SoundPanelEntry";
-            this.Size = new System.Drawing.Size(397, 90);
+            this.Size = new System.Drawing.Size(397, 121);
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -158,5 +200,8 @@
         internal System.Windows.Forms.CheckBox btnMute;
         internal System.Windows.Forms.TrackBar VolumeBar;
         internal System.Windows.Forms.Button btnFastForward;
+        private System.Windows.Forms.TableLayoutPanel tablePanel;
+        private System.Windows.Forms.Button btnDwnUp;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

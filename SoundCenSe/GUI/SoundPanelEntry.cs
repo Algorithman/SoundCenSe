@@ -9,6 +9,7 @@
 
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using SoundCenSe.Events;
 
@@ -47,7 +48,7 @@ namespace SoundCenSe.GUI
             get { return filename; }
             set
             {
-                labelFile.Text = value;
+                labelFile.Text = Path.GetFileNameWithoutExtension(value);
                 filename = value;
             }
         }

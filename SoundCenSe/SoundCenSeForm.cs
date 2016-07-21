@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: SoundCenSeForm.cs
 // 
-// Last modified: 2016-07-21 20:28
+// Last modified: 2016-07-21 22:01
 
 using System;
 using System.Collections.Generic;
@@ -53,12 +53,14 @@ namespace SoundCenSe
             soundPanel.Muting += Muting;
             soundPanel.FastForward += FastForward;
             soundPanel.VolumeChanged += VolumeChanged;
+            soundPanel.SoundDisabled += SoundDisabled;
+            FillDisabledSounds();
         }
 
 
         private void AddProgress(long expectedSize)
         {
-            toolStripProgressBar1.Value += (int)expectedSize;
+            toolStripProgressBar1.Value += (int) expectedSize;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -80,11 +82,8 @@ namespace SoundCenSe
             PD.Start();
         }
 
-        private void DownloadStarted(object sender, StartDownloadEventArgs e)
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Task.Factory.StartNew(() =>
-                listBox1.InvokeIfRequired(
-                    () => listBox1.Items.Add("Download of " + Path.GetFileName(e.File.SourceURL) + " started")));
         }
 
 
@@ -180,6 +179,13 @@ namespace SoundCenSe
             });
         }
 
+        private void DownloadStarted(object sender, StartDownloadEventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+                listBox1.InvokeIfRequired(
+                    () => listBox1.Items.Add("Download of " + Path.GetFileName(e.File.SourceURL) + " started")));
+        }
+
         /// <summary>
         ///     Enable or disable all Controls
         /// </summary>
@@ -217,6 +223,14 @@ namespace SoundCenSe
                 return;
             }
             PM.FastForward(channelFastForwardEventArgs.Channel);
+        }
+
+        private void FillDisabledSounds()
+        {
+            foreach (string disabled in Config.Instance.disabledSounds)
+            {
+                listBox2.Items.Add(disabled);
+            }
         }
 
         private void FinishedSingleUpdateFile(object sender, DownloadFinishedEventArgs downloadFinishedEventArgs)
@@ -258,6 +272,18 @@ namespace SoundCenSe
             return dpm.Channels;
         }
 
+        private void listBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var index = listBox2.IndexFromPoint(e.Location);
+                if (index != ListBox.NoMatches)
+                {
+                    listBox2.SelectedIndex = index;
+                }
+            }
+        }
+
         private void Muting(object sender, ChannelMuteEventArgs channelMuteEventArgs)
         {
             if (closing)
@@ -283,9 +309,9 @@ namespace SoundCenSe
                 channel = "SFX";
             }
 
-            string soundFile = Path.GetFileNameWithoutExtension(soundPlayingEventArgs.SoundFile.Filename);
-            int soundLength = soundPlayingEventArgs.SoundFile.Cache.AudioData.Length /
-                              (Constants.AudioChannels * Constants.Samplerate / 1000);
+            string soundFile = soundPlayingEventArgs.SoundFile.Filename;
+            int soundLength = soundPlayingEventArgs.SoundFile.Cache.AudioData.Length/
+                              (Constants.AudioChannels*Constants.Samplerate/1000);
             this.InvokeIfRequired(
                 () =>
                 {
@@ -337,6 +363,25 @@ namespace SoundCenSe
         {
             closing = true;
             e.Cancel = false;
+        }
+
+        private void SoundDisabled(object sender, DisableSoundEventArgs disableSoundEventArgs)
+        {
+            if (!Config.Instance.disabledSounds.Contains(disableSoundEventArgs.Filename))
+            {
+                listBox2.Items.Add(disableSoundEventArgs.Filename);
+                Config.Instance.disabledSounds.Add(disableSoundEventArgs.Filename);
+                foreach (Sound s in allSounds.Sounds)
+                {
+                    foreach (SoundFile sf in s.SoundFiles)
+                    {
+                        if (sf.Filename == disableSoundEventArgs.Filename)
+                        {
+                            sf.Disabled = true;
+                        }
+                    }
+                }
+            }
         }
 
         private void Status(string line)

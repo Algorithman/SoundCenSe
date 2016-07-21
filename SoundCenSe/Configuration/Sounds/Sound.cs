@@ -103,11 +103,20 @@ namespace SoundCenSe.Configuration.Sounds
 
         public SoundFile GetRandomSoundFile()
         {
-            if (SoundFiles.Count > 0)
+            int disabled = SoundFiles.Count(x => x.Disabled);
+            if ((SoundFiles.Count > 0) && (disabled < SoundFiles.Count))
             {
+                int weightSum = SoundFilesWeightSum;
+                if (disabled > 0)
+                {
+                    foreach (SoundFile sf in SoundFiles.Where(x => x.Disabled))
+                    {
+                        weightSum -= sf.Weight;
+                    }
+                }
                 Random rnd = new Random();
-                int weightedrandom = rnd.Next(SoundFilesWeightSum);
-                foreach (SoundFile sf in SoundFiles)
+                int weightedrandom = rnd.Next(weightSum);
+                foreach (SoundFile sf in SoundFiles.Where(x => !x.Disabled))
                 {
                     if (sf.Weight > weightedrandom)
                     {

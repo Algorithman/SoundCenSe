@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using SoundCenSe.Configuration;
 using SoundCenSe.Events;
 using SoundCenSe.Utility;
 
@@ -62,6 +63,14 @@ namespace SoundCenSe.GUI
                 {
                     spe.IsSFXPanel = true;
                 }
+                ChannelData cd = Config.Instance.Channels.FirstOrDefault(x => x.Channel == s.ToLower());
+                if (cd != null)
+                {
+                    spe.VolumeBar.Value = (int)(cd.Volume * 100);
+                    spe.btnMute.Checked = cd.Mute;
+                }
+
+
                 spe.FastForward += FastForwardInternal;
                 spe.Muting += MutingInternal;
                 spe.VolumeChanged += VolumeChangedInternal;
@@ -106,7 +115,7 @@ namespace SoundCenSe.GUI
                 if (spe.Filename != file)
                 {
                     spe.ChannelName = channel;
-                    spe.Filename = Path.GetFileNameWithoutExtension(file);
+                    spe.Filename = file;
                     spe.Length = length;
                 }
                 spe.AddEntry(file);

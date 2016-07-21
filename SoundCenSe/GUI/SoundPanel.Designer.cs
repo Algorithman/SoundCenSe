@@ -33,13 +33,17 @@
             // 
             // tablePanel
             // 
+            this.tablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tablePanel.AutoScroll = true;
+            this.tablePanel.AutoSize = true;
             this.tablePanel.ColumnCount = 1;
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tablePanel.Location = new System.Drawing.Point(0, 0);
             this.tablePanel.Name = "tablePanel";
             this.tablePanel.RowCount = 1;
-            this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tablePanel.Size = new System.Drawing.Size(284, 362);
+            this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tablePanel.Size = new System.Drawing.Size(284, 116);
             this.tablePanel.TabIndex = 0;
             // 
             // SoundPanel
@@ -50,6 +54,7 @@
             this.Name = "SoundPanel";
             this.Size = new System.Drawing.Size(284, 362);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

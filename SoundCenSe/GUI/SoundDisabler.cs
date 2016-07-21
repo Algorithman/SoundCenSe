@@ -37,7 +37,7 @@ namespace SoundCenSe.GUI
             set
             {
                 filename = value;
-                label1.Text = filename;
+                label1.Text = Path.GetFileNameWithoutExtension(filename);
             }
         }
 

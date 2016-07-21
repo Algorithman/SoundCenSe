@@ -419,5 +419,25 @@ namespace SoundCenSe
             PM.ChannelVolume(ch, channelVolumeEventArgs.Volume);
             Config.Instance.SetChannelVolume(ch, channelVolumeEventArgs.Volume);
         }
+
+        private void reenableSoundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string file = listBox2.SelectedItem.ToString();
+            if (Config.Instance.disabledSounds.Contains(file))
+            {
+                listBox2.Items.Remove(file);
+                Config.Instance.disabledSounds.Remove(file);
+                foreach (Sound s in allSounds.Sounds)
+                {
+                    foreach (SoundFile sf in s.SoundFiles)
+                    {
+                        if (sf.Filename == file)
+                        {
+                            sf.Disabled = false;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

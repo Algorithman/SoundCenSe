@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NAudio.Wave;
 using NLog;
 using SoundCenSe.Audio;
@@ -121,7 +122,10 @@ namespace SoundCenSe.Output
             }
             else
             {
-                channels[channel].Volume = vol;
+                if (channels.ContainsKey(channel))
+                {
+                    channels[channel].Volume = vol;
+                }
             }
         }
 
@@ -159,8 +163,11 @@ namespace SoundCenSe.Output
             }
             else
             {
-                ChannelThread ct = channels[channel];
-                ct.Mute = mute;
+                if (channels.ContainsKey(channel))
+                {
+                    ChannelThread ct = channels[channel];
+                    ct.Mute = mute;
+                }
             }
         }
 

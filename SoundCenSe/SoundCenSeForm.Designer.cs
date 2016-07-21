@@ -44,13 +44,13 @@ namespace SoundCenSe
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
+            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -87,13 +87,6 @@ namespace SoundCenSe
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             this.toolStripProgressBar1.Visible = false;
             // 
-            // toolStripSignal1
-            // 
-            this.toolStripSignal1.Name = "toolStripSignal1";
-            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStripSignal1.Signal = false;
-            this.toolStripSignal1.Size = new System.Drawing.Size(16, 17);
-            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(8, 6);
@@ -126,16 +119,6 @@ namespace SoundCenSe
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Audio";
             // 
-            // soundPanel
-            // 
-            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.soundPanel.Location = new System.Drawing.Point(0, 0);
-            this.soundPanel.Name = "soundPanel";
-            this.soundPanel.Size = new System.Drawing.Size(792, 448);
-            this.soundPanel.TabIndex = 2;
-            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
@@ -154,12 +137,30 @@ namespace SoundCenSe
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.listBox1.Enabled = false;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(3, 35);
             this.listBox1.Name = "listBox1";
+            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.listBox1.Size = new System.Drawing.Size(789, 407);
             this.listBox1.TabIndex = 2;
+            // 
+            // soundPanel
+            // 
+            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.soundPanel.AutoScroll = true;
+            this.soundPanel.Location = new System.Drawing.Point(0, 0);
+            this.soundPanel.Name = "soundPanel";
+            this.soundPanel.Size = new System.Drawing.Size(792, 448);
+            this.soundPanel.TabIndex = 2;
+            // 
+            // toolStripSignal1
+            // 
+            this.toolStripSignal1.Name = "toolStripSignal1";
+            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
+            this.toolStripSignal1.Signal = false;
+            this.toolStripSignal1.Size = new System.Drawing.Size(16, 16);
             // 
             // SoundCenSeForm
             // 

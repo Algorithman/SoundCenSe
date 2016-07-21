@@ -35,7 +35,6 @@
             // 
             this.tablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tablePanel.AutoScroll = true;
             this.tablePanel.AutoSize = true;
             this.tablePanel.ColumnCount = 1;
             this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -50,6 +49,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.tablePanel);
             this.Name = "SoundPanel";
             this.Size = new System.Drawing.Size(284, 362);

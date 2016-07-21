@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using SoundCenSe.Configuration;
 using SoundCenSe.Configuration.Sounds;
@@ -64,17 +65,26 @@ namespace SoundCenSe
         {
             DFStopped(this, new DwarfFortressStoppedEventArgs());
             DF.Stop();
+            listBox1.Items.Clear();
             toolStripProgressBar1.Visible = true;
             EnableControls(false);
             PackDownloader PD = new PackDownloader();
             PD.FinishedFile += FinishedSingleUpdateFile;
             PD.UpdateFinished += UpdateFinished;
+            PD.DownloadStarted += DownloadStarted;
             PD.UpdateSoundPack();
 
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Minimum = 0;
             toolStripProgressBar1.Maximum = PD.Count();
             PD.Start();
+        }
+
+        private void DownloadStarted(object sender, StartDownloadEventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+                listBox1.InvokeIfRequired(
+                    () => listBox1.Items.Add("Download of " + Path.GetFileName(e.File.SourceURL) + " started")));
         }
 
 
@@ -214,6 +224,7 @@ namespace SoundCenSe
             this.InvokeIfRequired(
                 () =>
                 {
+                    listBox1.Items.Add("Downloaded " + Path.GetFileName(downloadFinishedEventArgs.File.DestinationPath));
                     Status("Downloaded " + Path.GetFileName(downloadFinishedEventArgs.File.DestinationPath));
                     AddProgress(downloadFinishedEventArgs.File.ExpectedSize);
                 });

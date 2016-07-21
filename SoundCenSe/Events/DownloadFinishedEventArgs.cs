@@ -10,10 +10,11 @@
 #region Usings
 
 using System;
+using SoundCenSe.Utility.Updater;
 
 #endregion
 
-namespace SoundCenSe.Utility.Updater
+namespace SoundCenSe.Events
 {
     public class DownloadFinishedEventArgs : EventArgs
     {

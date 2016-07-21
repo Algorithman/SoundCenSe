@@ -116,6 +116,7 @@
     <Compile Include="Events\GamelogEventArgs.cs" />
     <Compile Include="Events\InitProgressBarEventArgs.cs" />
     <Compile Include="Events\SoundPlayingEventArgs.cs" />
+    <Compile Include="Events\StartDownloadEventArgs.cs" />
     <Compile Include="Events\UpdateFinishedEventArgs.cs" />
     <Compile Include="Events\XMLParseDoneEventArgs.cs" />
     <Compile Include="Events\XMLParseProgressEventArgs.cs" />
@@ -162,7 +163,7 @@
     <Compile Include="Utility\SFXQueue.cs" />
     <Compile Include="Utility\StringExtension.cs" />
     <Compile Include="Utility\Updater\DownloadEntry.cs" />
-    <Compile Include="Utility\Updater\DownloadFinishedEventArgs.cs" />
+    <Compile Include="Events\DownloadFinishedEventArgs.cs" />
     <Compile Include="Utility\Updater\DownloadResult.cs" />
     <Compile Include="Utility\Updater\PackDownloader.cs" />
     <Compile Include="Utility\Updater\XML\DirectoryData.cs" />

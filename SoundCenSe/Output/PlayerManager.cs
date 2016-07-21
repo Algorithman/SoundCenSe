@@ -143,8 +143,11 @@ namespace SoundCenSe.Output
         {
             if (!channel.ToLower().StartsWith("sfx"))
             {
-                ChannelThread ct = channels[channel.ToLower()];
-                channelMixer.RemoveMixerInput(ct.GetPlaying());
+                if (channels.ContainsKey(channel))
+                {
+                    ChannelThread ct = channels[channel.ToLower()];
+                    channelMixer.RemoveMixerInput(ct.GetPlaying());
+                }
             }
         }
 

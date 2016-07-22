@@ -42,6 +42,7 @@
             this.btnFastForward = new System.Windows.Forms.Button();
             this.btnDwnUp = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,6 +107,7 @@
             this.VolumeBar.Size = new System.Drawing.Size(45, 93);
             this.VolumeBar.TabIndex = 9;
             this.VolumeBar.TickFrequency = 10;
+            this.toolTip1.SetToolTip(this.VolumeBar, "Volume");
             this.VolumeBar.ValueChanged += new System.EventHandler(this.VolumeBarValueChanged);
             // 
             // tablePanel
@@ -132,6 +134,7 @@
             this.btnMute.Name = "btnMute";
             this.btnMute.Size = new System.Drawing.Size(38, 38);
             this.btnMute.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.btnMute, "Mute channel");
             this.btnMute.UseVisualStyleBackColor = true;
             this.btnMute.CheckedChanged += new System.EventHandler(this.MuteClick);
             // 
@@ -143,6 +146,7 @@
             this.btnFastForward.Name = "btnFastForward";
             this.btnFastForward.Size = new System.Drawing.Size(38, 38);
             this.btnFastForward.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnFastForward, "Next sound");
             this.btnFastForward.UseVisualStyleBackColor = true;
             this.btnFastForward.Click += new System.EventHandler(this.FastForwardClick);
             // 
@@ -156,6 +160,7 @@
             this.btnDwnUp.Size = new System.Drawing.Size(23, 23);
             this.btnDwnUp.TabIndex = 11;
             this.btnDwnUp.TabStop = false;
+            this.toolTip1.SetToolTip(this.btnDwnUp, "Open/close");
             this.btnDwnUp.UseVisualStyleBackColor = true;
             this.btnDwnUp.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -203,5 +208,6 @@
         private System.Windows.Forms.TableLayoutPanel tablePanel;
         private System.Windows.Forms.Button btnDwnUp;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

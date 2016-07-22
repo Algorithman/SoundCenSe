@@ -62,6 +62,7 @@ namespace SoundCenSe
             this.tbSoundPackPath = new System.Windows.Forms.TextBox();
             this.btnChooseFolder = new System.Windows.Forms.Button();
             this.browseSoundpackPath = new System.Windows.Forms.FolderBrowserDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.soundPanel = new SoundCenSe.GUI.SoundPanel();
             this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.statusStrip.SuspendLayout();
@@ -84,16 +85,16 @@ namespace SoundCenSe
             this.toolStripStatusLabel1,
             this.toolStripProgressBar1,
             this.toolStripSignal1});
-            this.statusStrip.Location = new System.Drawing.Point(0, 474);
+            this.statusStrip.Location = new System.Drawing.Point(0, 695);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(803, 22);
+            this.statusStrip.Size = new System.Drawing.Size(445, 22);
             this.statusStrip.TabIndex = 0;
             this.statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(772, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(414, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -123,7 +124,7 @@ namespace SoundCenSe
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
-            this.Tabs.Size = new System.Drawing.Size(803, 474);
+            this.Tabs.Size = new System.Drawing.Size(445, 695);
             this.Tabs.TabIndex = 3;
             // 
             // tabPageAudioControl
@@ -135,7 +136,7 @@ namespace SoundCenSe
             this.tabPageAudioControl.Location = new System.Drawing.Point(4, 22);
             this.tabPageAudioControl.Name = "tabPageAudioControl";
             this.tabPageAudioControl.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAudioControl.Size = new System.Drawing.Size(795, 448);
+            this.tabPageAudioControl.Size = new System.Drawing.Size(437, 669);
             this.tabPageAudioControl.TabIndex = 0;
             this.tabPageAudioControl.Text = "Audio";
             // 
@@ -168,7 +169,7 @@ namespace SoundCenSe
             this.tabPageUpdate.Location = new System.Drawing.Point(4, 22);
             this.tabPageUpdate.Name = "tabPageUpdate";
             this.tabPageUpdate.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUpdate.Size = new System.Drawing.Size(795, 448);
+            this.tabPageUpdate.Size = new System.Drawing.Size(365, 669);
             this.tabPageUpdate.TabIndex = 1;
             this.tabPageUpdate.Text = "Update";
             // 
@@ -204,7 +205,7 @@ namespace SoundCenSe
             this.listBoxUpdateMessages.Location = new System.Drawing.Point(3, 35);
             this.listBoxUpdateMessages.Name = "listBoxUpdateMessages";
             this.listBoxUpdateMessages.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxUpdateMessages.Size = new System.Drawing.Size(789, 407);
+            this.listBoxUpdateMessages.Size = new System.Drawing.Size(359, 628);
             this.listBoxUpdateMessages.TabIndex = 2;
             // 
             // tabPageDisabledSounds
@@ -214,7 +215,7 @@ namespace SoundCenSe
             this.tabPageDisabledSounds.Location = new System.Drawing.Point(4, 22);
             this.tabPageDisabledSounds.Name = "tabPageDisabledSounds";
             this.tabPageDisabledSounds.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDisabledSounds.Size = new System.Drawing.Size(795, 448);
+            this.tabPageDisabledSounds.Size = new System.Drawing.Size(365, 669);
             this.tabPageDisabledSounds.TabIndex = 2;
             this.tabPageDisabledSounds.Text = "Disabled sounds";
             // 
@@ -227,8 +228,9 @@ namespace SoundCenSe
             this.lbDisabledSounds.FormattingEnabled = true;
             this.lbDisabledSounds.Location = new System.Drawing.Point(0, 0);
             this.lbDisabledSounds.Name = "lbDisabledSounds";
-            this.lbDisabledSounds.Size = new System.Drawing.Size(792, 446);
+            this.lbDisabledSounds.Size = new System.Drawing.Size(362, 667);
             this.lbDisabledSounds.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.lbDisabledSounds, "Right click to reenable sound");
             this.lbDisabledSounds.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDown);
             // 
             // contextMenuStrip1
@@ -254,7 +256,7 @@ namespace SoundCenSe
             this.tabPageConfiguration.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfiguration.Name = "tabPageConfiguration";
             this.tabPageConfiguration.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfiguration.Size = new System.Drawing.Size(795, 448);
+            this.tabPageConfiguration.Size = new System.Drawing.Size(365, 669);
             this.tabPageConfiguration.TabIndex = 3;
             this.tabPageConfiguration.Text = "Configuration";
             // 
@@ -295,7 +297,7 @@ namespace SoundCenSe
             this.soundPanel.AutoScroll = true;
             this.soundPanel.Location = new System.Drawing.Point(0, 33);
             this.soundPanel.Name = "soundPanel";
-            this.soundPanel.Size = new System.Drawing.Size(792, 415);
+            this.soundPanel.Size = new System.Drawing.Size(434, 636);
             this.soundPanel.TabIndex = 2;
             // 
             // toolStripSignal1
@@ -303,13 +305,13 @@ namespace SoundCenSe
             this.toolStripSignal1.Name = "toolStripSignal1";
             this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
             this.toolStripSignal1.Signal = false;
-            this.toolStripSignal1.Size = new System.Drawing.Size(16, 16);
+            this.toolStripSignal1.Size = new System.Drawing.Size(16, 17);
             // 
             // SoundCenSeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 496);
+            this.ClientSize = new System.Drawing.Size(445, 717);
             this.Controls.Add(this.Tabs);
             this.Controls.Add(this.statusStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -359,6 +361,7 @@ namespace SoundCenSe
         private System.Windows.Forms.TextBox tbSoundPackPath;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FolderBrowserDialog browseSoundpackPath;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

@@ -29,15 +29,18 @@ namespace SoundCenSe.Output
 
         public void Play(Sound sound, long x, long y, long z)
         {
-            if (!string.IsNullOrEmpty(sound.Channel))
+            if (sound.PlaybackThreshold <= (long) Config.Instance.playbackThreshold)
             {
-                if (!Channels.ContainsKey(sound.Channel))
+                if (!string.IsNullOrEmpty(sound.Channel))
                 {
-                    Channels.Add(sound.Channel, sound);
-                }
-                else
-                {
-                    Channels[sound.Channel] = sound;
+                    if (!Channels.ContainsKey(sound.Channel))
+                    {
+                        Channels.Add(sound.Channel, sound);
+                    }
+                    else
+                    {
+                        Channels[sound.Channel] = sound;
+                    }
                 }
             }
         }

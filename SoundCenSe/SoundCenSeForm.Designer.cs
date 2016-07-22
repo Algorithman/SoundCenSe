@@ -48,6 +48,8 @@ namespace SoundCenSe
             this.btnUpdate = new System.Windows.Forms.Button();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPageAudioControl = new System.Windows.Forms.TabPage();
+            this.labelThreshold = new System.Windows.Forms.Label();
+            this.comboBoxThreshold = new System.Windows.Forms.ComboBox();
             this.soundPanel = new SoundCenSe.GUI.SoundPanel();
             this.tabPageUpdate = new System.Windows.Forms.TabPage();
             this.cbDeleteFiles = new System.Windows.Forms.CheckBox();
@@ -127,6 +129,8 @@ namespace SoundCenSe
             // tabPageAudioControl
             // 
             this.tabPageAudioControl.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageAudioControl.Controls.Add(this.labelThreshold);
+            this.tabPageAudioControl.Controls.Add(this.comboBoxThreshold);
             this.tabPageAudioControl.Controls.Add(this.soundPanel);
             this.tabPageAudioControl.Location = new System.Drawing.Point(4, 22);
             this.tabPageAudioControl.Name = "tabPageAudioControl";
@@ -135,15 +139,34 @@ namespace SoundCenSe
             this.tabPageAudioControl.TabIndex = 0;
             this.tabPageAudioControl.Text = "Audio";
             // 
+            // labelThreshold
+            // 
+            this.labelThreshold.AutoSize = true;
+            this.labelThreshold.Location = new System.Drawing.Point(6, 9);
+            this.labelThreshold.Name = "labelThreshold";
+            this.labelThreshold.Size = new System.Drawing.Size(57, 13);
+            this.labelThreshold.TabIndex = 4;
+            this.labelThreshold.Text = "Threshold:";
+            // 
+            // comboBoxThreshold
+            // 
+            this.comboBoxThreshold.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxThreshold.FormattingEnabled = true;
+            this.comboBoxThreshold.Location = new System.Drawing.Point(71, 6);
+            this.comboBoxThreshold.Name = "comboBoxThreshold";
+            this.comboBoxThreshold.Size = new System.Drawing.Size(176, 21);
+            this.comboBoxThreshold.TabIndex = 3;
+            this.comboBoxThreshold.SelectedIndexChanged += new System.EventHandler(this.comboBoxThresholdSelectedIndexChanged);
+            // 
             // soundPanel
             // 
             this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.soundPanel.AutoScroll = true;
-            this.soundPanel.Location = new System.Drawing.Point(0, 0);
+            this.soundPanel.Location = new System.Drawing.Point(0, 33);
             this.soundPanel.Name = "soundPanel";
-            this.soundPanel.Size = new System.Drawing.Size(792, 448);
+            this.soundPanel.Size = new System.Drawing.Size(792, 415);
             this.soundPanel.TabIndex = 2;
             // 
             // tabPageUpdate
@@ -249,6 +272,7 @@ namespace SoundCenSe
             this.statusStrip.PerformLayout();
             this.Tabs.ResumeLayout(false);
             this.tabPageAudioControl.ResumeLayout(false);
+            this.tabPageAudioControl.PerformLayout();
             this.tabPageUpdate.ResumeLayout(false);
             this.tabPageUpdate.PerformLayout();
             this.tabPageDisabledSounds.ResumeLayout(false);
@@ -277,6 +301,8 @@ namespace SoundCenSe
         private System.Windows.Forms.ToolStripMenuItem reenableSoundToolStripMenuItem;
         private System.Windows.Forms.CheckBox cbDeleteFiles;
         private System.Windows.Forms.CheckBox cbOverwriteFiles;
+        private System.Windows.Forms.Label labelThreshold;
+        private System.Windows.Forms.ComboBox comboBoxThreshold;
     }
 }
 

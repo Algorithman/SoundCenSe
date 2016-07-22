@@ -13,6 +13,7 @@ using System.IO;
 using System.Windows.Forms;
 using SoundCenSe.Configuration;
 using SoundCenSe.Configuration.Sounds;
+using SoundCenSe.Enums;
 using SoundCenSe.Events;
 using SoundCenSe.Input;
 using SoundCenSe.Output;
@@ -57,8 +58,17 @@ namespace SoundCenSe
             soundPanel.SoundDisabled += SoundDisabled;
             FillDisabledSounds();
 
+            FillThresholdCombo();
+
             cbDeleteFiles.Checked = Config.Instance.deleteFiles;
             cbOverwriteFiles.Checked = Config.Instance.replaceFiles;
+            startingUp = false;
+        }
+
+        private void FillThresholdCombo()
+        {
+            comboBoxThreshold.DataSource = Enum.GetValues(typeof(Threshold));
+            comboBoxThreshold.SelectedItem = Config.Instance.playbackThreshold;
         }
 
 
@@ -475,6 +485,19 @@ namespace SoundCenSe
                 : channelVolumeEventArgs.Channel.ToLower();
             PM.ChannelVolume(ch, channelVolumeEventArgs.Volume);
             Config.Instance.SetChannelVolume(ch, channelVolumeEventArgs.Volume);
+        }
+
+        private bool startingUp = true;
+
+        private void comboBoxThresholdSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!startingUp)
+            {
+                Threshold selected;
+                Enum.TryParse<Threshold>(comboBoxThreshold.SelectedValue.ToString(), out selected);
+                Config.Instance.playbackThreshold = selected;
+                PM.Threshold = selected;
+            }
         }
     }
 }

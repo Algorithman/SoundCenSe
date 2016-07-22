@@ -11,10 +11,10 @@ namespace SoundCenSe.Enums
 {
     public enum Threshold : long
     {
-        EVERYTHING = 4,
-        FLUFF = 3,
-        IMPORTANT = 2,
-        CRITICAL = 1,
-        NOTHING = 0
+        Everything = 4,
+        Fluffy = 3,
+        Important = 2,
+        Critical = 1,
+        Nothing = 0
     }
 }

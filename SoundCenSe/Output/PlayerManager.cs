@@ -1,15 +1,14 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: PlayerManager.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-22 20:04
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NAudio.Wave;
 using NLog;
 using SoundCenSe.Audio;
@@ -30,15 +29,15 @@ namespace SoundCenSe.Output
 
         private readonly MyMixingSampleProvider channelMixer;
 
+        private readonly IWavePlayer musicOutputDevice;
+
         public EventHandler<SoundPlayingEventArgs> Playing;
         private readonly SFXManagerThread SFX;
 
         private readonly MyMixingSampleProvider SFXMixer;
-        private float volume = 1.0f;
-
-        private readonly IWavePlayer musicOutputDevice;
 
         private readonly IWavePlayer sfxOutputDevice;
+        private float volume = 1.0f;
 
         #endregion
 
@@ -99,17 +98,20 @@ namespace SoundCenSe.Output
             }
         }
 
-        public Threshold Threshold { get; set; } = Threshold.EVERYTHING;
+        public Threshold Threshold { get; set; } = Threshold.Everything;
 
         public void Play(Sound sound, long x, long y, long z)
         {
-            if (!string.IsNullOrEmpty(sound.Channel))
+            if (sound.PlaybackThreshold <= (long) Config.Instance.playbackThreshold)
             {
-                PlayMusic(sound);
-            }
-            else
-            {
-                SFXQueue.AddSound(sound, x, y, z);
+                if (!string.IsNullOrEmpty(sound.Channel))
+                {
+                    PlayMusic(sound);
+                }
+                else
+                {
+                    SFXQueue.AddSound(sound, x, y, z);
+                }
             }
         }
 

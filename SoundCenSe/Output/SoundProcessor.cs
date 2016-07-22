@@ -30,38 +30,8 @@ namespace SoundCenSe.Output
         private readonly Regex repeater = new Regex("^x\\d{1,3}$");
         internal readonly SoundsXML soundsXML;
 
-        private Threshold threshold = Threshold.EVERYTHING;
+        private Threshold threshold = Threshold.Everything;
         private float volume = 1.0f;
-
-        #endregion
-
-        #region Properties
-
-        public Threshold Threshold
-        {
-            get { return threshold; }
-            set
-            {
-                if (value != threshold)
-                {
-                    threshold = value;
-                    player.Threshold = value;
-                }
-            }
-        }
-
-        public float Volume
-        {
-            get { return volume; }
-            set
-            {
-                if (value != volume)
-                {
-                    volume = value;
-                    player.Volume = value;
-                }
-            }
-        }
 
         #endregion
 

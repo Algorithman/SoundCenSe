@@ -115,6 +115,9 @@ namespace SoundCenSe.Utility
                 }
                 Thread.Sleep(1000);
             }
+            dwarfFortressProcessId = -1;
+            dwarfFortressProcessName = null;
+            dwarfFortressProcessPath = null;
         }
 
         private int GetDwarfFortressProcessId(out string processName, out string processPath)

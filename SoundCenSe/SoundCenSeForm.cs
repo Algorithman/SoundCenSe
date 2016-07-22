@@ -5,12 +5,11 @@
 // Project: SoundCenSe
 // File: SoundCenSeForm.cs
 // 
-// Last modified: 2016-07-21 22:01
+// Last modified: 2016-07-22 18:15
 
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SoundCenSe.Configuration;
 using SoundCenSe.Configuration.Sounds;
@@ -31,6 +30,8 @@ namespace SoundCenSe
         private bool closing;
         private readonly DwarfFortressAware DF;
         private LogFileListener LL;
+
+        private readonly Queue<string> PackDownloaderMessageQueue = new Queue<string>();
         private PlayerManager PM;
         private SoundProcessor SP;
 
@@ -63,13 +64,17 @@ namespace SoundCenSe
             toolStripProgressBar1.Value += (int) expectedSize;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnUpdateClick(object sender, EventArgs e)
         {
             DFStopped(this, new DwarfFortressStoppedEventArgs());
             DF.Stop();
             listBox1.Items.Clear();
             toolStripProgressBar1.Visible = true;
+            toolStripProgressBar1.Value = 0;
+            toolStripProgressBar1.Minimum = 0;
+            toolStripProgressBar1.Maximum = 1;
             EnableControls(false);
+
             PackDownloader PD = new PackDownloader();
             PD.FinishedFile += FinishedSingleUpdateFile;
             PD.UpdateFinished += UpdateFinished;
@@ -80,10 +85,6 @@ namespace SoundCenSe
             toolStripProgressBar1.Minimum = 0;
             toolStripProgressBar1.Maximum = PD.Count();
             PD.Start();
-        }
-
-        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
         }
 
 
@@ -181,9 +182,10 @@ namespace SoundCenSe
 
         private void DownloadStarted(object sender, StartDownloadEventArgs e)
         {
-            Task.Factory.StartNew(() =>
-                listBox1.InvokeIfRequired(
-                    () => listBox1.Items.Add("Download of " + Path.GetFileName(e.File.SourceURL) + " started")));
+            lock (PackDownloaderMessageQueue)
+            {
+                PackDownloaderMessageQueue.Enqueue("Download of " + Path.GetFileName(e.File.SourceURL) + " started");
+            }
         }
 
         /// <summary>
@@ -233,12 +235,17 @@ namespace SoundCenSe
             }
         }
 
+
         private void FinishedSingleUpdateFile(object sender, DownloadFinishedEventArgs downloadFinishedEventArgs)
         {
+            lock (PackDownloaderMessageQueue)
+            {
+                PackDownloaderMessageQueue.Enqueue("Downloaded " +
+                                                   Path.GetFileName(downloadFinishedEventArgs.File.DestinationPath));
+            }
             this.InvokeIfRequired(
                 () =>
                 {
-                    listBox1.Items.Add("Downloaded " + Path.GetFileName(downloadFinishedEventArgs.File.DestinationPath));
                     Status("Downloaded " + Path.GetFileName(downloadFinishedEventArgs.File.DestinationPath));
                     AddProgress(downloadFinishedEventArgs.File.ExpectedSize);
                 });
@@ -320,6 +327,26 @@ namespace SoundCenSe
                 });
         }
 
+        private void reenableSoundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string file = listBox2.SelectedItem.ToString();
+            if (Config.Instance.disabledSounds.Contains(file))
+            {
+                listBox2.Items.Remove(file);
+                Config.Instance.disabledSounds.Remove(file);
+                foreach (Sound s in allSounds.Sounds)
+                {
+                    foreach (SoundFile sf in s.SoundFiles)
+                    {
+                        if (sf.Filename == file)
+                        {
+                            sf.Disabled = false;
+                        }
+                    }
+                }
+            }
+        }
+
         private void SetDisabledSounds()
         {
             foreach (Sound s in allSounds.Sounds)
@@ -398,11 +425,22 @@ namespace SoundCenSe
         private void timer1_Tick(object sender, EventArgs e)
         {
             soundPanel.Tick();
+            lock (PackDownloaderMessageQueue)
+            {
+                while (PackDownloaderMessageQueue.Count > 0)
+                {
+                    listBox1.Items.Add(PackDownloaderMessageQueue.Dequeue());
+                }
+            }
         }
 
         private void UpdateFinished(object sender, UpdateFinishedEventArgs updateFinishedEventArgs)
         {
             EnableControls(true);
+            lock (PackDownloaderMessageQueue)
+            {
+                PackDownloaderMessageQueue.Enqueue("Update finished");
+            }
             this.InvokeIfRequired(() => toolStripProgressBar1.Visible = false);
             DF.Start();
         }
@@ -418,26 +456,6 @@ namespace SoundCenSe
                 : channelVolumeEventArgs.Channel.ToLower();
             PM.ChannelVolume(ch, channelVolumeEventArgs.Volume);
             Config.Instance.SetChannelVolume(ch, channelVolumeEventArgs.Volume);
-        }
-
-        private void reenableSoundToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string file = listBox2.SelectedItem.ToString();
-            if (Config.Instance.disabledSounds.Contains(file))
-            {
-                listBox2.Items.Remove(file);
-                Config.Instance.disabledSounds.Remove(file);
-                foreach (Sound s in allSounds.Sounds)
-                {
-                    foreach (SoundFile sf in s.SoundFiles)
-                    {
-                        if (sf.Filename == file)
-                        {
-                            sf.Disabled = false;
-                        }
-                    }
-                }
-            }
         }
     }
 }

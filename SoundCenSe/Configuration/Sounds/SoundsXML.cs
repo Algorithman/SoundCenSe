@@ -358,7 +358,7 @@ namespace SoundCenSe.Configuration.Sounds
                 long concurrency = soundNode.ParseLongAttribute("concurency", -1);
                 long timeout = soundNode.ParseLongAttribute("timeout", 0);
                 long probability = soundNode.ParseLongAttribute("probability", 0);
-                long playbackThreshold = soundNode.ParseLongAttribute("playbackThreshhold", (long) Threshold.FLUFF);
+                long playbackThreshold = soundNode.ParseLongAttribute("playbackThreshhold", (long) Threshold.Fluffy);
 
                 List<SoundFile> soundFiles = new List<SoundFile>();
 

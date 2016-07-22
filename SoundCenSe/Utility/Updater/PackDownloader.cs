@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: PackDownloader.cs
 // 
-// Last modified: 2016-07-21 21:42
+// Last modified: 2016-07-22 18:37
 
 #region Usings
 
@@ -41,6 +41,8 @@ namespace SoundCenSe.Utility.Updater
         private bool stop;
 
         public EventHandler<UpdateFinishedEventArgs> UpdateFinished;
+
+        private List<DirectoryData> UpdateList = new List<DirectoryData>();
 
         #endregion
 
@@ -79,6 +81,33 @@ namespace SoundCenSe.Utility.Updater
         {
             logger.Info("Added file for download: " + file.SourceURL);
             FilesToDownload.Enqueue(file);
+        }
+
+        private void CheckAndDeleteFiles()
+        {
+            string[] files = Directory.GetFiles(Path.GetFullPath(Config.Instance.soundpacksPath), "*.*", SearchOption.AllDirectories);
+
+            List<string> fullPaths = new List<string>();
+            string soundpacksPath = Path.GetFullPath(Config.Instance.soundpacksPath);
+            foreach (DirectoryData dd in UpdateList)
+            {
+                string destPath = Path.Combine(soundpacksPath, dd.RelativePath, dd.Filename)
+                    .Replace(
+                        Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar + "packs",
+                        Path.DirectorySeparatorChar + "packs");
+                fullPaths.Add(NormalizePath(Path.GetFullPath(destPath)));
+            }
+
+            fullPaths = fullPaths.OrderBy(x => x).ToList();
+
+            foreach (string file in files)
+            {
+                if (!fullPaths.Contains(NormalizePath(file)))
+                {
+                    File.Delete(file);
+                }
+            }
+            RemoveEmptyFolders(soundpacksPath);
         }
 
 
@@ -154,6 +183,13 @@ namespace SoundCenSe.Utility.Updater
             return FilesInProgress.Count > 0;
         }
 
+        private string NormalizePath(string path)
+        {
+            return Path.GetFullPath(new Uri(path).LocalPath)
+                .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                .ToUpperInvariant();
+        }
+
         private void OnStartDownload(DownloadEntry file)
         {
             var handler = DownloadStarted;
@@ -165,6 +201,11 @@ namespace SoundCenSe.Utility.Updater
 
         private void OnUpdateFinished()
         {
+            if (Config.Instance.deleteFiles)
+            {
+                CheckAndDeleteFiles();
+            }
+
             var handler = UpdateFinished;
             if (handler != null)
             {
@@ -241,6 +282,19 @@ namespace SoundCenSe.Utility.Updater
             }
         }
 
+        private void RemoveEmptyFolders(string startLocation)
+        {
+            foreach (var directory in Directory.GetDirectories(startLocation))
+            {
+                RemoveEmptyFolders(directory);
+                if (Directory.GetFiles(directory).Length == 0 &&
+                    Directory.GetDirectories(directory).Length == 0)
+                {
+                    Directory.Delete(directory, false);
+                }
+            }
+        }
+
         internal void UpdateSoundPack()
         {
             DownloadEntry de = new DownloadEntry
@@ -260,30 +314,33 @@ namespace SoundCenSe.Utility.Updater
             }
 
             Random rnd = new Random();
-            List<DirectoryData> list = UpdateParser.Parse(de.DestinationPath).OrderBy(x => rnd.Next(50000)).ToList();
+            UpdateList.Clear();
 
-            foreach (DirectoryData dd in list)
+            UpdateList = UpdateParser.Parse(de.DestinationPath).OrderBy(x => rnd.Next(50000)).ToList();
+
+            string soundpacksPath = Path.GetFullPath(Config.Instance.soundpacksPath);
+            foreach (DirectoryData dd in UpdateList)
             {
-                DownloadEntry d = new DownloadEntry();
-                d.DestinationPath =
-                    Path.Combine(Config.Instance.soundpacksPath, dd.RelativePath, dd.Filename)
-                        .Replace(
-                            Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar + "packs" +
-                            Path.DirectorySeparatorChar,
-                            Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar);
-                d.SourceURL = "/" + Path.Combine(dd.RelativePath, dd.Filename).Replace("\\", "/");
-                d.SourceURL = d.SourceURL.Replace("/packs/", "/");
-                d.ExpectedSHA = dd.SHA1;
-                d.ExpectedSize = dd.Size;
-                AddFileForDownload(d);
+                string destPath = Path.Combine(soundpacksPath, dd.RelativePath, dd.Filename)
+                    .Replace(
+                        Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar + "packs" +
+                        Path.DirectorySeparatorChar,
+                        Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar);
+                if (Config.Instance.replaceFiles || !File.Exists(destPath))
+                {
+                    string sha1 = UpdateParser.SHA1Checksum(destPath);
+                    if (dd.SHA1 != sha1)
+                    {
+                        DownloadEntry d = new DownloadEntry();
+                        d.DestinationPath = destPath;
+                        d.SourceURL = "/" + Path.Combine(dd.RelativePath, dd.Filename).Replace("\\", "/");
+                        d.SourceURL = d.SourceURL.Replace("/packs/", "/");
+                        d.ExpectedSHA = dd.SHA1;
+                        d.ExpectedSize = dd.Size;
+                        AddFileForDownload(d);
+                    }
+                }
             }
         }
-
-
-        /*
-        public string MainPath { get; set; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)
-            .Replace("file://", "")
-            .Replace("file:\\", "");
-            */
     }
 }

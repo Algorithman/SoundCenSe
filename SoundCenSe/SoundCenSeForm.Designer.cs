@@ -41,44 +41,46 @@ namespace SoundCenSe
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoundCenSeForm));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Tabs = new System.Windows.Forms.TabControl();
+            this.tabPageAudioControl = new System.Windows.Forms.TabPage();
             this.soundPanel = new SoundCenSe.GUI.SoundPanel();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.tabPageUpdate = new System.Windows.Forms.TabPage();
+            this.cbDeleteFiles = new System.Windows.Forms.CheckBox();
+            this.cbOverwriteFiles = new System.Windows.Forms.CheckBox();
+            this.listBoxUpdateMessages = new System.Windows.Forms.ListBox();
+            this.tabPageDisabledSounds = new System.Windows.Forms.TabPage();
+            this.lbDisabledSounds = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reenableSoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.statusStrip.SuspendLayout();
+            this.Tabs.SuspendLayout();
+            this.tabPageAudioControl.SuspendLayout();
+            this.tabPageUpdate.SuspendLayout();
+            this.tabPageDisabledSounds.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.timer1Tick);
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripProgressBar1,
             this.toolStripSignal1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 474);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(803, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Location = new System.Drawing.Point(0, 474);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(803, 22);
+            this.statusStrip.TabIndex = 0;
+            this.statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
@@ -110,28 +112,28 @@ namespace SoundCenSe
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdateClick);
             // 
-            // tabControl1
+            // Tabs
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(803, 474);
-            this.tabControl1.TabIndex = 3;
+            this.Tabs.Controls.Add(this.tabPageAudioControl);
+            this.Tabs.Controls.Add(this.tabPageUpdate);
+            this.Tabs.Controls.Add(this.tabPageDisabledSounds);
+            this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Tabs.Location = new System.Drawing.Point(0, 0);
+            this.Tabs.Name = "Tabs";
+            this.Tabs.SelectedIndex = 0;
+            this.Tabs.Size = new System.Drawing.Size(803, 474);
+            this.Tabs.TabIndex = 3;
             // 
-            // tabPage1
+            // tabPageAudioControl
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.soundPanel);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(795, 448);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Audio";
+            this.tabPageAudioControl.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageAudioControl.Controls.Add(this.soundPanel);
+            this.tabPageAudioControl.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAudioControl.Name = "tabPageAudioControl";
+            this.tabPageAudioControl.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAudioControl.Size = new System.Drawing.Size(795, 448);
+            this.tabPageAudioControl.TabIndex = 0;
+            this.tabPageAudioControl.Text = "Audio";
             // 
             // soundPanel
             // 
@@ -144,54 +146,78 @@ namespace SoundCenSe
             this.soundPanel.Size = new System.Drawing.Size(792, 448);
             this.soundPanel.TabIndex = 2;
             // 
-            // tabPage2
+            // tabPageUpdate
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.listBox1);
-            this.tabPage2.Controls.Add(this.btnUpdate);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(795, 448);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Update";
+            this.tabPageUpdate.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageUpdate.Controls.Add(this.cbDeleteFiles);
+            this.tabPageUpdate.Controls.Add(this.cbOverwriteFiles);
+            this.tabPageUpdate.Controls.Add(this.listBoxUpdateMessages);
+            this.tabPageUpdate.Controls.Add(this.btnUpdate);
+            this.tabPageUpdate.Location = new System.Drawing.Point(4, 22);
+            this.tabPageUpdate.Name = "tabPageUpdate";
+            this.tabPageUpdate.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageUpdate.Size = new System.Drawing.Size(795, 448);
+            this.tabPageUpdate.TabIndex = 1;
+            this.tabPageUpdate.Text = "Update";
             // 
-            // listBox1
+            // cbDeleteFiles
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.cbDeleteFiles.AutoSize = true;
+            this.cbDeleteFiles.Location = new System.Drawing.Point(371, 10);
+            this.cbDeleteFiles.Name = "cbDeleteFiles";
+            this.cbDeleteFiles.Size = new System.Drawing.Size(78, 17);
+            this.cbDeleteFiles.TabIndex = 4;
+            this.cbDeleteFiles.Text = "Delete files";
+            this.cbDeleteFiles.UseVisualStyleBackColor = true;
+            this.cbDeleteFiles.CheckedChanged += new System.EventHandler(this.cbDeleteFilesCheckedChanged);
+            // 
+            // cbOverwriteFiles
+            // 
+            this.cbOverwriteFiles.AutoSize = true;
+            this.cbOverwriteFiles.Location = new System.Drawing.Point(187, 10);
+            this.cbOverwriteFiles.Name = "cbOverwriteFiles";
+            this.cbOverwriteFiles.Size = new System.Drawing.Size(130, 17);
+            this.cbOverwriteFiles.TabIndex = 3;
+            this.cbOverwriteFiles.Text = "Overwrite existing files";
+            this.cbOverwriteFiles.UseVisualStyleBackColor = true;
+            this.cbOverwriteFiles.CheckedChanged += new System.EventHandler(this.cbOverwriteFilesCheckedChanged);
+            // 
+            // listBoxUpdateMessages
+            // 
+            this.listBoxUpdateMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(3, 35);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox1.Size = new System.Drawing.Size(789, 407);
-            this.listBox1.TabIndex = 2;
+            this.listBoxUpdateMessages.BackColor = System.Drawing.SystemColors.Control;
+            this.listBoxUpdateMessages.FormattingEnabled = true;
+            this.listBoxUpdateMessages.Location = new System.Drawing.Point(3, 35);
+            this.listBoxUpdateMessages.Name = "listBoxUpdateMessages";
+            this.listBoxUpdateMessages.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBoxUpdateMessages.Size = new System.Drawing.Size(789, 407);
+            this.listBoxUpdateMessages.TabIndex = 2;
             // 
-            // tabPage3
+            // tabPageDisabledSounds
             // 
-            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.listBox2);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(795, 448);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Disabled sounds";
+            this.tabPageDisabledSounds.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageDisabledSounds.Controls.Add(this.lbDisabledSounds);
+            this.tabPageDisabledSounds.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDisabledSounds.Name = "tabPageDisabledSounds";
+            this.tabPageDisabledSounds.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDisabledSounds.Size = new System.Drawing.Size(795, 448);
+            this.tabPageDisabledSounds.TabIndex = 2;
+            this.tabPageDisabledSounds.Text = "Disabled sounds";
             // 
-            // listBox2
+            // lbDisabledSounds
             // 
-            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lbDisabledSounds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox2.ContextMenuStrip = this.contextMenuStrip1;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(0, 0);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(792, 446);
-            this.listBox2.TabIndex = 0;
-            this.listBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDown);
+            this.lbDisabledSounds.ContextMenuStrip = this.contextMenuStrip1;
+            this.lbDisabledSounds.FormattingEnabled = true;
+            this.lbDisabledSounds.Location = new System.Drawing.Point(0, 0);
+            this.lbDisabledSounds.Name = "lbDisabledSounds";
+            this.lbDisabledSounds.Size = new System.Drawing.Size(792, 446);
+            this.lbDisabledSounds.TabIndex = 0;
+            this.lbDisabledSounds.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDown);
             // 
             // contextMenuStrip1
             // 
@@ -212,19 +238,20 @@ namespace SoundCenSe
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 496);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.Tabs);
+            this.Controls.Add(this.statusStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SoundCenSeForm";
             this.Text = "SoundCenSe";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SoundCenSeForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SoundCenSeForm_FormClosed);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
+            this.Tabs.ResumeLayout(false);
+            this.tabPageAudioControl.ResumeLayout(false);
+            this.tabPageUpdate.ResumeLayout(false);
+            this.tabPageUpdate.PerformLayout();
+            this.tabPageDisabledSounds.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -234,20 +261,22 @@ namespace SoundCenSe
         #endregion
 
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Button btnUpdate;
         private GUI.SoundPanel soundPanel;
         private GUI.ToolStripSignal toolStripSignal1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.TabControl Tabs;
+        private System.Windows.Forms.TabPage tabPageAudioControl;
+        private System.Windows.Forms.TabPage tabPageUpdate;
+        private System.Windows.Forms.ListBox listBoxUpdateMessages;
+        private System.Windows.Forms.TabPage tabPageDisabledSounds;
+        private System.Windows.Forms.ListBox lbDisabledSounds;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem reenableSoundToolStripMenuItem;
+        private System.Windows.Forms.CheckBox cbDeleteFiles;
+        private System.Windows.Forms.CheckBox cbOverwriteFiles;
     }
 }
 

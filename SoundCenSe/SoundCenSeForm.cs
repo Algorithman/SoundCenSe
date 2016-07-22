@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: SoundCenSeForm.cs
 // 
-// Last modified: 2016-07-22 18:15
+// Last modified: 2016-07-22 19:28
 
 using System;
 using System.Collections.Generic;
@@ -56,6 +56,9 @@ namespace SoundCenSe
             soundPanel.VolumeChanged += VolumeChanged;
             soundPanel.SoundDisabled += SoundDisabled;
             FillDisabledSounds();
+
+            cbDeleteFiles.Checked = Config.Instance.deleteFiles;
+            cbOverwriteFiles.Checked = Config.Instance.replaceFiles;
         }
 
 
@@ -68,7 +71,7 @@ namespace SoundCenSe
         {
             DFStopped(this, new DwarfFortressStoppedEventArgs());
             DF.Stop();
-            listBox1.Items.Clear();
+            listBoxUpdateMessages.Items.Clear();
             toolStripProgressBar1.Visible = true;
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Minimum = 0;
@@ -85,6 +88,16 @@ namespace SoundCenSe
             toolStripProgressBar1.Minimum = 0;
             toolStripProgressBar1.Maximum = PD.Count();
             PD.Start();
+        }
+
+        private void cbDeleteFilesCheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance.deleteFiles = cbDeleteFiles.Checked;
+        }
+
+        private void cbOverwriteFilesCheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance.replaceFiles = cbOverwriteFiles.Checked;
         }
 
 
@@ -110,10 +123,11 @@ namespace SoundCenSe
                 }
             }
 
-            soundPanel.InvokeIfRequired(() =>
+            this.InvokeIfRequired(() =>
             {
                 soundPanel.Clear();
                 soundPanel.FillEntries(channelNames);
+                Tabs.SelectedTab = tabPageAudioControl;
             });
 
             if (PM != null)
@@ -231,7 +245,7 @@ namespace SoundCenSe
         {
             foreach (string disabled in Config.Instance.disabledSounds)
             {
-                listBox2.Items.Add(disabled);
+                lbDisabledSounds.Items.Add(disabled);
             }
         }
 
@@ -283,10 +297,10 @@ namespace SoundCenSe
         {
             if (e.Button == MouseButtons.Right)
             {
-                var index = listBox2.IndexFromPoint(e.Location);
+                var index = lbDisabledSounds.IndexFromPoint(e.Location);
                 if (index != ListBox.NoMatches)
                 {
-                    listBox2.SelectedIndex = index;
+                    lbDisabledSounds.SelectedIndex = index;
                 }
             }
         }
@@ -329,18 +343,21 @@ namespace SoundCenSe
 
         private void reenableSoundToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string file = listBox2.SelectedItem.ToString();
+            string file = lbDisabledSounds.SelectedItem.ToString();
             if (Config.Instance.disabledSounds.Contains(file))
             {
-                listBox2.Items.Remove(file);
+                lbDisabledSounds.Items.Remove(file);
                 Config.Instance.disabledSounds.Remove(file);
-                foreach (Sound s in allSounds.Sounds)
+                if (allSounds != null)
                 {
-                    foreach (SoundFile sf in s.SoundFiles)
+                    foreach (Sound s in allSounds.Sounds)
                     {
-                        if (sf.Filename == file)
+                        foreach (SoundFile sf in s.SoundFiles)
                         {
-                            sf.Disabled = false;
+                            if (sf.Filename == file)
+                            {
+                                sf.Disabled = false;
+                            }
                         }
                     }
                 }
@@ -396,7 +413,7 @@ namespace SoundCenSe
         {
             if (!Config.Instance.disabledSounds.Contains(disableSoundEventArgs.Filename))
             {
-                listBox2.Items.Add(disableSoundEventArgs.Filename);
+                lbDisabledSounds.Items.Add(disableSoundEventArgs.Filename);
                 Config.Instance.disabledSounds.Add(disableSoundEventArgs.Filename);
                 foreach (Sound s in allSounds.Sounds)
                 {
@@ -413,25 +430,27 @@ namespace SoundCenSe
 
         private void Status(string line)
         {
-            statusStrip1.InvokeIfRequired(() =>
+            statusStrip.InvokeIfRequired(() =>
             {
-                if (statusStrip1.Visible && toolStripStatusLabel1.Visible)
+                if (statusStrip.Visible && toolStripStatusLabel1.Visible)
                 {
                     toolStripStatusLabel1.Text = line;
                 }
             });
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1Tick(object sender, EventArgs e)
         {
             soundPanel.Tick();
             lock (PackDownloaderMessageQueue)
             {
                 while (PackDownloaderMessageQueue.Count > 0)
                 {
-                    listBox1.Items.Add(PackDownloaderMessageQueue.Dequeue());
+                    listBoxUpdateMessages.Items.Add(PackDownloaderMessageQueue.Dequeue());
                 }
             }
+            int visibleItems = listBoxUpdateMessages.ClientSize.Height/listBoxUpdateMessages.ItemHeight;
+            listBoxUpdateMessages.TopIndex = Math.Max(listBoxUpdateMessages.Items.Count - visibleItems + 1, 0);
         }
 
         private void UpdateFinished(object sender, UpdateFinishedEventArgs updateFinishedEventArgs)

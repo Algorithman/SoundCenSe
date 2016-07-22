@@ -66,13 +66,7 @@ namespace SoundCenSe.Utility.Updater.XML
                     dd.RelativePath = relpath;
                     dd.Size = dirnode.ParseLongAttribute("size", -1);
                     dd.SHA1 = dirnode.Attributes.GetNamedItem("sha1").Value.ToLower();
-                    string sh =
-                        SHA1Checksum(Path.Combine(dd.RelativePath, dd.Filename))
-                            .ToLower();
-                    if (dd.SHA1 != sh)
-                    {
-                        data.Add(dd);
-                    }
+                    data.Add(dd);
                 }
             }
         }

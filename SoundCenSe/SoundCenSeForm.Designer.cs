@@ -108,7 +108,7 @@ namespace SoundCenSe
             this.btnUpdate.TabIndex = 1;
             this.btnUpdate.Text = "Update Soundpack";
             this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.button1_Click);
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdateClick);
             // 
             // tabControl1
             // 
@@ -198,8 +198,7 @@ namespace SoundCenSe
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reenableSoundToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 48);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 26);
             // 
             // reenableSoundToolStripMenuItem
             // 

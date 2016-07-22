@@ -35,7 +35,6 @@
   "deleteFiles": true,
   "disabledSounds": [],
   "expectedMinimalSoundsCound": 0,
-  "fileName": "configuration.xml",
   "gamelogEncoding": "Cp850",
   "gamelogPath": "",
   "gui": true,

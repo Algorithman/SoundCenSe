@@ -62,6 +62,7 @@ namespace SoundCenSe
 
             cbDeleteFiles.Checked = Config.Instance.deleteFiles;
             cbOverwriteFiles.Checked = Config.Instance.replaceFiles;
+            tbSoundPackPath.Text = Config.Instance.soundpacksPath;
             startingUp = false;
         }
 
@@ -498,6 +499,23 @@ namespace SoundCenSe
                 Config.Instance.playbackThreshold = selected;
                 PM.Threshold = selected;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DF.Stop();
+            DFStopped(this, new DwarfFortressStoppedEventArgs());
+            Application.DoEvents();
+            browseSoundpackPath.SelectedPath = Path.GetFullPath(Config.Instance.soundpacksPath);
+            if (browseSoundpackPath.ShowDialog() == DialogResult.OK)
+            {
+                if (browseSoundpackPath.SelectedPath != Config.Instance.soundpacksPath)
+                {
+                    Config.Instance.soundpacksPath = browseSoundpackPath.SelectedPath;
+                    tbSoundPackPath.Text = Config.Instance.soundpacksPath;
+                }
+            }
+            DF.Start();
         }
     }
 }

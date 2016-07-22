@@ -44,13 +44,11 @@ namespace SoundCenSe
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPageAudioControl = new System.Windows.Forms.TabPage();
             this.labelThreshold = new System.Windows.Forms.Label();
             this.comboBoxThreshold = new System.Windows.Forms.ComboBox();
-            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
             this.tabPageUpdate = new System.Windows.Forms.TabPage();
             this.cbDeleteFiles = new System.Windows.Forms.CheckBox();
             this.cbOverwriteFiles = new System.Windows.Forms.CheckBox();
@@ -59,12 +57,20 @@ namespace SoundCenSe
             this.lbDisabledSounds = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reenableSoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPageConfiguration = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbSoundPackPath = new System.Windows.Forms.TextBox();
+            this.btnChooseFolder = new System.Windows.Forms.Button();
+            this.browseSoundpackPath = new System.Windows.Forms.FolderBrowserDialog();
+            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
+            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.statusStrip.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.tabPageAudioControl.SuspendLayout();
             this.tabPageUpdate.SuspendLayout();
             this.tabPageDisabledSounds.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.tabPageConfiguration.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -97,13 +103,6 @@ namespace SoundCenSe
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             this.toolStripProgressBar1.Visible = false;
             // 
-            // toolStripSignal1
-            // 
-            this.toolStripSignal1.Name = "toolStripSignal1";
-            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStripSignal1.Signal = false;
-            this.toolStripSignal1.Size = new System.Drawing.Size(16, 17);
-            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(8, 6);
@@ -119,6 +118,7 @@ namespace SoundCenSe
             this.Tabs.Controls.Add(this.tabPageAudioControl);
             this.Tabs.Controls.Add(this.tabPageUpdate);
             this.Tabs.Controls.Add(this.tabPageDisabledSounds);
+            this.Tabs.Controls.Add(this.tabPageConfiguration);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
@@ -157,17 +157,6 @@ namespace SoundCenSe
             this.comboBoxThreshold.Size = new System.Drawing.Size(176, 21);
             this.comboBoxThreshold.TabIndex = 3;
             this.comboBoxThreshold.SelectedIndexChanged += new System.EventHandler(this.comboBoxThresholdSelectedIndexChanged);
-            // 
-            // soundPanel
-            // 
-            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.soundPanel.AutoScroll = true;
-            this.soundPanel.Location = new System.Drawing.Point(0, 33);
-            this.soundPanel.Name = "soundPanel";
-            this.soundPanel.Size = new System.Drawing.Size(792, 415);
-            this.soundPanel.TabIndex = 2;
             // 
             // tabPageUpdate
             // 
@@ -256,6 +245,66 @@ namespace SoundCenSe
             this.reenableSoundToolStripMenuItem.Text = "Reenable sound";
             this.reenableSoundToolStripMenuItem.Click += new System.EventHandler(this.reenableSoundToolStripMenuItem_Click);
             // 
+            // tabPageConfiguration
+            // 
+            this.tabPageConfiguration.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageConfiguration.Controls.Add(this.btnChooseFolder);
+            this.tabPageConfiguration.Controls.Add(this.tbSoundPackPath);
+            this.tabPageConfiguration.Controls.Add(this.label1);
+            this.tabPageConfiguration.Location = new System.Drawing.Point(4, 22);
+            this.tabPageConfiguration.Name = "tabPageConfiguration";
+            this.tabPageConfiguration.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageConfiguration.Size = new System.Drawing.Size(795, 448);
+            this.tabPageConfiguration.TabIndex = 3;
+            this.tabPageConfiguration.Text = "Configuration";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Soundpack path:";
+            // 
+            // tbSoundPackPath
+            // 
+            this.tbSoundPackPath.Enabled = false;
+            this.tbSoundPackPath.Location = new System.Drawing.Point(103, 12);
+            this.tbSoundPackPath.Name = "tbSoundPackPath";
+            this.tbSoundPackPath.Size = new System.Drawing.Size(509, 20);
+            this.tbSoundPackPath.TabIndex = 1;
+            // 
+            // btnChooseFolder
+            // 
+            this.btnChooseFolder.AutoSize = true;
+            this.btnChooseFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnChooseFolder.Location = new System.Drawing.Point(618, 10);
+            this.btnChooseFolder.Name = "btnChooseFolder";
+            this.btnChooseFolder.Size = new System.Drawing.Size(26, 23);
+            this.btnChooseFolder.TabIndex = 2;
+            this.btnChooseFolder.Text = "...";
+            this.btnChooseFolder.UseVisualStyleBackColor = true;
+            this.btnChooseFolder.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // soundPanel
+            // 
+            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.soundPanel.AutoScroll = true;
+            this.soundPanel.Location = new System.Drawing.Point(0, 33);
+            this.soundPanel.Name = "soundPanel";
+            this.soundPanel.Size = new System.Drawing.Size(792, 415);
+            this.soundPanel.TabIndex = 2;
+            // 
+            // toolStripSignal1
+            // 
+            this.toolStripSignal1.Name = "toolStripSignal1";
+            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
+            this.toolStripSignal1.Signal = false;
+            this.toolStripSignal1.Size = new System.Drawing.Size(16, 16);
+            // 
             // SoundCenSeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -277,6 +326,8 @@ namespace SoundCenSe
             this.tabPageUpdate.PerformLayout();
             this.tabPageDisabledSounds.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.tabPageConfiguration.ResumeLayout(false);
+            this.tabPageConfiguration.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -303,6 +354,11 @@ namespace SoundCenSe
         private System.Windows.Forms.CheckBox cbOverwriteFiles;
         private System.Windows.Forms.Label labelThreshold;
         private System.Windows.Forms.ComboBox comboBoxThreshold;
+        private System.Windows.Forms.TabPage tabPageConfiguration;
+        private System.Windows.Forms.Button btnChooseFolder;
+        private System.Windows.Forms.TextBox tbSoundPackPath;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FolderBrowserDialog browseSoundpackPath;
     }
 }
 

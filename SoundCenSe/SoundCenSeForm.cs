@@ -79,7 +79,7 @@ namespace SoundCenSe
                         string.Join(".",
                             FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location)
                                 .FileVersion.Split('.')
-                                .Take(2)
+                                .Take(3)
                                 .ToArray());
 
             Tabs.TabPages.Remove(tabDebug);
@@ -459,7 +459,7 @@ namespace SoundCenSe
                 () =>
                 {
                     soundPanel.SetValues(channel, soundFile, soundLength, soundPlayingEventArgs.Mute,
-                        soundPlayingEventArgs.Volume);
+                        soundPlayingEventArgs.Volume, soundPlayingEventArgs.Sound.loop==Loop.Start_Looping);
                 });
         }
 

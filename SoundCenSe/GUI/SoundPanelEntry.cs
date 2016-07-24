@@ -18,8 +18,6 @@ namespace SoundCenSe.GUI
     {
         #region Fields and Constants
 
-        private static readonly RowStyle rowStyle = new RowStyle(SizeType.AutoSize);
-
         private string channelName = "";
         private DateTime endTime;
 
@@ -100,7 +98,7 @@ namespace SoundCenSe.GUI
 
         private void AddInFront(SoundDisabler sd)
         {
-            tablePanel.RowStyles.Insert(0, rowStyle);
+            tablePanel.RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
             tablePanel.RowCount++;
             for (int i = tablePanel.Controls.Count - 1; i >= 0; i--)
             {

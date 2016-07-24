@@ -44,13 +44,11 @@ namespace SoundCenSe
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPageAudioControl = new System.Windows.Forms.TabPage();
             this.labelThreshold = new System.Windows.Forms.Label();
             this.comboBoxThreshold = new System.Windows.Forms.ComboBox();
-            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
             this.tabPageUpdate = new System.Windows.Forms.TabPage();
             this.cbDeleteFiles = new System.Windows.Forms.CheckBox();
             this.cbOverwriteFiles = new System.Windows.Forms.CheckBox();
@@ -69,6 +67,8 @@ namespace SoundCenSe
             this.browseSoundpackPath = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
+            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.statusStrip.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.tabPageAudioControl.SuspendLayout();
@@ -90,7 +90,7 @@ namespace SoundCenSe
             this.toolStripStatusLabel1,
             this.toolStripProgressBar1,
             this.toolStripSignal1});
-            this.statusStrip.Location = new System.Drawing.Point(0, 695);
+            this.statusStrip.Location = new System.Drawing.Point(0, 708);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(445, 22);
             this.statusStrip.TabIndex = 0;
@@ -109,13 +109,6 @@ namespace SoundCenSe
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             this.toolStripProgressBar1.Visible = false;
             // 
-            // toolStripSignal1
-            // 
-            this.toolStripSignal1.Name = "toolStripSignal1";
-            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStripSignal1.Signal = false;
-            this.toolStripSignal1.Size = new System.Drawing.Size(16, 17);
-            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(8, 6);
@@ -123,6 +116,7 @@ namespace SoundCenSe
             this.btnUpdate.Size = new System.Drawing.Size(123, 23);
             this.btnUpdate.TabIndex = 1;
             this.btnUpdate.Text = "Update Soundpack";
+            this.toolTip1.SetToolTip(this.btnUpdate, "Update the sound pack");
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdateClick);
             // 
@@ -134,10 +128,11 @@ namespace SoundCenSe
             this.Tabs.Controls.Add(this.tabPageConfiguration);
             this.Tabs.Controls.Add(this.tabDebug);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Tabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
-            this.Tabs.Size = new System.Drawing.Size(445, 695);
+            this.Tabs.Size = new System.Drawing.Size(445, 708);
             this.Tabs.TabIndex = 3;
             // 
             // tabPageAudioControl
@@ -149,7 +144,7 @@ namespace SoundCenSe
             this.tabPageAudioControl.Location = new System.Drawing.Point(4, 22);
             this.tabPageAudioControl.Name = "tabPageAudioControl";
             this.tabPageAudioControl.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAudioControl.Size = new System.Drawing.Size(437, 669);
+            this.tabPageAudioControl.Size = new System.Drawing.Size(437, 682);
             this.tabPageAudioControl.TabIndex = 0;
             this.tabPageAudioControl.Text = "Audio";
             // 
@@ -172,17 +167,6 @@ namespace SoundCenSe
             this.comboBoxThreshold.TabIndex = 3;
             this.comboBoxThreshold.SelectedIndexChanged += new System.EventHandler(this.comboBoxThresholdSelectedIndexChanged);
             // 
-            // soundPanel
-            // 
-            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.soundPanel.AutoScroll = true;
-            this.soundPanel.Location = new System.Drawing.Point(0, 33);
-            this.soundPanel.Name = "soundPanel";
-            this.soundPanel.Size = new System.Drawing.Size(434, 636);
-            this.soundPanel.TabIndex = 2;
-            // 
             // tabPageUpdate
             // 
             this.tabPageUpdate.BackColor = System.Drawing.SystemColors.Control;
@@ -193,18 +177,19 @@ namespace SoundCenSe
             this.tabPageUpdate.Location = new System.Drawing.Point(4, 22);
             this.tabPageUpdate.Name = "tabPageUpdate";
             this.tabPageUpdate.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUpdate.Size = new System.Drawing.Size(437, 669);
+            this.tabPageUpdate.Size = new System.Drawing.Size(437, 682);
             this.tabPageUpdate.TabIndex = 1;
             this.tabPageUpdate.Text = "Update";
             // 
             // cbDeleteFiles
             // 
             this.cbDeleteFiles.AutoSize = true;
-            this.cbDeleteFiles.Location = new System.Drawing.Point(371, 10);
+            this.cbDeleteFiles.Location = new System.Drawing.Point(323, 10);
             this.cbDeleteFiles.Name = "cbDeleteFiles";
             this.cbDeleteFiles.Size = new System.Drawing.Size(78, 17);
             this.cbDeleteFiles.TabIndex = 4;
             this.cbDeleteFiles.Text = "Delete files";
+            this.toolTip1.SetToolTip(this.cbDeleteFiles, "Delete files not belonging to the current sound pack");
             this.cbDeleteFiles.UseVisualStyleBackColor = true;
             this.cbDeleteFiles.CheckedChanged += new System.EventHandler(this.cbDeleteFilesCheckedChanged);
             // 
@@ -216,6 +201,7 @@ namespace SoundCenSe
             this.cbOverwriteFiles.Size = new System.Drawing.Size(130, 17);
             this.cbOverwriteFiles.TabIndex = 3;
             this.cbOverwriteFiles.Text = "Overwrite existing files";
+            this.toolTip1.SetToolTip(this.cbOverwriteFiles, "Overwrite existing files if a different \r\nversion is on the update servers");
             this.cbOverwriteFiles.UseVisualStyleBackColor = true;
             this.cbOverwriteFiles.CheckedChanged += new System.EventHandler(this.cbOverwriteFilesCheckedChanged);
             // 
@@ -229,7 +215,7 @@ namespace SoundCenSe
             this.listBoxUpdateMessages.Location = new System.Drawing.Point(3, 35);
             this.listBoxUpdateMessages.Name = "listBoxUpdateMessages";
             this.listBoxUpdateMessages.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxUpdateMessages.Size = new System.Drawing.Size(359, 628);
+            this.listBoxUpdateMessages.Size = new System.Drawing.Size(431, 641);
             this.listBoxUpdateMessages.TabIndex = 2;
             // 
             // tabPageDisabledSounds
@@ -239,20 +225,18 @@ namespace SoundCenSe
             this.tabPageDisabledSounds.Location = new System.Drawing.Point(4, 22);
             this.tabPageDisabledSounds.Name = "tabPageDisabledSounds";
             this.tabPageDisabledSounds.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDisabledSounds.Size = new System.Drawing.Size(437, 669);
+            this.tabPageDisabledSounds.Size = new System.Drawing.Size(437, 682);
             this.tabPageDisabledSounds.TabIndex = 2;
             this.tabPageDisabledSounds.Text = "Disabled sounds";
             // 
             // lbDisabledSounds
             // 
-            this.lbDisabledSounds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDisabledSounds.ContextMenuStrip = this.contextMenuStrip1;
+            this.lbDisabledSounds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbDisabledSounds.FormattingEnabled = true;
-            this.lbDisabledSounds.Location = new System.Drawing.Point(0, 0);
+            this.lbDisabledSounds.Location = new System.Drawing.Point(3, 3);
             this.lbDisabledSounds.Name = "lbDisabledSounds";
-            this.lbDisabledSounds.Size = new System.Drawing.Size(362, 667);
+            this.lbDisabledSounds.Size = new System.Drawing.Size(431, 676);
             this.lbDisabledSounds.TabIndex = 0;
             this.toolTip1.SetToolTip(this.lbDisabledSounds, "Right click to reenable sound");
             this.lbDisabledSounds.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDown);
@@ -280,15 +264,16 @@ namespace SoundCenSe
             this.tabPageConfiguration.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfiguration.Name = "tabPageConfiguration";
             this.tabPageConfiguration.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfiguration.Size = new System.Drawing.Size(437, 669);
+            this.tabPageConfiguration.Size = new System.Drawing.Size(437, 682);
             this.tabPageConfiguration.TabIndex = 3;
             this.tabPageConfiguration.Text = "Configuration";
             // 
             // btnChooseFolder
             // 
+            this.btnChooseFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChooseFolder.AutoSize = true;
             this.btnChooseFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnChooseFolder.Location = new System.Drawing.Point(618, 10);
+            this.btnChooseFolder.Location = new System.Drawing.Point(403, 10);
             this.btnChooseFolder.Name = "btnChooseFolder";
             this.btnChooseFolder.Size = new System.Drawing.Size(26, 23);
             this.btnChooseFolder.TabIndex = 2;
@@ -298,10 +283,12 @@ namespace SoundCenSe
             // 
             // tbSoundPackPath
             // 
+            this.tbSoundPackPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSoundPackPath.Enabled = false;
             this.tbSoundPackPath.Location = new System.Drawing.Point(103, 12);
             this.tbSoundPackPath.Name = "tbSoundPackPath";
-            this.tbSoundPackPath.Size = new System.Drawing.Size(509, 20);
+            this.tbSoundPackPath.Size = new System.Drawing.Size(296, 20);
             this.tbSoundPackPath.TabIndex = 1;
             // 
             // label1
@@ -315,15 +302,15 @@ namespace SoundCenSe
             // 
             // tabDebug
             // 
+            this.tabDebug.BackColor = System.Drawing.SystemColors.Control;
             this.tabDebug.Controls.Add(this.button1);
             this.tabDebug.Controls.Add(this.btnDebug1);
             this.tabDebug.Location = new System.Drawing.Point(4, 22);
             this.tabDebug.Name = "tabDebug";
             this.tabDebug.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDebug.Size = new System.Drawing.Size(437, 669);
+            this.tabDebug.Size = new System.Drawing.Size(437, 682);
             this.tabDebug.TabIndex = 4;
             this.tabDebug.Text = "Debug";
-            this.tabDebug.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -350,11 +337,29 @@ namespace SoundCenSe
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Gamelog|gamelog.txt";
             // 
+            // soundPanel
+            // 
+            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.soundPanel.AutoScroll = true;
+            this.soundPanel.Location = new System.Drawing.Point(0, 33);
+            this.soundPanel.Name = "soundPanel";
+            this.soundPanel.Size = new System.Drawing.Size(434, 649);
+            this.soundPanel.TabIndex = 2;
+            // 
+            // toolStripSignal1
+            // 
+            this.toolStripSignal1.Name = "toolStripSignal1";
+            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
+            this.toolStripSignal1.Signal = false;
+            this.toolStripSignal1.Size = new System.Drawing.Size(16, 16);
+            // 
             // SoundCenSeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 717);
+            this.ClientSize = new System.Drawing.Size(445, 730);
             this.Controls.Add(this.Tabs);
             this.Controls.Add(this.statusStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

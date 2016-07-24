@@ -82,6 +82,7 @@ namespace SoundCenSe
                                 .Take(2)
                                 .ToArray());
 
+            Tabs.TabPages.Remove(tabDebug);
             startingUp = false;
         }
 

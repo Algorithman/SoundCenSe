@@ -44,11 +44,13 @@ namespace SoundCenSe
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPageAudioControl = new System.Windows.Forms.TabPage();
             this.labelThreshold = new System.Windows.Forms.Label();
             this.comboBoxThreshold = new System.Windows.Forms.ComboBox();
+            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
             this.tabPageUpdate = new System.Windows.Forms.TabPage();
             this.cbDeleteFiles = new System.Windows.Forms.CheckBox();
             this.cbOverwriteFiles = new System.Windows.Forms.CheckBox();
@@ -61,14 +63,12 @@ namespace SoundCenSe
             this.btnChooseFolder = new System.Windows.Forms.Button();
             this.tbSoundPackPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabDebug = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnDebug1 = new System.Windows.Forms.Button();
             this.browseSoundpackPath = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tabDebug = new System.Windows.Forms.TabPage();
-            this.btnDebug1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
-            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
-            this.button1 = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.tabPageAudioControl.SuspendLayout();
@@ -108,6 +108,13 @@ namespace SoundCenSe
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             this.toolStripProgressBar1.Visible = false;
+            // 
+            // toolStripSignal1
+            // 
+            this.toolStripSignal1.Name = "toolStripSignal1";
+            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
+            this.toolStripSignal1.Signal = false;
+            this.toolStripSignal1.Size = new System.Drawing.Size(16, 17);
             // 
             // btnUpdate
             // 
@@ -164,6 +171,17 @@ namespace SoundCenSe
             this.comboBoxThreshold.Size = new System.Drawing.Size(176, 21);
             this.comboBoxThreshold.TabIndex = 3;
             this.comboBoxThreshold.SelectedIndexChanged += new System.EventHandler(this.comboBoxThresholdSelectedIndexChanged);
+            // 
+            // soundPanel
+            // 
+            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.soundPanel.AutoScroll = true;
+            this.soundPanel.Location = new System.Drawing.Point(0, 33);
+            this.soundPanel.Name = "soundPanel";
+            this.soundPanel.Size = new System.Drawing.Size(434, 636);
+            this.soundPanel.TabIndex = 2;
             // 
             // tabPageUpdate
             // 
@@ -307,6 +325,16 @@ namespace SoundCenSe
             this.tabDebug.Text = "Debug";
             this.tabDebug.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(131, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // btnDebug1
             // 
             this.btnDebug1.Location = new System.Drawing.Point(8, 6);
@@ -321,34 +349,6 @@ namespace SoundCenSe
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Gamelog|gamelog.txt";
-            // 
-            // soundPanel
-            // 
-            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.soundPanel.AutoScroll = true;
-            this.soundPanel.Location = new System.Drawing.Point(0, 33);
-            this.soundPanel.Name = "soundPanel";
-            this.soundPanel.Size = new System.Drawing.Size(434, 636);
-            this.soundPanel.TabIndex = 2;
-            // 
-            // toolStripSignal1
-            // 
-            this.toolStripSignal1.Name = "toolStripSignal1";
-            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStripSignal1.Signal = false;
-            this.toolStripSignal1.Size = new System.Drawing.Size(16, 16);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(131, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // SoundCenSeForm
             // 

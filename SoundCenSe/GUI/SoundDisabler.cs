@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: SoundDisabler.cs
 // 
-// Last modified: 2016-07-18 19:28
+// Last modified: 2016-07-24 13:52
 
 using System;
 using System.IO;
@@ -20,12 +20,6 @@ namespace SoundCenSe.GUI
 
         private string filename;
         public EventHandler<DisableSoundEventArgs> SoundDisabled;
-
-        public SoundDisabler(string filename)
-        {
-            InitializeComponent();
-            this.Filename = filename;
-        }
 
         #endregion
 
@@ -42,6 +36,12 @@ namespace SoundCenSe.GUI
         }
 
         #endregion
+
+        public SoundDisabler(string filename)
+        {
+            InitializeComponent();
+            Filename = filename;
+        }
 
         public SoundDisabler()
         {

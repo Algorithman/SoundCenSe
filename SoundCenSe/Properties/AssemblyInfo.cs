@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: AssemblyInfo.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-24 13:52
 
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -44,5 +44,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyFileVersion("1.2.0.0")]

@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: SFXManagerThread.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-24 13:52
 
 using System;
 using System.Threading;
@@ -22,7 +22,7 @@ using SoundCenSe.Interfaces;
 
 namespace SoundCenSe.Utility
 {
-    public class SFXManagerThread : IStoppable
+    public class SFXManagerThread : IStoppable, IDisposable
     {
         #region Fields and Constants
 
@@ -77,6 +77,16 @@ namespace SoundCenSe.Utility
             SampleProvider = new VolumeSampleProvider(mixer);
         }
 
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
         #region IStoppable Members
 
         public void Start()
@@ -93,6 +103,11 @@ namespace SoundCenSe.Utility
         }
 
         #endregion
+
+        private void Dispose(bool v)
+        {
+            mixer.Dispose();
+        }
 
         public void DoWork()
         {

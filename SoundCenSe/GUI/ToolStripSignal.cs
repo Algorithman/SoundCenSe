@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: ToolStripSignal.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-24 13:52
 
 using System.Drawing;
 using System.Windows.Forms;
@@ -36,11 +36,6 @@ namespace SoundCenSe.GUI
         }
 
         #endregion
-
-        public ToolStripSignal()
-        {
-            this.Text = "";
-        }
 
         protected override void OnPaint(PaintEventArgs e)
         {

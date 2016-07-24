@@ -58,13 +58,17 @@ namespace SoundCenSe
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reenableSoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageConfiguration = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbSoundPackPath = new System.Windows.Forms.TextBox();
             this.btnChooseFolder = new System.Windows.Forms.Button();
+            this.tbSoundPackPath = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.browseSoundpackPath = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tabDebug = new System.Windows.Forms.TabPage();
+            this.btnDebug1 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.soundPanel = new SoundCenSe.GUI.SoundPanel();
             this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
+            this.button1 = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.tabPageAudioControl.SuspendLayout();
@@ -72,6 +76,7 @@ namespace SoundCenSe
             this.tabPageDisabledSounds.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.tabPageConfiguration.SuspendLayout();
+            this.tabDebug.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -120,6 +125,7 @@ namespace SoundCenSe
             this.Tabs.Controls.Add(this.tabPageUpdate);
             this.Tabs.Controls.Add(this.tabPageDisabledSounds);
             this.Tabs.Controls.Add(this.tabPageConfiguration);
+            this.Tabs.Controls.Add(this.tabDebug);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
@@ -169,7 +175,7 @@ namespace SoundCenSe
             this.tabPageUpdate.Location = new System.Drawing.Point(4, 22);
             this.tabPageUpdate.Name = "tabPageUpdate";
             this.tabPageUpdate.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUpdate.Size = new System.Drawing.Size(365, 669);
+            this.tabPageUpdate.Size = new System.Drawing.Size(437, 669);
             this.tabPageUpdate.TabIndex = 1;
             this.tabPageUpdate.Text = "Update";
             // 
@@ -215,7 +221,7 @@ namespace SoundCenSe
             this.tabPageDisabledSounds.Location = new System.Drawing.Point(4, 22);
             this.tabPageDisabledSounds.Name = "tabPageDisabledSounds";
             this.tabPageDisabledSounds.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDisabledSounds.Size = new System.Drawing.Size(365, 669);
+            this.tabPageDisabledSounds.Size = new System.Drawing.Size(437, 669);
             this.tabPageDisabledSounds.TabIndex = 2;
             this.tabPageDisabledSounds.Text = "Disabled sounds";
             // 
@@ -256,26 +262,9 @@ namespace SoundCenSe
             this.tabPageConfiguration.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfiguration.Name = "tabPageConfiguration";
             this.tabPageConfiguration.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfiguration.Size = new System.Drawing.Size(365, 669);
+            this.tabPageConfiguration.Size = new System.Drawing.Size(437, 669);
             this.tabPageConfiguration.TabIndex = 3;
             this.tabPageConfiguration.Text = "Configuration";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Soundpack path:";
-            // 
-            // tbSoundPackPath
-            // 
-            this.tbSoundPackPath.Enabled = false;
-            this.tbSoundPackPath.Location = new System.Drawing.Point(103, 12);
-            this.tbSoundPackPath.Name = "tbSoundPackPath";
-            this.tbSoundPackPath.Size = new System.Drawing.Size(509, 20);
-            this.tbSoundPackPath.TabIndex = 1;
             // 
             // btnChooseFolder
             // 
@@ -288,6 +277,50 @@ namespace SoundCenSe
             this.btnChooseFolder.Text = "...";
             this.btnChooseFolder.UseVisualStyleBackColor = true;
             this.btnChooseFolder.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tbSoundPackPath
+            // 
+            this.tbSoundPackPath.Enabled = false;
+            this.tbSoundPackPath.Location = new System.Drawing.Point(103, 12);
+            this.tbSoundPackPath.Name = "tbSoundPackPath";
+            this.tbSoundPackPath.Size = new System.Drawing.Size(509, 20);
+            this.tbSoundPackPath.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Soundpack path:";
+            // 
+            // tabDebug
+            // 
+            this.tabDebug.Controls.Add(this.button1);
+            this.tabDebug.Controls.Add(this.btnDebug1);
+            this.tabDebug.Location = new System.Drawing.Point(4, 22);
+            this.tabDebug.Name = "tabDebug";
+            this.tabDebug.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDebug.Size = new System.Drawing.Size(437, 669);
+            this.tabDebug.TabIndex = 4;
+            this.tabDebug.Text = "Debug";
+            this.tabDebug.UseVisualStyleBackColor = true;
+            // 
+            // btnDebug1
+            // 
+            this.btnDebug1.Location = new System.Drawing.Point(8, 6);
+            this.btnDebug1.Name = "btnDebug1";
+            this.btnDebug1.Size = new System.Drawing.Size(117, 23);
+            this.btnDebug1.TabIndex = 0;
+            this.btnDebug1.Text = "Longtime gamelog";
+            this.btnDebug1.UseVisualStyleBackColor = true;
+            this.btnDebug1.Click += new System.EventHandler(this.btnDebug1_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Gamelog|gamelog.txt";
             // 
             // soundPanel
             // 
@@ -305,7 +338,17 @@ namespace SoundCenSe
             this.toolStripSignal1.Name = "toolStripSignal1";
             this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
             this.toolStripSignal1.Signal = false;
-            this.toolStripSignal1.Size = new System.Drawing.Size(16, 17);
+            this.toolStripSignal1.Size = new System.Drawing.Size(16, 16);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(131, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // SoundCenSeForm
             // 
@@ -330,6 +373,7 @@ namespace SoundCenSe
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabPageConfiguration.ResumeLayout(false);
             this.tabPageConfiguration.PerformLayout();
+            this.tabDebug.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,6 +406,10 @@ namespace SoundCenSe
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FolderBrowserDialog browseSoundpackPath;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TabPage tabDebug;
+        private System.Windows.Forms.Button btnDebug1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

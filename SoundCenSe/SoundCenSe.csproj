@@ -14,16 +14,13 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PrimaryVersionType>AssemblyFileVersionAttribute</PrimaryVersionType>
     <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>
-    </AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>
-    </AssemblyFileVersionSettings>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <AssemblyInfoVersionSettings>
-    </AssemblyInfoVersionSettings>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.IncrementOnDemand.None.None</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.IncrementOnDemand.None.None</AssemblyFileVersionSettings>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <AssemblyInfoVersionSettings>None.IncrementOnDemand.None.None</AssemblyInfoVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

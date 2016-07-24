@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: CachedSound.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-24 13:52
 
 #region Usings
 
@@ -29,30 +29,36 @@ namespace SoundCenSe.Audio
 
         public CachedSound(string audioFileName, WaveFormat wf)
         {
-            using (var audioFileReader = new AudioFileReader(audioFileName))
+            var audioFileReader = new AudioFileReader(audioFileName);
+
+            MediaFoundationResampler mfp = null;
+            IWaveProvider iwp = audioFileReader;
+            if (!audioFileReader.WaveFormat.EQUALS(wf))
             {
-                IWaveProvider iwp = audioFileReader;
-                if (!audioFileReader.WaveFormat.EQUALS(wf))
-                {
-                    iwp = new MediaFoundationResampler(audioFileReader, wf);
-                }
-
-                WaveFormat = wf;
-
-
-                var wholeFile = new List<float>((int) audioFileReader.TotalTime.TotalMilliseconds*96);
-                var readBuffer = new float[wf.SampleRate*wf.Channels];
-                var readBufferByte = new byte[wf.SampleRate*wf.Channels*4];
-                int samplesRead;
-
-                while ((samplesRead = iwp.Read(readBufferByte, 0, readBufferByte.Length)) > 0)
-                {
-                    Buffer.BlockCopy(readBufferByte, 0, readBuffer, 0, samplesRead);
-                    wholeFile.AddRange(readBuffer.Take(samplesRead >> 2));
-                }
-
-                AudioData = wholeFile.ToArray();
+                mfp = new MediaFoundationResampler(audioFileReader, wf);
+                iwp = mfp;
             }
+
+            WaveFormat = wf;
+
+
+            var wholeFile = new List<float>((int) audioFileReader.TotalTime.TotalMilliseconds*96);
+            var readBuffer = new float[wf.SampleRate*wf.Channels];
+            var readBufferByte = new byte[wf.SampleRate*wf.Channels*4];
+            int samplesRead;
+
+            while ((samplesRead = iwp.Read(readBufferByte, 0, readBufferByte.Length)) > 0)
+            {
+                Buffer.BlockCopy(readBufferByte, 0, readBuffer, 0, samplesRead);
+                wholeFile.AddRange(readBuffer.Take(samplesRead >> 2));
+            }
+
+            AudioData = wholeFile.ToArray();
+            if (mfp != null)
+            {
+                mfp.Dispose();
+            }
+            audioFileReader.Dispose();
         }
     }
 }

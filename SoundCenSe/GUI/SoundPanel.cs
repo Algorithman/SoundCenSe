@@ -1,16 +1,14 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: SoundPanel.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-24 13:52
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using SoundCenSe.Configuration;
@@ -27,6 +25,7 @@ namespace SoundCenSe.GUI
 
         public EventHandler<ChannelFastForwardEventArgs> FastForward;
         public EventHandler<ChannelMuteEventArgs> Muting;
+        public EventHandler<DisableSoundEventArgs> SoundDisabled;
         public EventHandler<ChannelVolumeEventArgs> VolumeChanged;
 
         #endregion
@@ -35,6 +34,7 @@ namespace SoundCenSe.GUI
         {
             InitializeComponent();
         }
+
         public void Clear()
         {
             tablePanel.Controls.Clear();
@@ -66,7 +66,7 @@ namespace SoundCenSe.GUI
                 ChannelData cd = Config.Instance.Channels.FirstOrDefault(x => x.Channel == s.ToLower());
                 if (cd != null)
                 {
-                    spe.VolumeBar.Value = (int)(cd.Volume * 100);
+                    spe.VolumeBar.Value = (int) (cd.Volume*100);
                     spe.btnMute.Checked = cd.Mute;
                 }
 
@@ -77,16 +77,7 @@ namespace SoundCenSe.GUI
                 spe.SoundDisabled += SoundDisabledInternal;
                 spe.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
-                this.tablePanel.Controls.Add(spe, 0, rowCount++);
-            }
-        }
-        public EventHandler<DisableSoundEventArgs> SoundDisabled;
-        private void SoundDisabledInternal(object sender, DisableSoundEventArgs disableSoundEventArgs)
-        {
-            var handler = SoundDisabled;
-            if (handler != null)
-            {
-                handler(this, disableSoundEventArgs);
+                tablePanel.Controls.Add(spe, 0, rowCount++);
             }
         }
 
@@ -103,28 +94,35 @@ namespace SoundCenSe.GUI
 
         public void SetValues(string channel, string file, int length, bool mute, float volume)
         {
-            SoundPanelEntry spe = this.tablePanel.Controls.OfType<SoundPanelEntry>().FirstOrDefault(x => x.ChannelName == channel);
+            SoundPanelEntry spe =
+                tablePanel.Controls.OfType<SoundPanelEntry>().FirstOrDefault(x => x.ChannelName == channel);
             if (spe == null)
             {
                 throw new Exception("Channel not initialized yet? (" + channel + ")");
             }
-            else
+            spe.VolumeBar.Value = (int) (volume*100);
+            spe.btnMute.Checked = mute;
+            if (spe.Filename != file)
             {
-                spe.VolumeBar.Value = (int)(volume * 100);
-                spe.btnMute.Checked = mute;
-                if (spe.Filename != file)
-                {
-                    spe.ChannelName = channel;
-                    spe.Filename = file;
-                    spe.Length = length;
-                }
-                spe.AddEntry(file);
+                spe.ChannelName = channel;
+                spe.Filename = file;
+                spe.Length = length;
+            }
+            spe.AddEntry(file);
+        }
+
+        private void SoundDisabledInternal(object sender, DisableSoundEventArgs disableSoundEventArgs)
+        {
+            var handler = SoundDisabled;
+            if (handler != null)
+            {
+                handler(this, disableSoundEventArgs);
             }
         }
 
         public void Tick()
         {
-            foreach (SoundPanelEntry s in this.tablePanel.Controls.OfType<SoundPanelEntry>())
+            foreach (SoundPanelEntry s in tablePanel.Controls.OfType<SoundPanelEntry>())
             {
                 s.Tick();
             }

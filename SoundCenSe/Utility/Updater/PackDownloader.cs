@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: PackDownloader.cs
 // 
-// Last modified: 2016-07-22 18:37
+// Last modified: 2016-07-24 13:52
 
 #region Usings
 
@@ -85,7 +85,8 @@ namespace SoundCenSe.Utility.Updater
 
         private void CheckAndDeleteFiles()
         {
-            string[] files = Directory.GetFiles(Path.GetFullPath(Config.Instance.soundpacksPath), "*.*", SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(Path.GetFullPath(Config.Instance.soundpacksPath), "*.*",
+                SearchOption.AllDirectories);
 
             List<string> fullPaths = new List<string>();
             string soundpacksPath = Path.GetFullPath(Config.Instance.soundpacksPath);
@@ -213,6 +214,19 @@ namespace SoundCenSe.Utility.Updater
             }
         }
 
+        private void RemoveEmptyFolders(string startLocation)
+        {
+            foreach (var directory in Directory.GetDirectories(startLocation))
+            {
+                RemoveEmptyFolders(directory);
+                if (Directory.GetFiles(directory).Length == 0 &&
+                    Directory.GetDirectories(directory).Length == 0)
+                {
+                    Directory.Delete(directory, false);
+                }
+            }
+        }
+
         private void StartDownload(DownloadEntry file, string fromServer)
         {
             OnStartDownload(file);
@@ -279,19 +293,6 @@ namespace SoundCenSe.Utility.Updater
                         x => FilesInProgress.Count(y => y.SourceURL.StartsWith(x))).First();
 
                 Task.Factory.StartNew(() => StartDownload(file, server));
-            }
-        }
-
-        private void RemoveEmptyFolders(string startLocation)
-        {
-            foreach (var directory in Directory.GetDirectories(startLocation))
-            {
-                RemoveEmptyFolders(directory);
-                if (Directory.GetFiles(directory).Length == 0 &&
-                    Directory.GetDirectories(directory).Length == 0)
-                {
-                    Directory.Delete(directory, false);
-                }
             }
         }
 

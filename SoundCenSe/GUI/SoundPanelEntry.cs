@@ -5,10 +5,9 @@
 // Project: SoundCenSe
 // File: SoundPanelEntry.cs
 // 
-// Last modified: 2016-07-18 20:14
+// Last modified: 2016-07-24 13:52
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using SoundCenSe.Events;
@@ -19,14 +18,20 @@ namespace SoundCenSe.GUI
     {
         #region Fields and Constants
 
+        private static readonly RowStyle rowStyle = new RowStyle(SizeType.AutoSize);
+
         private string channelName = "";
         private DateTime endTime;
 
         public EventHandler<ChannelFastForwardEventArgs> FastForward;
         private string filename = "";
+
+        private bool isDown;
         private bool isSfxPanel;
         private int length;
         public EventHandler<ChannelMuteEventArgs> Muting;
+
+        public EventHandler<DisableSoundEventArgs> SoundDisabled;
         public EventHandler<ChannelVolumeEventArgs> VolumeChanged;
 
         #endregion
@@ -74,45 +79,32 @@ namespace SoundCenSe.GUI
             }
         }
 
+        #endregion
+
+        public SoundPanelEntry()
+        {
+            InitializeComponent();
+        }
+
         public void AddEntry(string filename)
         {
             if (!string.IsNullOrEmpty(filename.Trim()))
             {
                 SoundDisabler sd = new SoundDisabler(filename);
                 sd.Width = tablePanel.Width;
-                sd.SoundDisabled+=SoundDisabledInternal;
+                sd.SoundDisabled += SoundDisabledInternal;
                 sd.Anchor = AnchorStyles.Left | AnchorStyles.Right;
                 AddInFront(sd);
             }
         }
 
-        public EventHandler<DisableSoundEventArgs> SoundDisabled;
-
-        private void SoundDisabledInternal(object sender, DisableSoundEventArgs disableSoundEventArgs)
-        {
-            var handler = SoundDisabled;
-            if (handler != null)
-            {
-                handler(this, disableSoundEventArgs);
-            }
-        }
-
-        #endregion
-
-        public SoundPanelEntry()
-        {
-            InitializeComponent();
-            
-        }
-
         private void AddInFront(SoundDisabler sd)
         {
-            RowStyle rs = new RowStyle(SizeType.AutoSize);
-            tablePanel.RowStyles.Insert(0, rs);
+            tablePanel.RowStyles.Insert(0, rowStyle);
             tablePanel.RowCount++;
             for (int i = tablePanel.Controls.Count - 1; i >= 0; i--)
             {
-                tablePanel.SetRow(tablePanel.Controls[i],i+1); 
+                tablePanel.SetRow(tablePanel.Controls[i], i + 1);
             }
 
             tablePanel.Controls.Add(sd, 0, 0);
@@ -126,10 +118,28 @@ namespace SoundCenSe.GUI
                     if (tablePanel.GetRow(control) >= 5)
                     {
                         tablePanel.Controls.Remove(control);
+                        control.Dispose();
                     }
                 }
                 tablePanel.RowCount--;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+            if (!isDown)
+            {
+                btnDwnUp.ImageIndex = 1;
+                this.Height = 226;
+            }
+            else
+            {
+                btnDwnUp.ImageIndex = 0;
+                this.Height = 121;
+            }
+            this.ResumeLayout(true);
+            isDown = !isDown;
         }
 
         private void FastForwardClick(object sender, EventArgs e)
@@ -147,6 +157,15 @@ namespace SoundCenSe.GUI
             if (handler != null)
             {
                 handler(this, new ChannelMuteEventArgs(channelName, btnMute.Checked));
+            }
+        }
+
+        private void SoundDisabledInternal(object sender, DisableSoundEventArgs disableSoundEventArgs)
+        {
+            var handler = SoundDisabled;
+            if (handler != null)
+            {
+                handler(this, disableSoundEventArgs);
             }
         }
 
@@ -170,25 +189,6 @@ namespace SoundCenSe.GUI
             {
                 handler(this, new ChannelVolumeEventArgs(channelName, VolumeBar.Value/100.0f));
             }
-        }
-
-        private bool isDown = false;
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.SuspendLayout();
-            if (!isDown)
-            {
-                btnDwnUp.ImageIndex = 1;
-                this.Height = 226;
-            }
-            else
-            {
-                btnDwnUp.ImageIndex = 0;
-                this.Height = 121;
-            }
-            this.ResumeLayout(true);
-            isDown = !isDown;
         }
     }
 }

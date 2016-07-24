@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: SoundFile.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-24 13:52
 
 #region Usings
 
@@ -28,13 +28,13 @@ namespace SoundCenSe.Configuration.Sounds
         public CachedSound Cache;
         public int Weight = 100;
 
-        public bool Disabled { get; set; }
-
         #endregion
 
         #region Properties
 
         public float BalanceAdjustment { get; set; }
+
+        public bool Disabled { get; set; }
 
         public string Filename { get; set; }
         public bool RandomBalance { get; set; }

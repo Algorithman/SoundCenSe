@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: DwarfFortressAware.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-24 13:52
 
 using System;
 using System.Collections.Generic;
@@ -115,6 +115,9 @@ namespace SoundCenSe.Utility
                 }
                 Thread.Sleep(1000);
             }
+            dwarfFortressProcessId = -1;
+            dwarfFortressProcessName = null;
+            dwarfFortressProcessPath = null;
         }
 
         private int GetDwarfFortressProcessId(out string processName, out string processPath)

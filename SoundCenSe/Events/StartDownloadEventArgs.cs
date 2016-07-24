@@ -1,8 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// 
+// SoundSense C# Port aka SoundCenSe
+// 
+// Solution: SoundCenSe
+// Project: SoundCenSe
+// File: StartDownloadEventArgs.cs
+// 
+// Last modified: 2016-07-24 13:52
+
+using System;
 using SoundCenSe.Utility.Updater;
 
 namespace SoundCenSe.Events

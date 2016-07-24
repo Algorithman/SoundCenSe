@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: PlayerManager.cs
 // 
-// Last modified: 2016-07-22 20:04
+// Last modified: 2016-07-24 13:52
 
 using System;
 using System.Collections.Generic;
@@ -139,6 +139,10 @@ namespace SoundCenSe.Output
                 Stop();
                 musicOutputDevice.Stop();
                 musicOutputDevice.Dispose();
+                sfxOutputDevice.Stop();
+                sfxOutputDevice.Dispose();
+                SFX.Dispose();
+                channelMixer.Dispose();
             }
         }
 

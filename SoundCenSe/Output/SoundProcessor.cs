@@ -1,11 +1,11 @@
 ﻿// 
 // SoundSense C# Port aka SoundCenSe
 // 
-// Solution: SoundSenseCS
-// Project: SoundSenseCS
+// Solution: SoundCenSe
+// Project: SoundCenSe
 // File: SoundProcessor.cs
 // 
-// Last modified: 2016-07-17 22:06
+// Last modified: 2016-07-24 13:52
 
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,6 +22,7 @@ namespace SoundCenSe.Output
         #region Fields and Constants
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger missingLogger = LogManager.GetLogger("missing");
         private readonly Regex coordinatePattern;
 
         private Sound lastSFX;
@@ -99,6 +100,7 @@ namespace SoundCenSe.Output
             {
                 logger.Info(line);
                 logger.Info("Message '" + line + "' did not match any rule.");
+                missingLogger.Warn(line);
             }
             else
             {

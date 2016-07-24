@@ -5,11 +5,15 @@
 // Project: SoundCenSe
 // File: SoundCenSeForm.cs
 // 
-// Last modified: 2016-07-22 19:28
+// Last modified: 2016-07-24 13:52
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using SoundCenSe.Configuration;
 using SoundCenSe.Configuration.Sounds;
@@ -29,12 +33,19 @@ namespace SoundCenSe
         private SoundsXML allSounds;
 
         private bool closing;
+
+        readonly List<string> DebugGamelog = new List<string>();
+        private int DebugGamelogIndex;
         private readonly DwarfFortressAware DF;
         private LogFileListener LL;
 
         private readonly Queue<string> PackDownloaderMessageQueue = new Queue<string>();
         private PlayerManager PM;
         private SoundProcessor SP;
+
+        private readonly bool startingUp = true;
+
+        private bool stopLongtimeDebug;
 
         readonly List<Control> wereEnabled = new List<Control>();
 
@@ -62,19 +73,74 @@ namespace SoundCenSe
 
             cbDeleteFiles.Checked = Config.Instance.deleteFiles;
             cbOverwriteFiles.Checked = Config.Instance.replaceFiles;
-            startingUp = false;
-        }
+            tbSoundPackPath.Text = Config.Instance.soundpacksPath;
 
-        private void FillThresholdCombo()
-        {
-            comboBoxThreshold.DataSource = Enum.GetValues(typeof(Threshold));
-            comboBoxThreshold.SelectedItem = Config.Instance.playbackThreshold;
+            this.Text = "SoundCenSe " +
+                        string.Join(".",
+                            FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location)
+                                .FileVersion.Split('.')
+                                .Take(2)
+                                .ToArray());
+
+            Tabs.TabPages.Remove(tabDebug);
+            startingUp = false;
         }
 
 
         private void AddProgress(long expectedSize)
         {
             toolStripProgressBar1.Value += (int) expectedSize;
+        }
+
+        private void btnDebug1_Click(object sender, EventArgs e)
+        {
+            DF.Stop();
+            openFileDialog1.InitialDirectory = Path.GetDirectoryName(Config.Instance.gamelogPath);
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                GC.Collect();
+                MessageBox.Show("Starting now");
+                allSounds = new SoundsXML(Config.Instance.soundpacksPath);
+                PM = new PlayerManager();
+                SP = new SoundProcessor(allSounds, PM);
+                FillChannelEntries();
+                PM.Playing += Playing;
+
+                string line = "";
+                TextReader tr = new StreamReader(openFileDialog1.FileName);
+                while ((line = tr.ReadLine()) != null)
+                {
+                    DebugGamelog.Add(line);
+                }
+                tr.Close();
+                while (!stopLongtimeDebug)
+                {
+                    SP.ProcessLine(this, new GamelogEventArgs(DebugGamelog[DebugGamelogIndex++]));
+                    if (DebugGamelogIndex == DebugGamelog.Count)
+                    {
+                        DebugGamelogIndex = 0;
+                    }
+                    button1.Text = DebugGamelogIndex.ToString();
+                    Application.DoEvents();
+                    Thread.Sleep(50);
+                    Application.DoEvents();
+                    Thread.Sleep(50);
+                    Application.DoEvents();
+                    Thread.Sleep(50);
+                    Application.DoEvents();
+                    Thread.Sleep(50);
+                    Application.DoEvents();
+                    Thread.Sleep(50);
+                    Application.DoEvents();
+                    Thread.Sleep(50);
+                }
+                SP = null;
+                PM.Stop();
+                PM.Dispose();
+                allSounds.Dispose();
+                GC.Collect();
+                MessageBox.Show("Stopping now");
+            }
         }
 
         private void btnUpdateClick(object sender, EventArgs e)
@@ -100,6 +166,28 @@ namespace SoundCenSe
             PD.Start();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DF.Stop();
+            DFStopped(this, new DwarfFortressStoppedEventArgs());
+            Application.DoEvents();
+            browseSoundpackPath.SelectedPath = Path.GetFullPath(Config.Instance.soundpacksPath);
+            if (browseSoundpackPath.ShowDialog() == DialogResult.OK)
+            {
+                if (browseSoundpackPath.SelectedPath != Config.Instance.soundpacksPath)
+                {
+                    Config.Instance.soundpacksPath = browseSoundpackPath.SelectedPath;
+                    tbSoundPackPath.Text = Config.Instance.soundpacksPath;
+                }
+            }
+            DF.Start();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            stopLongtimeDebug = true;
+        }
+
         private void cbDeleteFilesCheckedChanged(object sender, EventArgs e)
         {
             Config.Instance.deleteFiles = cbDeleteFiles.Checked;
@@ -108,6 +196,17 @@ namespace SoundCenSe
         private void cbOverwriteFilesCheckedChanged(object sender, EventArgs e)
         {
             Config.Instance.replaceFiles = cbOverwriteFiles.Checked;
+        }
+
+        private void comboBoxThresholdSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!startingUp)
+            {
+                Threshold selected;
+                Enum.TryParse(comboBoxThreshold.SelectedValue.ToString(), out selected);
+                Config.Instance.playbackThreshold = selected;
+                PM.Threshold = selected;
+            }
         }
 
 
@@ -119,26 +218,8 @@ namespace SoundCenSe
             }
             allSounds = new SoundsXML(Config.Instance.soundpacksPath);
             SetDisabledSounds();
-            List<string> channelNames = new List<string>();
-            channelNames.Add("SFX");
-            foreach (Sound s in allSounds.Sounds)
-            {
-                if (channelNames.Contains(s.Channel))
-                {
-                    continue;
-                }
-                if (!string.IsNullOrEmpty(s.Channel))
-                {
-                    channelNames.Add(s.Channel);
-                }
-            }
+            FillChannelEntries();
 
-            this.InvokeIfRequired(() =>
-            {
-                soundPanel.Clear();
-                soundPanel.FillEntries(channelNames);
-                Tabs.SelectedTab = tabPageAudioControl;
-            });
 
             if (PM != null)
             {
@@ -152,6 +233,7 @@ namespace SoundCenSe
                 LL.Stop();
                 LL.Dispose();
             }
+
             Config.Instance.gamelogPath = DF.GameLogPath;
             Dictionary<string, Sound> oldMusics = GetOldMusic(allSounds);
             allSounds = new SoundsXML(Config.Instance.soundpacksPath);
@@ -251,12 +333,42 @@ namespace SoundCenSe
             PM.FastForward(channelFastForwardEventArgs.Channel);
         }
 
+        private void FillChannelEntries()
+        {
+            List<string> channelNames = new List<string>();
+            channelNames.Add("SFX");
+            foreach (Sound s in allSounds.Sounds)
+            {
+                if (channelNames.Contains(s.Channel))
+                {
+                    continue;
+                }
+                if (!string.IsNullOrEmpty(s.Channel))
+                {
+                    channelNames.Add(s.Channel);
+                }
+            }
+
+            this.InvokeIfRequired(() =>
+            {
+                soundPanel.Clear();
+                soundPanel.FillEntries(channelNames);
+                Tabs.SelectedTab = tabPageAudioControl;
+            });
+        }
+
         private void FillDisabledSounds()
         {
             foreach (string disabled in Config.Instance.disabledSounds)
             {
                 lbDisabledSounds.Items.Add(disabled);
             }
+        }
+
+        private void FillThresholdCombo()
+        {
+            comboBoxThreshold.DataSource = Enum.GetValues(typeof(Threshold));
+            comboBoxThreshold.SelectedItem = Config.Instance.playbackThreshold;
         }
 
 
@@ -485,19 +597,6 @@ namespace SoundCenSe
                 : channelVolumeEventArgs.Channel.ToLower();
             PM.ChannelVolume(ch, channelVolumeEventArgs.Volume);
             Config.Instance.SetChannelVolume(ch, channelVolumeEventArgs.Volume);
-        }
-
-        private bool startingUp = true;
-
-        private void comboBoxThresholdSelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!startingUp)
-            {
-                Threshold selected;
-                Enum.TryParse<Threshold>(comboBoxThreshold.SelectedValue.ToString(), out selected);
-                Config.Instance.playbackThreshold = selected;
-                PM.Threshold = selected;
-            }
         }
     }
 }

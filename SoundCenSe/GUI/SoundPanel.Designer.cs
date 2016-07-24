@@ -36,6 +36,7 @@
             this.tablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tablePanel.AutoSize = true;
+            this.tablePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tablePanel.ColumnCount = 1;
             this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tablePanel.Location = new System.Drawing.Point(0, 0);

@@ -17,10 +17,10 @@
     <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>None.IncrementOnDemand.None.None</AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>None.IncrementOnDemand.None.None</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <AssemblyInfoVersionSettings>None.IncrementOnDemand.None.None</AssemblyInfoVersionSettings>
+    <AssemblyVersionSettings>None.None.IncrementOnDemand.None</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.None.IncrementOnDemand.None</AssemblyFileVersionSettings>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <AssemblyInfoVersionSettings>None.None.IncrementOnDemand.None</AssemblyInfoVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

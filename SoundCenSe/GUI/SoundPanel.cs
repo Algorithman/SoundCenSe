@@ -92,7 +92,7 @@ namespace SoundCenSe.GUI
         }
 
 
-        public void SetValues(string channel, string file, int length, bool mute, float volume)
+        public void SetValues(string channel, string file, int length, bool mute, float volume, bool looping)
         {
             SoundPanelEntry spe =
                 tablePanel.Controls.OfType<SoundPanelEntry>().FirstOrDefault(x => x.ChannelName == channel);
@@ -102,6 +102,7 @@ namespace SoundCenSe.GUI
             }
             spe.VolumeBar.Value = (int) (volume*100);
             spe.btnMute.Checked = mute;
+            spe.btnFastForward.Visible = looping;
             if (spe.Filename != file)
             {
                 spe.ChannelName = channel;

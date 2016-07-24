@@ -148,6 +148,7 @@
             this.btnFastForward.TabIndex = 6;
             this.toolTip1.SetToolTip(this.btnFastForward, "Next sound");
             this.btnFastForward.UseVisualStyleBackColor = true;
+            this.btnFastForward.Visible = false;
             this.btnFastForward.Click += new System.EventHandler(this.FastForwardClick);
             // 
             // btnDwnUp

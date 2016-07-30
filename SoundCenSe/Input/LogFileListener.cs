@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: LogFileListener.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 using System;
 using System.IO;
@@ -29,10 +29,14 @@ namespace SoundCenSe.Input
 
         #endregion
 
-        public LogFileListener(string filename)
+        public LogFileListener(string filename, bool beginAtEnd = false)
         {
             logFileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             logfileReader = new StreamReader(logFileStream);
+            if (beginAtEnd)
+            {
+                BeginAtEnd();
+            }
         }
 
         #region IDisposable Members
@@ -89,6 +93,7 @@ namespace SoundCenSe.Input
                 if (line != null)
                 {
                     OnLogfileEvent(line);
+                    continue;
                 }
 
                 Thread.Sleep(50);

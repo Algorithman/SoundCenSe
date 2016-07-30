@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: IPlayerManager.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 using SoundCenSe.Configuration.Sounds;
 using SoundCenSe.Enums;

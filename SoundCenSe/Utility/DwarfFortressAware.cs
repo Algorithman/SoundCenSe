@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: DwarfFortressAware.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace SoundCenSe.Utility
 
         #region Properties
 
-        public string GameLogPath { get; set; } = "";
+        public string GameLogPath { get; set; }
 
         #endregion
 
@@ -42,7 +42,13 @@ namespace SoundCenSe.Utility
 
         public void Start()
         {
+#if __MonoCS__
+            GameLogPath = Config.Instance.gamelogPath;
+            OnDwarfFortressRunning(0);
+#else
+            GameLogPath = "";
             Task.Factory.StartNew(() => DoWork());
+#endif
         }
 
         public void Stop()
@@ -51,6 +57,8 @@ namespace SoundCenSe.Utility
         }
 
         #endregion
+
+        private int ran;
 
         private void DoWork()
         {
@@ -70,6 +78,7 @@ namespace SoundCenSe.Utility
                             dwarfFortressProcessId = processId;
                             dwarfFortressProcessName = processName;
                             dwarfFortressProcessPath = processPath;
+                            ran++;
                             OnDwarfFortressRunning(processId);
                         }
                     }
@@ -120,18 +129,28 @@ namespace SoundCenSe.Utility
             dwarfFortressProcessPath = null;
         }
 
+#if __MonoCS__
+        const string DFName = "Dwarf_Fortress";
+        const string RelPathGamelog = "../gamelog.txt";
+#else
+        const string DFName = "Dwarf Fortress";
+        const string RelPathGamelog = "gamelog.txt";
+#endif
+
+
         private int GetDwarfFortressProcessId(out string processName, out string processPath)
         {
-            List<Process> df = Process.GetProcessesByName("Dwarf Fortress").ToList();
+            List<Process> df = Process.GetProcessesByName(DFName).ToList();
             foreach (Process p in df)
             {
                 string path = Path.GetDirectoryName(p.MainModule.FileName);
-                if (!File.Exists(Path.Combine(path, "gamelog.txt")))
+
+                if (!File.Exists(Path.Combine(path, RelPathGamelog)))
                 {
                     continue;
                 }
 
-                GameLogPath = Path.Combine(Path.GetDirectoryName(p.MainModule.FileName), "gamelog.txt");
+                GameLogPath = Path.Combine(Path.GetDirectoryName(p.MainModule.FileName), RelPathGamelog);
                 processName = p.ProcessName;
                 processPath = path;
                 return p.Id;

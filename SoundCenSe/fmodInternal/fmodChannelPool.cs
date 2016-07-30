@@ -98,5 +98,17 @@ namespace SoundCenSe.fmodInternal
                 channels.Remove(kv);
             }
         }
+
+        public bool IsSoundPlaying(string filename)
+        {
+            foreach (var sf in channels.Values)
+            {
+                if (sf.SoundSoundFile.SoundFile.Filename == filename)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

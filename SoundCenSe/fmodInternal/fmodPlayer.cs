@@ -153,15 +153,14 @@ namespace SoundCenSe.fmodInternal
             {
                 channel = "sfx";
             }
-
+            if (sf.Sound.PlaybackThreshold > (long)Config.Instance.playbackThreshold)
+            {
+                return;
+            }
             int concurrency = FmodChannelPool.Instance.ConcurrentSounds("sfx");
 
             if (channel.ToLower() != "sfx")
             {
-                if ((sf.Sound.Concurrency != -1) && (sf.Sound.Concurrency < concurrency))
-                {
-                    return;
-                }
                 if (FmodChannelPool.Instance.ConcurrentSounds(channel) > 0)
                 {
                     // Already running music?
@@ -170,9 +169,19 @@ namespace SoundCenSe.fmodInternal
                     oldfmc.Dispose();
                 }
             }
+            if ((sf.Sound.Concurrency != -1) && (sf.Sound.Concurrency < concurrency))
+            {
+                return;
+            }
+
+            if (FmodChannelPool.Instance.IsSoundPlaying(sf.SoundFile.Filename))
+            {
+                return;
+            }
 
             RESULT r = FmodSystem.System.createSound(sf.SoundFile.Filename, MODE.DEFAULT | MODE.CREATESTREAM,
                 out newSound);
+            
             uint soundLength = 0;
             newSound.getLength(out soundLength, TIMEUNIT.MS);
             sf.SoundFile.Length = soundLength;

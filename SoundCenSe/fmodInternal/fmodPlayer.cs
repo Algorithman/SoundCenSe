@@ -125,7 +125,7 @@ namespace SoundCenSe.fmodInternal
 
         public void MuteChannel(string channel, bool mute)
         {
-            channelGroups[channel].setMute(mute);
+            FmodChannelPool.Instance.GetSingleChannel(channel).Mute = mute;
         }
 
         private void OnPlaySound(string channel, SoundSoundFile sf, float channelVolume, bool channelMute)
@@ -214,11 +214,13 @@ namespace SoundCenSe.fmodInternal
             */
             float channelVolume = Config.Instance.GetChannelData(channel.ToLower()).Volume;
             bool channelMute = Config.Instance.GetChannelData(channel.ToLower()).Mute;
-            fmodChannelSound fmc = new fmodChannelSound(ch, channel, channelVolume*volume, channelMute | mute);
+            fmodChannelSound fmc = new fmodChannelSound(ch, channel, channelVolume*volume, channelMute);
             fmc.SoundSoundFile = sf;
             fmc.LoopSound += LoopSound;
             fmc.SoundFinished += SoundFinished;
+            fmc.Mute = false;
             fmc.Start();
+            fmc.Mute = channelMute;
             OnPlaySound(channel, sf, channelVolume, channelMute);
         }
 

@@ -44,13 +44,11 @@ namespace SoundCenSe
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPageAudioControl = new System.Windows.Forms.TabPage();
             this.labelThreshold = new System.Windows.Forms.Label();
             this.comboBoxThreshold = new System.Windows.Forms.ComboBox();
-            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
             this.tabPageUpdate = new System.Windows.Forms.TabPage();
             this.cbDeleteFiles = new System.Windows.Forms.CheckBox();
             this.cbOverwriteFiles = new System.Windows.Forms.CheckBox();
@@ -69,9 +67,15 @@ namespace SoundCenSe
             this.tabDebug = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.btnDebug1 = new System.Windows.Forms.Button();
+            this.tabPageCredits = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.browseSoundpackPath = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.soundPanel = new SoundCenSe.GUI.SoundPanel();
+            this.toolStripSignal1 = new SoundCenSe.GUI.ToolStripSignal();
             this.statusStrip.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.tabPageAudioControl.SuspendLayout();
@@ -80,6 +84,7 @@ namespace SoundCenSe
             this.contextMenuStrip1.SuspendLayout();
             this.tabPageConfiguration.SuspendLayout();
             this.tabDebug.SuspendLayout();
+            this.tabPageCredits.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -112,13 +117,6 @@ namespace SoundCenSe
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             this.toolStripProgressBar1.Visible = false;
             // 
-            // toolStripSignal1
-            // 
-            this.toolStripSignal1.Name = "toolStripSignal1";
-            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStripSignal1.Signal = false;
-            this.toolStripSignal1.Size = new System.Drawing.Size(16, 17);
-            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(8, 6);
@@ -137,6 +135,7 @@ namespace SoundCenSe
             this.Tabs.Controls.Add(this.tabPageDisabledSounds);
             this.Tabs.Controls.Add(this.tabPageConfiguration);
             this.Tabs.Controls.Add(this.tabDebug);
+            this.Tabs.Controls.Add(this.tabPageCredits);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tabs.Location = new System.Drawing.Point(0, 0);
@@ -176,17 +175,6 @@ namespace SoundCenSe
             this.comboBoxThreshold.Size = new System.Drawing.Size(176, 21);
             this.comboBoxThreshold.TabIndex = 3;
             this.comboBoxThreshold.SelectedIndexChanged += new System.EventHandler(this.comboBoxThresholdSelectedIndexChanged);
-            // 
-            // soundPanel
-            // 
-            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.soundPanel.AutoScroll = true;
-            this.soundPanel.Location = new System.Drawing.Point(0, 33);
-            this.soundPanel.Name = "soundPanel";
-            this.soundPanel.Size = new System.Drawing.Size(434, 649);
-            this.soundPanel.TabIndex = 2;
             // 
             // tabPageUpdate
             // 
@@ -388,10 +376,68 @@ namespace SoundCenSe
             this.btnDebug1.UseVisualStyleBackColor = true;
             this.btnDebug1.Click += new System.EventHandler(this.btnDebug1_Click);
             // 
+            // tabPageCredits
+            // 
+            this.tabPageCredits.Controls.Add(this.label4);
+            this.tabPageCredits.Controls.Add(this.label3);
+            this.tabPageCredits.Controls.Add(this.label2);
+            this.tabPageCredits.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCredits.Name = "tabPageCredits";
+            this.tabPageCredits.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCredits.Size = new System.Drawing.Size(437, 682);
+            this.tabPageCredits.TabIndex = 5;
+            this.tabPageCredits.Text = "Credits";
+            this.tabPageCredits.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 97);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(187, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "ZweiStein for the original SoundSense";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 38);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(220, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Toady One and ThreeToe  for Dwarf Fortress";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 156);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(262, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Audio engine : FMOD Studio by Firelight Technologies";
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "gamelog.txt";
             this.openFileDialog1.Filter = "Gamelog|gamelog.txt";
+            // 
+            // soundPanel
+            // 
+            this.soundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.soundPanel.AutoScroll = true;
+            this.soundPanel.Location = new System.Drawing.Point(0, 33);
+            this.soundPanel.Name = "soundPanel";
+            this.soundPanel.Size = new System.Drawing.Size(434, 649);
+            this.soundPanel.TabIndex = 2;
+            // 
+            // toolStripSignal1
+            // 
+            this.toolStripSignal1.Name = "toolStripSignal1";
+            this.toolStripSignal1.Padding = new System.Windows.Forms.Padding(8);
+            this.toolStripSignal1.Signal = false;
+            this.toolStripSignal1.Size = new System.Drawing.Size(16, 16);
             // 
             // SoundCenSeForm
             // 
@@ -417,6 +463,8 @@ namespace SoundCenSe
             this.tabPageConfiguration.ResumeLayout(false);
             this.tabPageConfiguration.PerformLayout();
             this.tabDebug.ResumeLayout(false);
+            this.tabPageCredits.ResumeLayout(false);
+            this.tabPageCredits.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -456,6 +504,10 @@ namespace SoundCenSe
         private System.Windows.Forms.Button btnSelectGamelogPath;
         private System.Windows.Forms.TextBox tbGamelogPath;
         private System.Windows.Forms.Label lbGamelogpath;
+        private System.Windows.Forms.TabPage tabPageCredits;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 

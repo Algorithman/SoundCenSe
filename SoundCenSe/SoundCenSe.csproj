@@ -149,10 +149,10 @@
     <Compile Include="Utility\Updater\XML\DirectoryData.cs" />
     <Compile Include="Utility\Updater\XML\UpdateParser.cs" />
     <Content Include="fmod.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="fmodstudio.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Program.ico" />
     <None Include="NLog.xsd">

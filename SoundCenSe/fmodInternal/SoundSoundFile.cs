@@ -3,33 +3,28 @@
 // 
 // Solution: SoundCenSe
 // Project: SoundCenSe
-// File: SoundPlayingEventArgs.cs
+// File: SoundSoundFile.cs
 // 
 // Last modified: 2016-07-30 19:37
 
-using System;
 using SoundCenSe.Configuration.Sounds;
 
-namespace SoundCenSe.Events
+namespace SoundCenSe.fmodInternal
 {
-    public class SoundPlayingEventArgs : EventArgs
+    public class SoundSoundFile
     {
         #region Properties
 
-        public bool Mute { get; set; }
-
+        public FMOD.Sound fmodSound { get; set; }
         public Sound Sound { get; set; }
         public SoundFile SoundFile { get; set; }
-        public float Volume { get; set; }
 
         #endregion
 
-        public SoundPlayingEventArgs(Sound sound, SoundFile soundFile, bool mute, float volume)
+        public SoundSoundFile(Sound sound, SoundFile soundFile)
         {
             Sound = sound;
             SoundFile = soundFile;
-            Mute = mute;
-            Volume = volume;
         }
     }
 }

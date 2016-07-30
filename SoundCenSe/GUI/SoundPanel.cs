@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: SoundPanel.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 using System;
 using System.Collections.Generic;
@@ -53,32 +53,35 @@ namespace SoundCenSe.GUI
         public void FillEntries(List<string> channelNames)
         {
             int rowCount = 0;
-            foreach (string s in channelNames)
+            this.InvokeIfRequired(() =>
             {
-                SoundPanelEntry spe = new SoundPanelEntry();
-                spe.ChannelName = s.Capitalize();
-                spe.Dock = DockStyle.Fill;
-                // spe.Width = this.tablePanel.Width;
-                if (s.ToLower() == "sfx")
+                foreach (string s in channelNames)
                 {
-                    spe.IsSFXPanel = true;
+                    SoundPanelEntry spe = new SoundPanelEntry();
+                    spe.ChannelName = s.Capitalize();
+                    spe.Dock = DockStyle.Fill;
+                    // spe.Width = this.tablePanel.Width;
+                    if (s.ToLower() == "sfx")
+                    {
+                        spe.IsSFXPanel = true;
+                    }
+                    ChannelData cd = Config.Instance.Channels.FirstOrDefault(x => x.Channel == s.ToLower());
+                    if (cd != null)
+                    {
+                        spe.VolumeBar.Value = (int) (cd.Volume*100);
+                        spe.btnMute.Checked = cd.Mute;
+                    }
+
+
+                    spe.FastForward += FastForwardInternal;
+                    spe.Muting += MutingInternal;
+                    spe.VolumeChanged += VolumeChangedInternal;
+                    spe.SoundDisabled += SoundDisabledInternal;
+                    spe.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+                    tablePanel.Controls.Add(spe, 0, rowCount++);
                 }
-                ChannelData cd = Config.Instance.Channels.FirstOrDefault(x => x.Channel == s.ToLower());
-                if (cd != null)
-                {
-                    spe.VolumeBar.Value = (int) (cd.Volume*100);
-                    spe.btnMute.Checked = cd.Mute;
-                }
-
-
-                spe.FastForward += FastForwardInternal;
-                spe.Muting += MutingInternal;
-                spe.VolumeChanged += VolumeChangedInternal;
-                spe.SoundDisabled += SoundDisabledInternal;
-                spe.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-
-                tablePanel.Controls.Add(spe, 0, rowCount++);
-            }
+            });
         }
 
 
@@ -92,7 +95,7 @@ namespace SoundCenSe.GUI
         }
 
 
-        public void SetValues(string channel, string file, int length, bool mute, float volume, bool looping)
+        public void SetValues(string channel, string file, uint length, bool mute, float volume, bool looping)
         {
             SoundPanelEntry spe =
                 tablePanel.Controls.OfType<SoundPanelEntry>().FirstOrDefault(x => x.ChannelName == channel);

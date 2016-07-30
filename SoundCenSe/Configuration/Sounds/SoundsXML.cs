@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: SoundsXML.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 using System;
 using System.Collections.Generic;
@@ -32,9 +32,9 @@ namespace SoundCenSe.Configuration.Sounds
 
         #region Properties
 
-        private bool ignoreEmptySounds { get; }
-        private bool noWarnAbsolutePath { get; }
-        private string rootDirectory { get; }
+        private bool ignoreEmptySounds { get; set; }
+        private bool noWarnAbsolutePath { get; set; }
+        private string rootDirectory { get; set; }
 
         public List<Sound> Sounds { get; set; }
 

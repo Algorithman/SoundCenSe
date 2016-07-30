@@ -36,7 +36,7 @@
   "disabledSounds": [],
   "expectedMinimalSoundsCound": 0,
   "gamelogEncoding": "Cp850",
-  "gamelogPath": "",
+  "gamelogPath": "../df_linux/gamelog.txt",
   "gui": true,
   "mutedChannels": [],
   "noWarnAbsolutePaths": false,

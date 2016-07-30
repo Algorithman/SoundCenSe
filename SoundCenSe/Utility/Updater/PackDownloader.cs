@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: PackDownloader.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 #region Usings
 
@@ -49,8 +49,8 @@ namespace SoundCenSe.Utility.Updater
         #region Properties
 
         public List<DownloadEntry> DownloadedFiles { get; set; }
-        private List<DownloadEntry> FilesInProgress { get; }
-        private Queue<DownloadEntry> FilesToDownload { get; }
+        private List<DownloadEntry> FilesInProgress { get; set; }
+        private Queue<DownloadEntry> FilesToDownload { get; set; }
 
         #endregion
 

@@ -5,7 +5,7 @@
 // Project: SoundCenSe
 // File: SoundPanelEntry.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 using System;
 using System.IO;
@@ -26,7 +26,7 @@ namespace SoundCenSe.GUI
 
         private bool isDown;
         private bool isSfxPanel;
-        private int length;
+        private uint length;
         public EventHandler<ChannelMuteEventArgs> Muting;
 
         public EventHandler<DisableSoundEventArgs> SoundDisabled;
@@ -66,7 +66,7 @@ namespace SoundCenSe.GUI
             }
         }
 
-        public int Length
+        public uint Length
         {
             get { return length; }
             set

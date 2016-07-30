@@ -5,15 +5,14 @@
 // Project: SoundCenSe
 // File: SoundProcessor.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 using System.Text;
 using System.Text.RegularExpressions;
 using NLog;
 using SoundCenSe.Configuration.Sounds;
-using SoundCenSe.Enums;
 using SoundCenSe.Events;
-using SoundCenSe.Interfaces;
+using SoundCenSe.fmodInternal;
 
 namespace SoundCenSe.Output
 {
@@ -23,22 +22,17 @@ namespace SoundCenSe.Output
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly Logger missingLogger = LogManager.GetLogger("missing");
-        private readonly Regex coordinatePattern;
+        internal readonly Regex coordinatePattern;
 
-        private Sound lastSFX;
-        private readonly IPlayerManager player;
+        internal Sound lastSFX;
 
-        private readonly Regex repeater = new Regex("^x\\d{1,3}$");
+        internal readonly Regex repeater = new Regex("^x\\d{1,3}$");
         internal readonly SoundsXML soundsXML;
-
-        private Threshold threshold = Threshold.Everything;
-        private float volume = 1.0f;
 
         #endregion
 
-        public SoundProcessor(SoundsXML sounds, IPlayerManager playerManager)
+        public SoundProcessor(SoundsXML sounds)
         {
-            player = playerManager;
             soundsXML = sounds;
             coordinatePattern = new Regex("\\[(\\-?\\d),(\\-?\\d),(\\-?\\d)\\] (.*)");
         }
@@ -54,7 +48,7 @@ namespace SoundCenSe.Output
             {
                 if (lastSFX != null)
                 {
-                    player.Play(lastSFX, 0, 0, 0);
+                    fmodPlayer.Instance.Play(lastSFX, 0, 0, 0);
                 }
                 return;
             }
@@ -80,7 +74,7 @@ namespace SoundCenSe.Output
                     matchedSound = sound;
                     logger.Info("Message '" + line + "' matched event '" + sound + "' from '" + sound.ParentFile + "'.");
 
-                    player.Play(sound, x, y, z);
+                    fmodPlayer.Instance.Play(sound, x, y, z);
 
                     if (string.IsNullOrEmpty(sound.Channel))
                     {

@@ -5,14 +5,12 @@
 // Project: SoundCenSe
 // File: SoundFile.cs
 // 
-// Last modified: 2016-07-24 13:52
+// Last modified: 2016-07-30 19:37
 
 #region Usings
 
 using System;
 using System.Collections.Generic;
-using NAudio.Wave;
-using SoundCenSe.Audio;
 
 #endregion
 
@@ -23,9 +21,6 @@ namespace SoundCenSe.Configuration.Sounds
         #region Fields and Constants
 
         public List<Attribution> Attributions = new List<Attribution>();
-
-
-        public CachedSound Cache;
         public int Weight = 100;
 
         #endregion
@@ -37,6 +32,8 @@ namespace SoundCenSe.Configuration.Sounds
         public bool Disabled { get; set; }
 
         public string Filename { get; set; }
+
+        public uint Length { get; set; }
         public bool RandomBalance { get; set; }
         public float VolumeAdjustment { get; set; }
 
@@ -66,15 +63,6 @@ namespace SoundCenSe.Configuration.Sounds
         {
             if (disposing)
             {
-                Cache = null;
-            }
-        }
-
-        public void GenerateCache(WaveFormat wf)
-        {
-            if (Cache == null)
-            {
-                Cache = new CachedSound(Filename, wf);
             }
         }
 

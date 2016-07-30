@@ -72,7 +72,9 @@ namespace SoundCenSe.fmodInternal
                     FmodSystem.System.getChannel(Id, out ch);
                     if (ch.isValid())
                     {
-                        ch.setMute(mute);
+                        ChannelGroup cg;
+                        ch.getChannelGroup(out cg);
+                        cg.setMute(mute);
                     }
                 }
             }

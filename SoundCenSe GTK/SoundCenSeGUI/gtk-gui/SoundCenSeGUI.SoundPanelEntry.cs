@@ -72,7 +72,7 @@ namespace SoundCenSeGUI
 			this.label2.WidthRequest = 60;
 			this.label2.Name = "label2";
 			this.label2.Xalign = 0F;
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("File:");
+			this.label2.LabelProp = "File:";
 			this.hbox2.Add (this.label2);
 			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.label2]));
 			w1.Position = 0;
@@ -99,7 +99,7 @@ namespace SoundCenSeGUI
 			this.label4.WidthRequest = 60;
 			this.label4.Name = "label4";
 			this.label4.Xalign = 0F;
-			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Remaining:");
+			this.label4.LabelProp = "Remaining:";
 			this.hbox3.Add (this.label4);
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.label4]));
 			w4.Position = 0;
@@ -126,7 +126,7 @@ namespace SoundCenSeGUI
 			this.label6.WidthRequest = 60;
 			this.label6.Name = "label6";
 			this.label6.Xalign = 0F;
-			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Channel:");
+			this.label6.LabelProp = "Channel:";
 			this.hbox4.Add (this.label6);
 			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.label6]));
 			w7.Position = 0;
@@ -222,7 +222,7 @@ namespace SoundCenSeGUI
 			this.expander3.Add (this.DisablerTable);
 			this.GtkLabel2 = new global::Gtk.Label ();
 			this.GtkLabel2.Name = "GtkLabel2";
-			this.GtkLabel2.LabelProp = global::Mono.Unix.Catalog.GetString ("Show played sounds");
+			this.GtkLabel2.LabelProp = "Show played sounds";
 			this.GtkLabel2.UseUnderline = true;
 			this.expander3.LabelWidget = this.GtkLabel2;
 			this.vbox1.Add (this.expander3);
@@ -233,6 +233,7 @@ namespace SoundCenSeGUI
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
+			this.btnFastForward.Hide ();
 			this.Show ();
 			this.volumeScale.ValueChanged += new global::System.EventHandler (this.SliderMoved);
 			this.btnFastForward.Clicked += new global::System.EventHandler (this.btnFastForwardClicked);

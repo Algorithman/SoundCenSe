@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using Misc;
 using SoundCenSeGTK;
+using System.Linq;
 
 namespace SoundCenSeGTK
 {
@@ -20,6 +21,14 @@ namespace SoundCenSeGTK
             Build();
             Config.Load(@"Configuration.json");
 
+            // Remove Notebook page 5 (debug)
+            notebook1.RemovePage(5);
+
+
+            notebook1.Page = 2;
+            AddDisabledSounds();
+
+
             int count = Enum.GetValues(typeof(Threshold)).Length;
             foreach (var v in Enum.GetValues(typeof(Threshold)))
             {
@@ -28,17 +37,49 @@ namespace SoundCenSeGTK
 
             cbThreshold.Active = (int)Config.Instance.playbackThreshold;
 
-
             notebook1.Page = 0;
             List<string> temp = new List<string>() { "SFX", "Music", "Weather", "Swords", "Trading" };
             AddSoundPanelEntries(temp);
-            ShowAll();
+            // ShowAll();
 
             Running += StartListening;
             Stopped += StopListening;
 
             // Start main tick timer
             GLib.Timeout.Add(50, Timer);
+        }
+
+        private void AddDisabledSounds()
+        {
+            foreach (string soundName in Config.Instance.disabledSounds)
+            {
+                AddDisabledSound(soundName);
+            }
+        }
+
+        private void AddDisabledSound(string soundName)
+        {
+            SoundDisabler sd = new SoundDisabler(soundName);
+            sd.SoundDisabled += EnableSound;
+            vboxDisabledSounds.PackStart(sd, false, false, 0);
+            sd.Show();
+        }
+
+        private void EnableSound(object sender, DisableSoundEventArgs e)
+        {
+            SoundDisabler sd = (SoundDisabler)sender;
+            Config.Instance.disabledSounds.Remove(e.Filename);
+            sd.Destroy();
+            foreach (Sound s in allSounds.Sounds)
+            {
+                foreach (SoundFile sf in s.SoundFiles)
+                {
+                    if (sf.Filename == e.Filename)
+                    {
+                        sf.Disabled = false;
+                    }
+                }
+            }
         }
 
         private SoundProcessor SP = null;
@@ -52,13 +93,13 @@ namespace SoundCenSeGTK
 
                 runState = RunState.PlayingDF;
                 SP = new SoundProcessor(allSounds);
+                Dictionary<string, Sound> oldMusic = GetOldMusic(allSounds);
                 LL = new LogFileListener(Config.Instance.gamelogPath, true);
 
                 LL.GamelogEvent += SP.ProcessLine;
                 LL.GamelogEvent += ShowLogInStatus;
 
                 fmodPlayer.Instance.SoundPlaying += Playing;
-                Dictionary<string, Sound> oldMusic = GetOldMusic(allSounds);
                 foreach (Sound s in oldMusic.Values)
                 {
                     fmodPlayer.Instance.Play(s, 0, 0, 0);
@@ -72,25 +113,26 @@ namespace SoundCenSeGTK
             DummySoundProcessor sp = new DummySoundProcessor(allSounds);
             sp.DummyPlayerManager = dpm;
 
-            FileStream fs = new FileStream(Config.Instance.gamelogPath, FileMode.Open, FileAccess.Read,
-                                FileShare.ReadWrite);
-            TextReader tr = new StreamReader(fs);
-
             List<string> lines = new List<string>();
-
-            string line = "";
-            while ((line = tr.ReadLine()) != null)
+            using (FileStream fs = new FileStream(Config.Instance.gamelogPath, FileMode.Open, FileAccess.Read,
+                                       FileShare.ReadWrite))
             {
-                if (line == "*** STARTING NEW GAME ***")
+                using (TextReader tr = new StreamReader(fs))
                 {
-                    lines.Clear();
+
+
+                    string line = "";
+                    while ((line = tr.ReadLine()) != null)
+                    {
+                        if (line == "*** STARTING NEW GAME ***")
+                        {
+                            lines.Clear();
+                        }
+                        lines.Add(line);
+                    }
+
                 }
-                lines.Add(line);
             }
-
-            tr.Close();
-            fs.Close();
-
             foreach (string l in lines)
             {
                 sp.ProcessLine(this, new GamelogEventArgs(l));
@@ -141,17 +183,22 @@ namespace SoundCenSeGTK
             {
                 case RunState.Startup:
                     allSounds = new SoundsXML(Config.Instance.soundpacksPath);
+                    DisableDisabledSounds();
                     runState = RunState.LookingForDF;
+                    btnUpdate.Sensitive = true;
                     break;
                 case RunState.Updating:
+                    btnUpdate.Sensitive = false;
                     PD.DoWork();
                     break;
                 case RunState.LookingForDF:
+                    btnUpdate.Sensitive = true;
                     DFRunCheck();
                     break;
                 case RunState.PlayingDF:
+                    btnUpdate.Sensitive = false;
                     LL.Tick();
-                    FmodSystem.System.update();
+                    FmodSystem.ERRCHECK(FmodSystem.System.update());
                     DFRunCheck();
                     foreach (SoundPanelEntry spe in panelEntries.Values)
                     {
@@ -160,6 +207,20 @@ namespace SoundCenSeGTK
                     break;
             }
             return true;
+        }
+
+        private void DisableDisabledSounds()
+        {
+            foreach (Sound s in allSounds.Sounds)
+            {
+                foreach (SoundFile sf in s.SoundFiles)
+                {
+                    if (Config.Instance.disabledSounds.Contains(sf.Filename))
+                    {
+                        sf.Disabled = true;
+                    }
+                }
+            }
         }
 
         protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -192,7 +253,7 @@ namespace SoundCenSeGTK
         {
             if (!Config.Instance.disabledSounds.Contains(disableSoundEventArgs.Filename))
             {
-                // lbDisabledSounds.Items.Add(disableSoundEventArgs.Filename);
+                AddDisabledSound(disableSoundEventArgs.Filename);
                 Config.Instance.disabledSounds.Add(disableSoundEventArgs.Filename);
                 foreach (Sound s in allSounds.Sounds)
                 {
@@ -325,5 +386,6 @@ namespace SoundCenSeGTK
         {
             Config.Instance.playbackThreshold = (Threshold)cbThreshold.Active;
         }
+
     }
 }

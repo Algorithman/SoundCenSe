@@ -49,7 +49,11 @@ namespace SoundCenSeGTK
 
         public fmodChannelSound GetSingleChannel(string channel)
         {
-            return channels.Single(x => x.Key.Value == channel.ToLower()).Value;
+            if (!channels.Any(x => x.Key.Value == channel.ToLower()))
+            {
+                return null;
+            }
+            return channels.SingleOrDefault(x => x.Key.Value == channel.ToLower()).Value;
         }
 
         public void RegisterChannel(fmodChannelSound channel)

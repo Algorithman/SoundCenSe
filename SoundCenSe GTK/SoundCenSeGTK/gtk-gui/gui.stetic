@@ -8,7 +8,7 @@
     <widget-library name="../../SoundCenSeGUI/bin/Debug/SoundCenSeGUI.dll" />
     <widget-library name="../bin/Debug/SoundCenSeGTK.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="SoundCenSeGTK.MainWindow" design-size="494 771">
+  <widget class="Gtk.Window" id="SoundCenSeGTK.MainWindow" design-size="534 771">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -20,7 +20,7 @@
         <child>
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
-            <property name="CurrentPage">0</property>
+            <property name="CurrentPage">1</property>
             <property name="ShowBorder">False</property>
             <property name="Scrollable">True</property>
             <child>
@@ -55,7 +55,6 @@
                             <property name="HeightRequest">21</property>
                             <property name="IsTextCombo">True</property>
                             <property name="Items" translatable="yes" />
-                            <signal name="Changed" handler="ThresholdChanged" />
                           </widget>
                           <packing>
                             <property name="Position">1</property>
@@ -128,6 +127,7 @@
                         <property name="UseUnderline">True</property>
                         <property name="FocusOnClick">False</property>
                         <property name="BorderWidth">10</property>
+                        <signal name="Clicked" handler="btnUpdateClick" />
                       </widget>
                       <packing>
                         <property name="Position">0</property>
@@ -183,7 +183,30 @@
               </packing>
             </child>
             <child>
-              <placeholder />
+              <widget class="Gtk.ScrolledWindow" id="scrolledwindow2">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="ShadowType">In</property>
+                <child>
+                  <widget class="Gtk.Viewport" id="GtkViewport2">
+                    <property name="MemberName" />
+                    <property name="ShadowType">None</property>
+                    <child>
+                      <widget class="Gtk.VBox" id="vboxDisabledSounds">
+                        <property name="MemberName" />
+                        <property name="Spacing">6</property>
+                        <property name="BorderWidth">6</property>
+                        <child>
+                          <placeholder />
+                        </child>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+              <packing>
+                <property name="Position">2</property>
+              </packing>
             </child>
             <child>
               <widget class="Gtk.Label" id="label7">
@@ -201,6 +224,102 @@
               <widget class="Gtk.Label" id="label8">
                 <property name="MemberName" />
                 <property name="LabelProp" translatable="yes">Configuration</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.VBox" id="vbox5">
+                <property name="MemberName" />
+                <property name="Spacing">6</property>
+                <child>
+                  <widget class="Gtk.Label" id="label4">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;span font_size="large"&gt;&lt;span font_weight="bold" face="Courier New"&gt;Toady One&lt;/span&gt; and &lt;span font_weight="bold" face="Courier New"&gt;ThreeToe&lt;/span&gt; for &lt;span font_size="x-large"font-weight="bold" face="Courier New"&gt;Dwarf Fortress&lt;/span&gt;&lt;/span&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                    <property name="Padding">20</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="label6">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;span font_size="large"&gt;&lt;span font_weight="bold"&gt;ZweiStein&lt;/span&gt; for the original &lt;span font_weight="bold" font_size="x-large"&gt;SoundSense&lt;/span&gt;&lt;/span&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                    <property name="Padding">20</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.HBox" id="hbox3">
+                    <property name="MemberName" />
+                    <property name="Spacing">6</property>
+                    <child>
+                      <widget class="Gtk.Image" id="image2">
+                        <property name="MemberName" />
+                        <property name="Pixbuf">resource:SoundCenSeGTK.fmod.png</property>
+                      </widget>
+                      <packing>
+                        <property name="Position">0</property>
+                        <property name="AutoSize">False</property>
+                        <property name="Fill">False</property>
+                        <property name="Padding">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Label" id="label10">
+                        <property name="MemberName" />
+                        <property name="LabelProp" translatable="yes">&lt;span font_size="large"&gt;&lt;span font_weight="bold"&gt;FMOD Studio&lt;/span&gt; by Firelight Technologies&lt;/span&gt;</property>
+                        <property name="UseMarkup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="Position">1</property>
+                        <property name="AutoSize">False</property>
+                        <property name="Fill">False</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="label11">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;span font_size="large"&gt;&lt;span font_weight="bold" font_size="large"&gt;jecowa&lt;/span&gt; for his very helpful testing on OSX&lt;/span&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">3</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                    <property name="Padding">20</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="Position">4</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label2">
+                <property name="MemberName" />
+                <property name="LabelProp" translatable="yes">Credits</property>
               </widget>
               <packing>
                 <property name="type">tab</property>

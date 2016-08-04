@@ -74,14 +74,22 @@ namespace SoundCenSeGTK
             }
             while (true)
             {
-                string line = logfileReader.ReadLine();
-                if (line != null)
+                try
                 {
-                    OnLogfileEvent(line);
+                    string line = logfileReader.ReadLine();
+                    if (line != null)
+                    {
+                        OnLogfileEvent(line);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    break;
+                    logger.Error("Exception while reading gamelog");
+                    logger.Error(ex);
                 }
             }
         }

@@ -185,6 +185,7 @@
                     <property name="MemberName" />
                     <property name="WidthRequest">38</property>
                     <property name="HeightRequest">38</property>
+                    <property name="Visible">False</property>
                     <property name="Type">TextAndIcon</property>
                     <property name="Icon">resource:SoundCenSeGUI.FastForward.png</property>
                     <property name="Label" translatable="yes" />

@@ -87,6 +87,7 @@ namespace SoundCenSeGTK
 				}
 			}
 		}
+        private Random rnd = new Random();
 
 		public SoundFile GetRandomSoundFile()
 		{
@@ -101,7 +102,7 @@ namespace SoundCenSeGTK
 						weightSum -= sf.Weight;
 					}
 				}
-				Random rnd = new Random();
+				
 				int weightedrandom = rnd.Next(weightSum);
 				foreach (SoundFile sf in SoundFiles.Where(x => !x.Disabled))
 				{

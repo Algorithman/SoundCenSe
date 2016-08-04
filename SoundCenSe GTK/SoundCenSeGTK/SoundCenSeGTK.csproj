@@ -20,6 +20,8 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <PlatformTarget>x86</PlatformTarget>
+    <Commandlineparameters>-debug</Commandlineparameters>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>full</DebugType>
@@ -65,6 +67,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\SignalGreen.png" />
     <EmbeddedResource Include="..\SignalRed.png" />
+    <EmbeddedResource Include="..\..\fmod.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -120,6 +123,10 @@
     <None Include="fmodstudio.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="NLog.xsd" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
@@ -144,6 +151,9 @@
   <ItemGroup>
     <Content Include="Configuration.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fmod.png">
+      <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
     </Content>
   </ItemGroup>
 </Project>

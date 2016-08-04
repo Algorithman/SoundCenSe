@@ -34,9 +34,29 @@ namespace SoundCenSeGTK
 		
 		private global::Gtk.Label label5;
 		
+		private global::Gtk.ScrolledWindow scrolledwindow2;
+		
+		private global::Gtk.VBox vboxDisabledSounds;
+		
 		private global::Gtk.Label label7;
 		
 		private global::Gtk.Label label8;
+		
+		private global::Gtk.VBox vbox5;
+		
+		private global::Gtk.Label label4;
+		
+		private global::Gtk.Label label6;
+		
+		private global::Gtk.HBox hbox3;
+		
+		private global::Gtk.Image image2;
+		
+		private global::Gtk.Label label10;
+		
+		private global::Gtk.Label label11;
+		
+		private global::Gtk.Label label2;
 		
 		private global::Gtk.Label label9;
 		
@@ -60,7 +80,7 @@ namespace SoundCenSeGTK
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 0;
+			this.notebook1.CurrentPage = 1;
 			this.notebook1.ShowBorder = false;
 			this.notebook1.Scrollable = true;
 			// Container child notebook1.Gtk.Notebook+NotebookChild
@@ -174,36 +194,130 @@ namespace SoundCenSeGTK
 			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Update");
 			this.notebook1.SetTabLabel (this.vbox3, this.label5);
 			this.label5.ShowAll ();
+			// Container child notebook1.Gtk.Notebook+NotebookChild
+			this.scrolledwindow2 = new global::Gtk.ScrolledWindow ();
+			this.scrolledwindow2.CanFocus = true;
+			this.scrolledwindow2.Name = "scrolledwindow2";
+			this.scrolledwindow2.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child scrolledwindow2.Gtk.Container+ContainerChild
+			global::Gtk.Viewport w16 = new global::Gtk.Viewport ();
+			w16.ShadowType = ((global::Gtk.ShadowType)(0));
+			// Container child GtkViewport2.Gtk.Container+ContainerChild
+			this.vboxDisabledSounds = new global::Gtk.VBox ();
+			this.vboxDisabledSounds.Name = "vboxDisabledSounds";
+			this.vboxDisabledSounds.Spacing = 6;
+			this.vboxDisabledSounds.BorderWidth = ((uint)(6));
+			w16.Add (this.vboxDisabledSounds);
+			this.scrolledwindow2.Add (w16);
+			this.notebook1.Add (this.scrolledwindow2);
+			global::Gtk.Notebook.NotebookChild w19 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.scrolledwindow2]));
+			w19.Position = 2;
 			// Notebook tab
-			global::Gtk.Label w16 = new global::Gtk.Label ();
-			w16.Visible = true;
-			this.notebook1.Add (w16);
 			this.label7 = new global::Gtk.Label ();
 			this.label7.Name = "label7";
 			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Disabled Sounds");
-			this.notebook1.SetTabLabel (w16, this.label7);
+			this.notebook1.SetTabLabel (this.scrolledwindow2, this.label7);
 			this.label7.ShowAll ();
 			// Notebook tab
-			global::Gtk.Label w17 = new global::Gtk.Label ();
-			w17.Visible = true;
-			this.notebook1.Add (w17);
+			global::Gtk.Label w20 = new global::Gtk.Label ();
+			w20.Visible = true;
+			this.notebook1.Add (w20);
 			this.label8 = new global::Gtk.Label ();
 			this.label8.Name = "label8";
 			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Configuration");
-			this.notebook1.SetTabLabel (w17, this.label8);
+			this.notebook1.SetTabLabel (w20, this.label8);
 			this.label8.ShowAll ();
+			// Container child notebook1.Gtk.Notebook+NotebookChild
+			this.vbox5 = new global::Gtk.VBox ();
+			this.vbox5.Name = "vbox5";
+			this.vbox5.Spacing = 6;
+			// Container child vbox5.Gtk.Box+BoxChild
+			this.label4 = new global::Gtk.Label ();
+			this.label4.Name = "label4";
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("<span font_size=\"large\"><span font_weight=\"bold\" face=\"Courier New\">Toady One</sp" +
+			"an> and <span font_weight=\"bold\" face=\"Courier New\">ThreeToe</span> for <span fo" +
+			"nt_size=\"x-large\"font-weight=\"bold\" face=\"Courier New\">Dwarf Fortress</span></sp" +
+			"an>");
+			this.label4.UseMarkup = true;
+			this.vbox5.Add (this.label4);
+			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.label4]));
+			w21.Position = 0;
+			w21.Expand = false;
+			w21.Fill = false;
+			w21.Padding = ((uint)(20));
+			// Container child vbox5.Gtk.Box+BoxChild
+			this.label6 = new global::Gtk.Label ();
+			this.label6.Name = "label6";
+			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("<span font_size=\"large\"><span font_weight=\"bold\">ZweiStein</span> for the origina" +
+			"l <span font_weight=\"bold\" font_size=\"x-large\">SoundSense</span></span>");
+			this.label6.UseMarkup = true;
+			this.vbox5.Add (this.label6);
+			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.label6]));
+			w22.Position = 1;
+			w22.Expand = false;
+			w22.Fill = false;
+			w22.Padding = ((uint)(20));
+			// Container child vbox5.Gtk.Box+BoxChild
+			this.hbox3 = new global::Gtk.HBox ();
+			this.hbox3.Name = "hbox3";
+			this.hbox3.Spacing = 6;
+			// Container child hbox3.Gtk.Box+BoxChild
+			this.image2 = new global::Gtk.Image ();
+			this.image2.Name = "image2";
+			this.image2.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("SoundCenSeGTK.fmod.png");
+			this.hbox3.Add (this.image2);
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.image2]));
+			w23.Position = 0;
+			w23.Fill = false;
+			w23.Padding = ((uint)(8));
+			// Container child hbox3.Gtk.Box+BoxChild
+			this.label10 = new global::Gtk.Label ();
+			this.label10.Name = "label10";
+			this.label10.LabelProp = global::Mono.Unix.Catalog.GetString ("<span font_size=\"large\"><span font_weight=\"bold\">FMOD Studio</span> by Firelight " +
+			"Technologies</span>");
+			this.label10.UseMarkup = true;
+			this.hbox3.Add (this.label10);
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.label10]));
+			w24.Position = 1;
+			w24.Fill = false;
+			this.vbox5.Add (this.hbox3);
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbox3]));
+			w25.Position = 2;
+			w25.Expand = false;
+			w25.Fill = false;
+			// Container child vbox5.Gtk.Box+BoxChild
+			this.label11 = new global::Gtk.Label ();
+			this.label11.Name = "label11";
+			this.label11.LabelProp = global::Mono.Unix.Catalog.GetString ("<span font_size=\"large\"><span font_weight=\"bold\" font_size=\"large\">jecowa</span> " +
+			"for his very helpful testing on OSX</span>");
+			this.label11.UseMarkup = true;
+			this.vbox5.Add (this.label11);
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.label11]));
+			w26.Position = 3;
+			w26.Expand = false;
+			w26.Fill = false;
+			w26.Padding = ((uint)(20));
+			this.notebook1.Add (this.vbox5);
+			global::Gtk.Notebook.NotebookChild w27 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox5]));
+			w27.Position = 4;
 			// Notebook tab
-			global::Gtk.Label w18 = new global::Gtk.Label ();
-			w18.Visible = true;
-			this.notebook1.Add (w18);
+			this.label2 = new global::Gtk.Label ();
+			this.label2.Name = "label2";
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Credits");
+			this.notebook1.SetTabLabel (this.vbox5, this.label2);
+			this.label2.ShowAll ();
+			// Notebook tab
+			global::Gtk.Label w28 = new global::Gtk.Label ();
+			w28.Visible = true;
+			this.notebook1.Add (w28);
 			this.label9 = new global::Gtk.Label ();
 			this.label9.Name = "label9";
 			this.label9.LabelProp = global::Mono.Unix.Catalog.GetString ("Debug");
-			this.notebook1.SetTabLabel (w18, this.label9);
+			this.notebook1.SetTabLabel (w28, this.label9);
 			this.label9.ShowAll ();
 			this.vbox1.Add (this.notebook1);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook1]));
-			w19.Position = 0;
+			global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook1]));
+			w29.Position = 0;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.StatusBar = new global::Gtk.Statusbar ();
 			this.StatusBar.Name = "StatusBar";
@@ -213,35 +327,35 @@ namespace SoundCenSeGTK
 			this.progressbar1.WidthRequest = 100;
 			this.progressbar1.Name = "progressbar1";
 			this.StatusBar.Add (this.progressbar1);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.StatusBar [this.progressbar1]));
-			w20.Position = 1;
-			w20.Expand = false;
-			w20.Fill = false;
+			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.StatusBar [this.progressbar1]));
+			w30.Position = 1;
+			w30.Expand = false;
+			w30.Fill = false;
 			// Container child StatusBar.Gtk.Box+BoxChild
 			this.image1 = new global::Gtk.Image ();
 			this.image1.WidthRequest = 18;
 			this.image1.Name = "image1";
 			this.image1.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("SoundCenSeGTK.SignalRed.png");
 			this.StatusBar.Add (this.image1);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.StatusBar [this.image1]));
-			w21.Position = 2;
-			w21.Expand = false;
-			w21.Fill = false;
+			global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.StatusBar [this.image1]));
+			w31.Position = 2;
+			w31.Expand = false;
+			w31.Fill = false;
 			this.vbox1.Add (this.StatusBar);
-			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.StatusBar]));
-			w22.PackType = ((global::Gtk.PackType)(1));
-			w22.Position = 1;
-			w22.Expand = false;
+			global::Gtk.Box.BoxChild w32 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.StatusBar]));
+			w32.PackType = ((global::Gtk.PackType)(1));
+			w32.Position = 1;
+			w32.Expand = false;
 			this.Add (this.vbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 494;
+			this.DefaultWidth = 534;
 			this.DefaultHeight = 771;
 			this.progressbar1.Hide ();
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-			this.cbThreshold.Changed += new global::System.EventHandler (this.ThresholdChanged);
+			this.btnUpdate.Clicked += new global::System.EventHandler (this.btnUpdateClick);
 		}
 	}
 }

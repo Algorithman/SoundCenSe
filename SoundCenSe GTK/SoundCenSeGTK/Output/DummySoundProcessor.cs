@@ -14,7 +14,7 @@ namespace SoundCenSeGTK
 
         public DummySoundProcessor(SoundsXML sounds) : base(sounds)
         {
-            this.soundsXML.Sounds = sounds.Sounds.Where(x => !string.IsNullOrEmpty(x.Channel)).ToList();
+            this.soundsXML.Sounds = sounds.Sounds;
         }
 
         public override void ProcessLine(object sender, GamelogEventArgs e)

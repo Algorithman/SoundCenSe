@@ -3,12 +3,14 @@ using Misc;
 using System.Collections.Generic;
 using FMOD;
 using System.Linq;
+using NLog;
 
 namespace SoundCenSeGTK
 {
     public class fmodPlayer : IDisposable, IPlayerManager
     {
         #region Fields and Constants
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static fmodPlayer instance;
 
@@ -40,7 +42,7 @@ namespace SoundCenSeGTK
             foreach (string channelName in channelNames)
             {
                 ChannelGroup cg;
-                FmodSystem.System.createChannelGroup(channelName, out cg);
+                FmodSystem.ERRCHECK(FmodSystem.System.createChannelGroup(channelName, out cg));
                 channelGroups.Add(channelName, cg);
             }
         }
@@ -88,7 +90,10 @@ namespace SoundCenSeGTK
         public void FastForward(string channel)
         {
             fmodChannelSound fcs = FmodChannelPool.Instance.GetSingleChannel(channel.ToLower());
-            fcs.Channel.stop();
+            if (fcs != null)
+            {
+                fcs.Channel.stop();
+            }
         }
 
         private void LoopSound(object sender, RestartSoundLoopEventArgs restartSoundLoopEventArgs)
@@ -99,7 +104,14 @@ namespace SoundCenSeGTK
             if (((Sound)ssf.Sound).SoundFiles.Count > 1)
             {
                 SoundFile sf = (SoundFile)ssf.SoundFile;
-                while (sf == ssf.SoundFile)
+                if (((Sound)ssf.Sound).SoundFiles.Count(x => x.Disabled) < ((Sound)ssf.Sound).SoundFiles.Count() - 1)
+                {
+                    while (sf == ssf.SoundFile)
+                    {
+                        sf = ((Sound)ssf.Sound).GetRandomSoundFile();
+                    }
+                }
+                else
                 {
                     sf = ((Sound)ssf.Sound).GetRandomSoundFile();
                 }
@@ -112,7 +124,17 @@ namespace SoundCenSeGTK
 
         public void MuteChannel(string channel, bool mute)
         {
-            FmodChannelPool.Instance.GetSingleChannel(channel.ToLower()).Mute = mute;
+            if (string.IsNullOrEmpty(channel))
+            {
+                channel = "sfx";
+            }
+            ChannelGroup cg = null;
+            if (channelGroups.ContainsKey(channel.ToLower()))
+            {
+                cg=channelGroups[channel.ToLower()];
+                cg.setMute(mute);
+                Config.Instance.GetChannelData(channel.ToLower()).Mute=mute;
+            }
         }
 
         private void OnPlaySound(string channel, SoundSoundFile sf, float channelVolume, bool channelMute)
@@ -152,8 +174,11 @@ namespace SoundCenSeGTK
                 {
                     // Already running music?
                     fmodChannelSound oldfmc = FmodChannelPool.Instance.GetSingleChannel(channel.ToLower());
-                    oldfmc.LoopSound -= LoopSound;
-                    oldfmc.Dispose();
+                    if (oldfmc != null)
+                    {
+                        oldfmc.LoopSound -= LoopSound;
+                        oldfmc.Dispose();
+                    }
                 }
             }
             if ((sf.Sound.Concurrency != -1) && (sf.Sound.Concurrency <= concurrency))
@@ -166,25 +191,25 @@ namespace SoundCenSeGTK
                 return;
             }
 
-            RESULT r = FmodSystem.System.createSound(sf.SoundFile.Filename, MODE.DEFAULT | MODE.CREATESTREAM,
-                           out newSound);
+            FmodSystem.ERRCHECK(FmodSystem.System.createSound(sf.SoundFile.Filename, MODE.DEFAULT | MODE.CREATESTREAM,
+                out newSound));
 
             uint soundLength = 0;
-            newSound.getLength(out soundLength, TIMEUNIT.MS);
+            FmodSystem.ERRCHECK(newSound.getLength(out soundLength, TIMEUNIT.MS));
             sf.SoundFile.Length = soundLength;
             sf.fmodSound = newSound;
             Channel ch;
-            FmodSystem.System.playSound(newSound, channelGroups[channel], true, out ch);
+            FmodSystem.ERRCHECK(FmodSystem.System.playSound(newSound, channelGroups[channel], true, out ch));
             if (sf.Sound.Delay > 0)
             {
                 float freq;
-                ch.getFrequency(out freq);
+                FmodSystem.ERRCHECK(ch.getFrequency(out freq));
                 ulong dspC1;
                 ulong dspC2;
-                ch.getDSPClock(out dspC1, out dspC2);
+                FmodSystem.ERRCHECK(ch.getDSPClock(out dspC1, out dspC2));
                 ulong newDelay = Convert.ToUInt64(sf.Sound.Delay * freq / 500);
 
-                ch.setDelay(newDelay + dspC1, dspC2 + newDelay, false);
+                    FmodSystem.ERRCHECK(ch.setDelay(newDelay + dspC1, dspC2 + newDelay, false));
             }
             /*
             if (rnd.Next(5000) > 2000)
@@ -215,7 +240,10 @@ namespace SoundCenSeGTK
         private void SoundFinished(object sender, SoundFinishedEventArgs soundFinishedEventArgs)
         {
             fmodChannelSound fmc = (fmodChannelSound)sender;
-            fmc.Dispose();
+            if (fmc != null)
+            {
+                fmc.Dispose();
+            }
         }
 
         public void StopAll()

@@ -10,12 +10,16 @@
 using System;
 using System.Collections.Generic;
 using FMOD;
+using NLog;
+using System.Diagnostics;
 
 namespace SoundCenSeGTK
 {
     public static class FmodSystem
     {
         #region Fields and Constants
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static FMOD.System _system;
 
@@ -55,6 +59,15 @@ namespace SoundCenSeGTK
             else
             {
                 RawChannels.Add(id, c);
+            }
+        }
+
+        public static void ERRCHECK(RESULT result)
+        {
+            if (result != RESULT.OK)
+            {
+                logger.Info("FMOD Error: " + result.ToString());
+                logger.Info(new StackTrace().ToString());
             }
         }
     }

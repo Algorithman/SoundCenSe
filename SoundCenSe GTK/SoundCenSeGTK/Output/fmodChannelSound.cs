@@ -4,6 +4,7 @@ using FMOD;
 using Misc;
 using Mono;
 using System.Runtime.InteropServices;
+using Gtk;
 
 
 namespace SoundCenSeGTK
@@ -36,7 +37,7 @@ namespace SoundCenSeGTK
             get
             {
                 Channel ch;
-                FmodSystem.System.getChannel(Id, out ch);
+                FmodSystem.ERRCHECK(FmodSystem.System.getChannel(Id, out ch));
                 if (ch.isValid())
                 {
                     return ch;
@@ -62,12 +63,18 @@ namespace SoundCenSeGTK
                 {
                     mute = value;
                     Channel ch;
-                    FmodSystem.System.getChannel(Id, out ch);
+                    FmodSystem.ERRCHECK(FmodSystem.System.getChannel(Id, out ch));
                     if (ch.isValid())
                     {
                         ChannelGroup cg;
-                        ch.getChannelGroup(out cg);
-                        cg.setMute(mute);
+                        FmodSystem.ERRCHECK(ch.getChannelGroup(out cg));
+                        if (cg != null)
+                        {
+                            if (cg.isValid())
+                            {
+                                FmodSystem.ERRCHECK(cg.setMute(mute));
+                            }
+                        }
                     }
                 }
             }
@@ -84,14 +91,14 @@ namespace SoundCenSeGTK
             {
                 volume = value;
                 Channel ch;
-                FmodSystem.System.getChannel(Id, out ch);
+                FmodSystem.ERRCHECK(FmodSystem.System.getChannel(Id, out ch));
                 if (ch.isValid())
                 {
                     ChannelGroup cg;
-                    ch.getChannelGroup(out cg);
+                    FmodSystem.ERRCHECK(ch.getChannelGroup(out cg));
                     if (cg.isValid())
                     {
-                        cg.setVolume(value);
+                        FmodSystem.ERRCHECK(cg.setVolume(value));
                     }
                 }
             }
@@ -108,7 +115,7 @@ namespace SoundCenSeGTK
             ChannelName = channelName;
             cb = new CHANNEL_CALLBACK(Callback);
 
-            RESULT r = channel.setCallback(cb);
+            FmodSystem.ERRCHECK(channel.setCallback(cb));
 
             FmodChannelPool.Instance.RegisterChannel(this);
         }
@@ -123,7 +130,7 @@ namespace SoundCenSeGTK
 
         #endregion
 
-        [AllowReversePInvokeCalls()]
+
         private RESULT Callback(IntPtr channelraw, CHANNELCONTROL_TYPE controltype, CHANNELCONTROL_CALLBACK_TYPE type,
                                 IntPtr commanddata1, IntPtr commanddata2)
         {
@@ -138,7 +145,7 @@ namespace SoundCenSeGTK
                             // Console.WriteLine("Callback called for " + SoundSoundFile.SoundFile.Filename);
                             //Console.WriteLine("System ptr: " + FmodSystem.System.getRaw());
                             //Console.WriteLine("Thread id: " + Thread.CurrentThread.ManagedThreadId + " " + Thread.CurrentThread.IsThreadPoolThread);
-                            OnSoundEnded();
+                            Application.Invoke(delegate{OnSoundEnded();});
                         }
                         //Console.WriteLine("System ptr: " + FmodSystem.System.getRaw());
                     }
@@ -154,13 +161,13 @@ namespace SoundCenSeGTK
             {
                 Stop();
                 Channel ch;
-                RESULT r = FmodSystem.System.getChannel(Id, out ch);
+                FmodSystem.ERRCHECK(FmodSystem.System.getChannel(Id, out ch));
                 if (ch.isValid())
                 {
                     if (SoundSoundFile.fmodSound != null)
                     {
                         FMOD.Sound s;
-                        r = ch.getCurrentSound(out s);
+                        FmodSystem.ERRCHECK(ch.getCurrentSound(out s));
                         SoundsToFree.Enqueue(s);
                     }
                     FmodChannelPool.Instance.UnregisterChannel(this);
@@ -171,7 +178,7 @@ namespace SoundCenSeGTK
         public bool isPlaying(SoundSoundFile currentlyPlaying)
         {
             bool isPlaying2 = false;
-            Channel.isPlaying(out isPlaying2);
+            FmodSystem.ERRCHECK(Channel.isPlaying(out isPlaying2));
             if (isPlaying2 && (currentlyPlaying.Sound == SoundSoundFile.Sound) &&
                 (currentlyPlaying.SoundFile == SoundSoundFile.SoundFile))
             {
@@ -182,20 +189,23 @@ namespace SoundCenSeGTK
 
         protected virtual void OnSoundEnded()
         {
-            if (SoundSoundFile.Sound.loop == Loop.Stop_Looping)
+            if (SoundSoundFile != null)
             {
-                var handler = SoundFinished;
-                if (handler != null)
+                if (SoundSoundFile.Sound.loop == Loop.Stop_Looping)
                 {
-                    handler(this, new SoundFinishedEventArgs(SoundSoundFile.Sound, SoundSoundFile.SoundFile));
+                    var handler = SoundFinished;
+                    if (handler != null)
+                    {
+                        handler(this, new SoundFinishedEventArgs(SoundSoundFile.Sound, SoundSoundFile.SoundFile));
+                    }
                 }
-            }
-            else
-            {
-                var handler2 = LoopSound;
-                if (handler2 != null)
+                else
                 {
-                    handler2(this, new RestartSoundLoopEventArgs(SoundSoundFile));
+                    var handler2 = LoopSound;
+                    if (handler2 != null)
+                    {
+                        handler2(this, new RestartSoundLoopEventArgs(SoundSoundFile));
+                    }
                 }
             }
         }
@@ -220,10 +230,10 @@ namespace SoundCenSeGTK
         public void Start()
         {
             Channel ch;
-            FmodSystem.System.getChannel(Id, out ch);
+            FmodSystem.ERRCHECK(FmodSystem.System.getChannel(Id, out ch));
             if (ch.isValid())
             {
-                ch.setPaused(false);
+                FmodSystem.ERRCHECK(ch.setPaused(false));
             }
         }
 
@@ -231,24 +241,24 @@ namespace SoundCenSeGTK
         {
             //Console.WriteLine("Stop: Getting Channel");
             Channel ch;
-            RESULT r = FmodSystem.System.getChannel(Id, out ch);
+            FmodSystem.ERRCHECK(FmodSystem.System.getChannel(Id, out ch));
             if (ch.isValid())
             {
                 //  Console.WriteLine("Result getChannel: " + r);
                 FMOD.Sound s;
-                r = ch.getCurrentSound(out s);
+                FmodSystem.ERRCHECK(ch.getCurrentSound(out s));
                 //Console.WriteLine("Result getCurrentSound: " + r);
                 bool isPlaying = false;
                 if (ch.isValid())
                 {
-                    r = ch.isPlaying(out isPlaying);
+                    FmodSystem.ERRCHECK(ch.isPlaying(out isPlaying));
                     //  Console.WriteLine("Result IsPlaying: " + r + " " + isPlaying);
                 }
                 if (isPlaying)
                 {
                     if (ch.isValid())
                     {
-                        r = ch.stop();
+                        FmodSystem.ERRCHECK(ch.stop());
                         //  Console.WriteLine("Result Stop: " + r);
                     }
                 }

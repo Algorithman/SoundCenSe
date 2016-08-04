@@ -19,6 +19,7 @@ namespace SoundCenSeGUI
             this.Build();
             ChannelName = channel;
             ShowAll();
+            btnFastForward.Visible = false;
         }
 
         public string ChannelName

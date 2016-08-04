@@ -290,6 +290,8 @@ namespace SoundCenSeGTK
             Process[] processlist = Process.GetProcesses();
             foreach (Process p in processlist)
             {
+                try
+                {
                 if ((p.ProcessName == "Dwarf_Fortress") || (p.ProcessName == "Dwarf Fortress"))
                 {
                     if (System.IO.Path.DirectorySeparatorChar == '\\')
@@ -304,7 +306,10 @@ namespace SoundCenSeGTK
                     OnDFRunning(p.Id);
                     return;
                 }
-               
+                }
+                catch 
+                {
+                }
             }
             OnDFNotRunning();
         }

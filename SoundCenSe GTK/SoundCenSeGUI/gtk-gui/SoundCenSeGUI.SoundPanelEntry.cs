@@ -8,27 +8,23 @@ namespace SoundCenSeGUI
 		
 		private global::Gtk.HBox hbox1;
 		
-		private global::Gtk.VBox vbox5;
-		
 		private global::Gtk.HBox hbox2;
+		
+		private global::Gtk.VBox vbox2;
+		
+		private global::Gtk.Label label1;
 		
 		private global::Gtk.Label label2;
 		
+		private global::Gtk.Label label3;
+		
+		private global::Gtk.VBox vbox3;
+		
 		private global::Gtk.Label labelFile;
-		
-		private global::Gtk.HBox hbox3;
-		
-		private global::Gtk.Label label4;
 		
 		private global::Gtk.Label labelRemaining;
 		
-		private global::Gtk.HBox hbox4;
-		
-		private global::Gtk.Label label6;
-		
 		private global::Gtk.Label labelChannel;
-		
-		private global::Gtk.HBox hbox5;
 		
 		private global::Gtk.VScale volumeScale;
 		
@@ -60,100 +56,84 @@ namespace SoundCenSeGUI
 			this.hbox1.Name = "hbox1";
 			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.vbox5 = new global::Gtk.VBox ();
-			this.vbox5.Name = "vbox5";
-			this.vbox5.Spacing = 6;
-			// Container child vbox5.Gtk.Box+BoxChild
 			this.hbox2 = new global::Gtk.HBox ();
 			this.hbox2.Name = "hbox2";
 			this.hbox2.Spacing = 6;
 			// Container child hbox2.Gtk.Box+BoxChild
-			this.label2 = new global::Gtk.Label ();
-			this.label2.WidthRequest = 60;
-			this.label2.Name = "label2";
-			this.label2.Xalign = 0F;
-			this.label2.LabelProp = "File:";
-			this.hbox2.Add (this.label2);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.label2]));
+			this.vbox2 = new global::Gtk.VBox ();
+			this.vbox2.Name = "vbox2";
+			this.vbox2.Spacing = 6;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.label1 = new global::Gtk.Label ();
+			this.label1.Name = "label1";
+			this.label1.Xalign = 0F;
+			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("File");
+			this.vbox2.Add (this.label1);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.label1]));
 			w1.Position = 0;
 			w1.Expand = false;
 			w1.Fill = false;
-			// Container child hbox2.Gtk.Box+BoxChild
-			this.labelFile = new global::Gtk.Label ();
-			this.labelFile.Name = "labelFile";
-			this.labelFile.Xalign = 0F;
-			this.hbox2.Add (this.labelFile);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.labelFile]));
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.label2 = new global::Gtk.Label ();
+			this.label2.Name = "label2";
+			this.label2.Xalign = 0F;
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Remaining");
+			this.vbox2.Add (this.label2);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.label2]));
 			w2.Position = 1;
-			this.vbox5.Add (this.hbox2);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbox2]));
-			w3.Position = 0;
+			w2.Expand = false;
+			w2.Fill = false;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.label3 = new global::Gtk.Label ();
+			this.label3.Name = "label3";
+			this.label3.Xalign = 0F;
+			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Channel");
+			this.vbox2.Add (this.label3);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.label3]));
+			w3.Position = 2;
 			w3.Expand = false;
 			w3.Fill = false;
-			// Container child vbox5.Gtk.Box+BoxChild
-			this.hbox3 = new global::Gtk.HBox ();
-			this.hbox3.Name = "hbox3";
-			this.hbox3.Spacing = 6;
-			// Container child hbox3.Gtk.Box+BoxChild
-			this.label4 = new global::Gtk.Label ();
-			this.label4.WidthRequest = 60;
-			this.label4.Name = "label4";
-			this.label4.Xalign = 0F;
-			this.label4.LabelProp = "Remaining:";
-			this.hbox3.Add (this.label4);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.label4]));
+			this.hbox2.Add (this.vbox2);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbox2]));
 			w4.Position = 0;
 			w4.Expand = false;
 			w4.Fill = false;
-			// Container child hbox3.Gtk.Box+BoxChild
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.vbox3 = new global::Gtk.VBox ();
+			this.vbox3.Name = "vbox3";
+			this.vbox3.Spacing = 6;
+			// Container child vbox3.Gtk.Box+BoxChild
+			this.labelFile = new global::Gtk.Label ();
+			this.labelFile.Name = "labelFile";
+			this.labelFile.Xalign = 0F;
+			this.vbox3.Add (this.labelFile);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.labelFile]));
+			w5.Position = 0;
+			w5.Expand = false;
+			// Container child vbox3.Gtk.Box+BoxChild
 			this.labelRemaining = new global::Gtk.Label ();
 			this.labelRemaining.Name = "labelRemaining";
 			this.labelRemaining.Xalign = 0F;
-			this.hbox3.Add (this.labelRemaining);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.labelRemaining]));
-			w5.Position = 1;
-			this.vbox5.Add (this.hbox3);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbox3]));
+			this.vbox3.Add (this.labelRemaining);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.labelRemaining]));
 			w6.Position = 1;
 			w6.Expand = false;
-			w6.Fill = false;
-			// Container child vbox5.Gtk.Box+BoxChild
-			this.hbox4 = new global::Gtk.HBox ();
-			this.hbox4.Name = "hbox4";
-			this.hbox4.Spacing = 6;
-			// Container child hbox4.Gtk.Box+BoxChild
-			this.label6 = new global::Gtk.Label ();
-			this.label6.WidthRequest = 60;
-			this.label6.Name = "label6";
-			this.label6.Xalign = 0F;
-			this.label6.LabelProp = "Channel:";
-			this.hbox4.Add (this.label6);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.label6]));
-			w7.Position = 0;
-			w7.Expand = false;
-			w7.Fill = false;
-			// Container child hbox4.Gtk.Box+BoxChild
+			// Container child vbox3.Gtk.Box+BoxChild
 			this.labelChannel = new global::Gtk.Label ();
 			this.labelChannel.Name = "labelChannel";
 			this.labelChannel.Xalign = 0F;
-			this.hbox4.Add (this.labelChannel);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.labelChannel]));
+			this.vbox3.Add (this.labelChannel);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.labelChannel]));
+			w7.Position = 2;
+			w7.Expand = false;
+			this.hbox2.Add (this.vbox3);
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbox3]));
 			w8.Position = 1;
-			this.vbox5.Add (this.hbox4);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbox4]));
-			w9.Position = 2;
-			w9.Expand = false;
-			w9.Fill = false;
-			// Container child vbox5.Gtk.Box+BoxChild
-			this.hbox5 = new global::Gtk.HBox ();
-			this.hbox5.Name = "hbox5";
-			this.hbox5.Spacing = 6;
-			this.vbox5.Add (this.hbox5);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbox5]));
-			w10.Position = 3;
-			this.hbox1.Add (this.vbox5);
-			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox5]));
-			w11.Position = 0;
+			w8.Expand = false;
+			w8.Fill = false;
+			this.hbox1.Add (this.hbox2);
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.hbox2]));
+			w9.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.volumeScale = new global::Gtk.VScale (null);
 			this.volumeScale.Name = "volumeScale";
@@ -166,10 +146,10 @@ namespace SoundCenSeGUI
 			this.volumeScale.Digits = 0;
 			this.volumeScale.ValuePos = ((global::Gtk.PositionType)(3));
 			this.hbox1.Add (this.volumeScale);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.volumeScale]));
-			w12.Position = 1;
-			w12.Expand = false;
-			w12.Fill = false;
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.volumeScale]));
+			w10.Position = 1;
+			w10.Expand = false;
+			w10.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vbox4 = new global::Gtk.VBox ();
 			this.vbox4.Name = "vbox4";
@@ -180,38 +160,38 @@ namespace SoundCenSeGUI
 			this.btnFastForward.HeightRequest = 38;
 			this.btnFastForward.Name = "btnFastForward";
 			this.btnFastForward.FocusOnClick = false;
-			global::Gtk.Image w13 = new global::Gtk.Image ();
-			w13.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("SoundCenSeGUI.FastForward.png");
-			this.btnFastForward.Image = w13;
+			global::Gtk.Image w11 = new global::Gtk.Image ();
+			w11.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("SoundCenSeGUI.FastForward.png");
+			this.btnFastForward.Image = w11;
 			this.vbox4.Add (this.btnFastForward);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btnFastForward]));
-			w14.Position = 0;
-			w14.Expand = false;
-			w14.Fill = false;
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btnFastForward]));
+			w12.Position = 0;
+			w12.Expand = false;
+			w12.Fill = false;
 			// Container child vbox4.Gtk.Box+BoxChild
 			this.btnMute = new global::Gtk.ToggleButton ();
 			this.btnMute.WidthRequest = 38;
 			this.btnMute.HeightRequest = 38;
 			this.btnMute.Name = "btnMute";
 			this.btnMute.FocusOnClick = false;
-			global::Gtk.Image w15 = new global::Gtk.Image ();
-			w15.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("SoundCenSeGUI.Mute.png");
-			this.btnMute.Image = w15;
+			global::Gtk.Image w13 = new global::Gtk.Image ();
+			w13.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("SoundCenSeGUI.Mute.png");
+			this.btnMute.Image = w13;
 			this.vbox4.Add (this.btnMute);
-			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btnMute]));
-			w16.Position = 1;
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btnMute]));
+			w14.Position = 1;
+			w14.Expand = false;
+			w14.Fill = false;
+			this.hbox1.Add (this.vbox4);
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox4]));
+			w15.Position = 2;
+			w15.Expand = false;
+			w15.Fill = false;
+			this.vbox1.Add (this.hbox1);
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox1]));
+			w16.Position = 0;
 			w16.Expand = false;
 			w16.Fill = false;
-			this.hbox1.Add (this.vbox4);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox4]));
-			w17.Position = 2;
-			w17.Expand = false;
-			w17.Fill = false;
-			this.vbox1.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox1]));
-			w18.Position = 0;
-			w18.Expand = false;
-			w18.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.expander3 = new global::Gtk.Expander (null);
 			this.expander3.Name = "expander3";
@@ -222,13 +202,13 @@ namespace SoundCenSeGUI
 			this.expander3.Add (this.DisablerTable);
 			this.GtkLabel2 = new global::Gtk.Label ();
 			this.GtkLabel2.Name = "GtkLabel2";
-			this.GtkLabel2.LabelProp = "Show played sounds";
+			this.GtkLabel2.LabelProp = global::Mono.Unix.Catalog.GetString ("Show played sounds");
 			this.GtkLabel2.UseUnderline = true;
 			this.expander3.LabelWidget = this.GtkLabel2;
 			this.vbox1.Add (this.expander3);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.expander3]));
-			w20.Position = 1;
-			w20.Expand = false;
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.expander3]));
+			w18.Position = 1;
+			w18.Expand = false;
 			this.Add (this.vbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();

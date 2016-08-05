@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9805FF66-0D87-4C93-AF45-A92873446903}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Misc</RootNamespace>
+    <AssemblyName>Misc</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>1.3.0</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Events\DisableSoundEventArgs.cs" />
+    <Compile Include="Events\ChannelFastForwardEventArgs.cs" />
+    <Compile Include="Events\ChannelMuteEventArgs.cs" />
+    <Compile Include="Events\VolumeChangedEventArgs.cs" />
+    <Compile Include="Events\XMLParseProgressEventArgs.cs" />
+    <Compile Include="Events\XMLParseDoneEventArgs.cs" />
+    <Compile Include="Interfaces\IPlaylistParser.cs" />
+    <Compile Include="Events\DwarfFortressRunningEventArgs.cs" />
+    <Compile Include="Events\DwarfFortressStoppedEventArgs.cs" />
+    <Compile Include="Interfaces\IDownloadEntry.cs" />
+    <Compile Include="Interfaces\DownloadResult.cs" />
+    <Compile Include="Events\DownloadFinishedEventArgs.cs" />
+    <Compile Include="Events\UpdateFinishedEventArgs.cs" />
+    <Compile Include="Events\StartDownloadEventArgs.cs" />
+    <Compile Include="Interfaces\IPlayerManager.cs" />
+    <Compile Include="Enums\Loop.cs" />
+    <Compile Include="Enums\RunState.cs" />
+    <Compile Include="Enums\Threshold.cs" />
+    <Compile Include="Interfaces\ISound.cs" />
+    <Compile Include="Events\GamelogEventArgs.cs" />
+    <Compile Include="Events\SoundFinishedEventArgs.cs" />
+    <Compile Include="Interfaces\ISoundFile.cs" />
+    <Compile Include="Events\RestartSoundLoopEventArgs.cs" />
+    <Compile Include="Interfaces\ISoundSoundFile.cs" />
+    <Compile Include="Events\SoundPlayingEventArgs.cs" />
+    <Compile Include="StringExtension.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Events\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Enums\" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+          <CSharpFormattingPolicy IndentSwitchBody="True" IndentBlocksInsideExpressions="True" AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" PropertyGetBraceStyle="NextLine" PropertySetBraceStyle="NextLine" EventBraceStyle="NextLine" EventAddBraceStyle="NextLine" EventRemoveBraceStyle="NextLine" StatementBraceStyle="NextLine" ElseNewLinePlacement="NewLine" CatchNewLinePlacement="NewLine" FinallyNewLinePlacement="NewLine" WhileNewLinePlacement="DoNotCare" ArrayInitializerWrapping="DoNotChange" ArrayInitializerBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" NewLineBeforeConstructorInitializerColon="NewLine" NewLineAfterConstructorInitializerColon="SameLine" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" SpacesBeforeBrackets="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

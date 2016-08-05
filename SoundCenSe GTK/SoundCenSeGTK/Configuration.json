@@ -1,0 +1,50 @@
+﻿{
+  "achievements": false,
+  "allowPackOverride": true,
+  "autoUpdateURLs": [
+    "http://df.zweistein.cz/soundsense/soundpack",
+    "http://www.armedassault.info/_hosted/soundsense/au"
+  ],
+  "Channels": [
+    {
+      "Channel": "weather",
+      "Mute": false,
+      "Volume": 1.0
+    },
+    {
+      "Channel": "music",
+      "Mute": false,
+      "Volume": 1.0
+    },
+    {
+      "Channel": "swords",
+      "Mute": false,
+      "Volume": 1.0
+    },
+    {
+      "Channel": "trade",
+      "Mute": false,
+      "Volume": 1.0
+    },
+    {
+      "Channel": "sfx",
+      "Mute": false,
+      "Volume": 1.0
+    }
+  ],
+  "deleteFiles": true,
+  "disabledSounds": [],
+  "expectedMinimalSoundsCound": 0,
+  "gamelogEncoding": "Cp850",
+  "gamelogPath": "../df_linux/gamelog.txt",
+  "gui": true,
+  "mutedChannels": [],
+  "noWarnAbsolutePaths": false,
+  "playbackThreshold": 4,
+  "replaceFiles": true,
+  "soundpacksPath": "./packs/",
+  "supplementalLogs": [],
+  "volume": 0.0,
+  "autoDetect": true
+}
+

@@ -37,7 +37,7 @@ namespace SoundCenSeGUI
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.labelSoundName = new global::Gtk.Label ();
 			this.labelSoundName.Name = "labelSoundName";
-			this.labelSoundName.LabelProp = "";
+			this.labelSoundName.LabelProp = "label7";
 			this.hbox1.Add (this.labelSoundName);
 			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.labelSoundName]));
 			w3.Position = 1;

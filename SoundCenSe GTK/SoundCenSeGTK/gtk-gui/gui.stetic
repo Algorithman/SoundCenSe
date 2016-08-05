@@ -56,6 +56,7 @@
                             <property name="HeightRequest">21</property>
                             <property name="IsTextCombo">True</property>
                             <property name="Items" translatable="yes" />
+                            <signal name="Changed" handler="ThresholdChanged" />
                           </widget>
                           <packing>
                             <property name="Position">1</property>

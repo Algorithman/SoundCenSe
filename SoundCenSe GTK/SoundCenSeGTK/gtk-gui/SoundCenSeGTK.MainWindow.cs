@@ -474,6 +474,7 @@ namespace SoundCenSeGTK
 			this.progressbar1.Hide ();
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+			this.cbThreshold.Changed += new global::System.EventHandler (this.ThresholdChanged);
 			this.btnUpdate.Clicked += new global::System.EventHandler (this.btnUpdateClick);
 			this.UpdateListbox.SizeAllocated += new global::Gtk.SizeAllocatedHandler (this.ScrollDown);
 			this.btnSoundPackPath.Clicked += new global::System.EventHandler (this.btnSoundPackPathClicked);

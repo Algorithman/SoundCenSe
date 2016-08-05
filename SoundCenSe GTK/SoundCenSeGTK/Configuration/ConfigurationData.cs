@@ -47,6 +47,8 @@ namespace SoundCenSeGTK
 
         public float volume { get; set; }
 
+        public bool autoDetect { get; set; }
+
         #endregion
 
         public ConfigurationData()

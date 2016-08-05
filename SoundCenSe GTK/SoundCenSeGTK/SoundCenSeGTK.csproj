@@ -68,6 +68,7 @@
     <EmbeddedResource Include="..\SignalGreen.png" />
     <EmbeddedResource Include="..\SignalRed.png" />
     <EmbeddedResource Include="..\..\fmod.png" />
+    <EmbeddedResource Include="..\Program.ico" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />

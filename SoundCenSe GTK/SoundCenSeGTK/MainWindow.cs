@@ -21,14 +21,29 @@ namespace SoundCenSeGTK
             Build();
             Config.Load(@"Configuration.json");
 
+            // Set AutoDetect to false when not running on windows
+            Config.Instance.autoDetect &= System.IO.Path.DirectorySeparatorChar == '\\';
+            // Set checkbox for autodetect visible only for windows
+            cbAutoDetect.Visible = System.IO.Path.DirectorySeparatorChar == '\\';
+
             // Remove Notebook page 5 (debug)
             notebook1.RemovePage(5);
 
-
+            // Switch to page 2 (disabled Sounds) and add them there
             notebook1.Page = 2;
             AddDisabledSounds();
 
+            // Switch to page 3 (Config) and set the values
+            notebook1.Page = 3;
+            entrySoundpackPath.Text = Config.Instance.soundpacksPath;
+            entryGamelogPath.Text = Config.Instance.gamelogPath;
+            cbAutoDetect.Active = Config.Instance.autoDetect;
+            labelGamelogPath.Visible = !Config.Instance.autoDetect;
+            entryGamelogPath.Visible = !Config.Instance.autoDetect;
+            btnGamelogPath.Visible = !Config.Instance.autoDetect;
 
+            // Back to page 0 (Audio) and set channels, threshold etc.
+            notebook1.Page = 0;
             int count = Enum.GetValues(typeof(Threshold)).Length;
             foreach (var v in Enum.GetValues(typeof(Threshold)))
             {
@@ -37,7 +52,6 @@ namespace SoundCenSeGTK
 
             cbThreshold.Active = (int)Config.Instance.playbackThreshold;
 
-            notebook1.Page = 0;
             List<string> temp = new List<string>() { "SFX", "Music", "Weather", "Swords", "Trading" };
             AddSoundPanelEntries(temp);
             // ShowAll();
@@ -177,6 +191,8 @@ namespace SoundCenSeGTK
 
         private SoundsXML allSounds = null;
 
+        private int TickCounter = 0;
+
         private bool Timer()
         {
             switch (runState)
@@ -196,10 +212,13 @@ namespace SoundCenSeGTK
                     DFRunCheck();
                     break;
                 case RunState.PlayingDF:
-                    btnUpdate.Sensitive = false;
+                    TickCounter++;
                     LL.Tick();
                     FmodSystem.ERRCHECK(FmodSystem.System.update());
-                    DFRunCheck();
+                    if ((TickCounter % 10) == 0)
+                    {
+                        DFRunCheck();
+                    }
                     foreach (SoundPanelEntry spe in panelEntries.Values)
                     {
                         spe.Tick();
@@ -274,6 +293,7 @@ namespace SoundCenSeGTK
             Config.Instance.SetChannelVolume(e.Channel.ToLower(), (float)e.Volume);
 
         }
+
         private void ChannelFastForward(object sender, ChannelFastForwardEventArgs e)
         {
             fmodPlayer.Instance.FastForward(e.ChannelName);
@@ -287,28 +307,39 @@ namespace SoundCenSeGTK
 
         private void DFRunCheck()
         {
-            Process[] processlist = Process.GetProcesses();
-            foreach (Process p in processlist)
+            if (!Config.Instance.autoDetect)
             {
-                try
+                if (File.Exists(Config.Instance.gamelogPath))
                 {
-                if ((p.ProcessName == "Dwarf_Fortress") || (p.ProcessName == "Dwarf Fortress"))
-                {
-                    if (System.IO.Path.DirectorySeparatorChar == '\\')
-                    {
-                        Config.Instance.gamelogPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(p.MainModule.FileName), "gamelog.txt");
-                    }
-                    else
-                    {
-                        Config.Instance.gamelogPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(p.MainModule.FileName), "..", "gamelog.txt");
-                    }
-
-                    OnDFRunning(p.Id);
+                    OnDFRunning(1);
                     return;
                 }
-                }
-                catch 
+            }
+            else
+            {
+                Process[] processlist = Process.GetProcesses();
+                foreach (Process p in processlist)
                 {
+                    try
+                    {
+                        if ((p.ProcessName == "Dwarf_Fortress") || (p.ProcessName == "Dwarf Fortress"))
+                        {
+                            if (System.IO.Path.DirectorySeparatorChar == '\\')
+                            {
+                                Config.Instance.gamelogPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(p.MainModule.FileName), "gamelog.txt");
+                            }
+                            else
+                            {
+                                Config.Instance.gamelogPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(p.MainModule.FileName), "..", "gamelog.txt");
+                            }
+
+                            OnDFRunning(p.Id);
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                    }
                 }
             }
             OnDFNotRunning();
@@ -392,5 +423,51 @@ namespace SoundCenSeGTK
             Config.Instance.playbackThreshold = (Threshold)cbThreshold.Active;
         }
 
+        protected void AutoDetectChanged(object sender, EventArgs e)
+        {
+            Config.Instance.autoDetect = cbAutoDetect.Active;
+            entryGamelogPath.Text = Config.Instance.gamelogPath;
+            labelGamelogPath.Visible = !cbAutoDetect.Active;
+            entryGamelogPath.Visible = !cbAutoDetect.Active;
+            btnGamelogPath.Visible = !cbAutoDetect.Active;
+            if (cbAutoDetect.Active && (runState != RunState.Startup))
+            {
+                runState = RunState.LookingForDF;
+            }
+        }
+
+        protected void btnSoundPackPathClicked(object sender, EventArgs e)
+        {
+            var folderChooser = new Gtk.FileChooserDialog("Select Soundpack folder", this, FileChooserAction.SelectFolder, Gtk.Stock.Cancel, ResponseType.Cancel, Gtk.Stock.Open, ResponseType.Accept);
+            folderChooser.SetCurrentFolder(Config.Instance.soundpacksPath);
+            if (folderChooser.Run() == (int)ResponseType.Accept)
+            {
+                Config.Instance.soundpacksPath = folderChooser.Filename;
+                entrySoundpackPath.Text = folderChooser.Filename;
+                runState = RunState.Startup;
+            }
+            folderChooser.Destroy();
+        }
+
+        protected void btnGamelogPathClicked(object sender, EventArgs e)
+        {
+            var fileChooser = new Gtk.FileChooserDialog("Select Dwarf Fortress gamelog", this, FileChooserAction.Open, Gtk.Stock.Cancel, ResponseType.Cancel, Gtk.Stock.Open, ResponseType.Accept);
+            string path = System.IO.Path.GetDirectoryName(Config.Instance.gamelogPath);
+            if (path != null)
+            {
+                fileChooser.SetCurrentFolder(path);
+            }
+            var filter = new Gtk.FileFilter();
+            filter.Name = "Dwarf Fortress gamelog";
+            filter.AddPattern("gamelog.txt");
+            fileChooser.AddFilter(filter);
+            if (fileChooser.Run() == (int)ResponseType.Accept)
+            {
+                Config.Instance.gamelogPath = fileChooser.Filename;
+                entryGamelogPath.Text = fileChooser.Filename;
+                runState = RunState.Startup;
+            }
+            fileChooser.Destroy();
+        }
     }
 }

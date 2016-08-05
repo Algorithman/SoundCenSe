@@ -44,6 +44,7 @@
   "replaceFiles": true,
   "soundpacksPath": "./packs/",
   "supplementalLogs": [],
-  "volume": 0.0
+  "volume": 0.0,
+  "autoDetect": true
 }
 

@@ -91,7 +91,7 @@ namespace SoundCenSeGTK
 			global::Stetic.Gui.Initialize (this);
 			// Widget SoundCenSeGTK.MainWindow
 			this.Name = "SoundCenSeGTK.MainWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("SoundCenSe GTK");
+			this.Title = "SoundCenSe GTK";
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("SoundCenSeGTK.Program.ico");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child SoundCenSeGTK.MainWindow.Gtk.Container+ContainerChild
@@ -119,7 +119,7 @@ namespace SoundCenSeGTK
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
-			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Threshold");
+			this.label1.LabelProp = "Threshold";
 			this.hbox2.Add (this.label1);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.label1]));
 			w2.Position = 0;
@@ -163,7 +163,7 @@ namespace SoundCenSeGTK
 			// Notebook tab
 			this.label3 = new global::Gtk.Label ();
 			this.label3.Name = "label3";
-			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Audio");
+			this.label3.LabelProp = "Audio";
 			this.notebook1.SetTabLabel (w1, this.label3);
 			this.label3.ShowAll ();
 			// Container child notebook1.Gtk.Notebook+NotebookChild
@@ -180,7 +180,7 @@ namespace SoundCenSeGTK
 			this.btnUpdate.UseUnderline = true;
 			this.btnUpdate.FocusOnClick = false;
 			this.btnUpdate.BorderWidth = ((uint)(10));
-			this.btnUpdate.Label = global::Mono.Unix.Catalog.GetString ("Update Soundpack");
+			this.btnUpdate.Label = "Update Soundpack";
 			this.hbox1.Add (this.btnUpdate);
 			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.btnUpdate]));
 			w11.Position = 0;
@@ -212,7 +212,7 @@ namespace SoundCenSeGTK
 			// Notebook tab
 			this.label5 = new global::Gtk.Label ();
 			this.label5.Name = "label5";
-			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Update");
+			this.label5.LabelProp = "Update";
 			this.notebook1.SetTabLabel (this.vbox3, this.label5);
 			this.label5.ShowAll ();
 			// Container child notebook1.Gtk.Notebook+NotebookChild
@@ -236,7 +236,7 @@ namespace SoundCenSeGTK
 			// Notebook tab
 			this.label7 = new global::Gtk.Label ();
 			this.label7.Name = "label7";
-			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Disabled Sounds");
+			this.label7.LabelProp = "Disabled Sounds";
 			this.notebook1.SetTabLabel (this.scrolledwindow2, this.label7);
 			this.label7.ShowAll ();
 			// Container child notebook1.Gtk.Notebook+NotebookChild
@@ -253,7 +253,7 @@ namespace SoundCenSeGTK
 			this.label12.WidthRequest = 110;
 			this.label12.Name = "label12";
 			this.label12.Xalign = 0F;
-			this.label12.LabelProp = global::Mono.Unix.Catalog.GetString ("Soundpack path");
+			this.label12.LabelProp = "Soundpack path";
 			this.hbox4.Add (this.label12);
 			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.label12]));
 			w20.Position = 0;
@@ -273,7 +273,7 @@ namespace SoundCenSeGTK
 			this.btnSoundPackPath.Name = "btnSoundPackPath";
 			this.btnSoundPackPath.UseUnderline = true;
 			this.btnSoundPackPath.FocusOnClick = false;
-			this.btnSoundPackPath.Label = global::Mono.Unix.Catalog.GetString ("...");
+			this.btnSoundPackPath.Label = "...";
 			this.hbox4.Add (this.btnSoundPackPath);
 			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.btnSoundPackPath]));
 			w22.Position = 2;
@@ -287,7 +287,7 @@ namespace SoundCenSeGTK
 			// Container child vbox6.Gtk.Box+BoxChild
 			this.cbAutoDetect = new global::Gtk.CheckButton ();
 			this.cbAutoDetect.Name = "cbAutoDetect";
-			this.cbAutoDetect.Label = global::Mono.Unix.Catalog.GetString ("Autodetect Dwarf Fortress");
+			this.cbAutoDetect.Label = "Autodetect Dwarf Fortress";
 			this.cbAutoDetect.DrawIndicator = true;
 			this.cbAutoDetect.UseUnderline = true;
 			this.cbAutoDetect.FocusOnClick = false;
@@ -306,7 +306,7 @@ namespace SoundCenSeGTK
 			this.labelGamelogPath.WidthRequest = 110;
 			this.labelGamelogPath.Name = "labelGamelogPath";
 			this.labelGamelogPath.Xalign = 0F;
-			this.labelGamelogPath.LabelProp = global::Mono.Unix.Catalog.GetString ("Gamelog path");
+			this.labelGamelogPath.LabelProp = "Gamelog path";
 			this.hbox5.Add (this.labelGamelogPath);
 			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.labelGamelogPath]));
 			w25.Position = 0;
@@ -326,7 +326,7 @@ namespace SoundCenSeGTK
 			this.btnGamelogPath.Name = "btnGamelogPath";
 			this.btnGamelogPath.UseUnderline = true;
 			this.btnGamelogPath.FocusOnClick = false;
-			this.btnGamelogPath.Label = global::Mono.Unix.Catalog.GetString ("...");
+			this.btnGamelogPath.Label = "...";
 			this.hbox5.Add (this.btnGamelogPath);
 			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.btnGamelogPath]));
 			w27.Position = 2;
@@ -343,7 +343,7 @@ namespace SoundCenSeGTK
 			// Notebook tab
 			this.label8 = new global::Gtk.Label ();
 			this.label8.Name = "label8";
-			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Configuration");
+			this.label8.LabelProp = "Configuration";
 			this.notebook1.SetTabLabel (this.vbox6, this.label8);
 			this.label8.ShowAll ();
 			// Container child notebook1.Gtk.Notebook+NotebookChild
@@ -353,10 +353,10 @@ namespace SoundCenSeGTK
 			// Container child vbox5.Gtk.Box+BoxChild
 			this.label4 = new global::Gtk.Label ();
 			this.label4.Name = "label4";
-			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("<span font_size=\"large\"><span font_weight=\"bold\" face=\"Courier New\">Toady One</sp" +
+			this.label4.LabelProp = "<span font_size=\"large\"><span font_weight=\"bold\" face=\"Courier New\">Toady One</sp" +
 			"an> and <span font_weight=\"bold\" face=\"Courier New\">ThreeToe</span> for <span fo" +
 			"nt_size=\"x-large\"font-weight=\"bold\" face=\"Courier New\">Dwarf Fortress</span></sp" +
-			"an>");
+			"an>";
 			this.label4.UseMarkup = true;
 			this.vbox5.Add (this.label4);
 			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.label4]));
@@ -367,8 +367,8 @@ namespace SoundCenSeGTK
 			// Container child vbox5.Gtk.Box+BoxChild
 			this.label6 = new global::Gtk.Label ();
 			this.label6.Name = "label6";
-			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("<span font_size=\"large\"><span font_weight=\"bold\">ZweiStein</span> for the origina" +
-			"l <span font_weight=\"bold\" font_size=\"x-large\">SoundSense</span></span>");
+			this.label6.LabelProp = "<span font_size=\"large\"><span font_weight=\"bold\">ZweiStein</span> for the origina" +
+			"l <span font_weight=\"bold\" font_size=\"x-large\">SoundSense</span></span>";
 			this.label6.UseMarkup = true;
 			this.vbox5.Add (this.label6);
 			global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.label6]));
@@ -392,8 +392,8 @@ namespace SoundCenSeGTK
 			// Container child hbox3.Gtk.Box+BoxChild
 			this.label10 = new global::Gtk.Label ();
 			this.label10.Name = "label10";
-			this.label10.LabelProp = global::Mono.Unix.Catalog.GetString ("<span font_size=\"large\"><span font_weight=\"bold\">FMOD Studio</span> by Firelight " +
-			"Technologies</span>");
+			this.label10.LabelProp = "<span font_size=\"large\"><span font_weight=\"bold\">FMOD Studio</span> by Firelight " +
+			"Technologies</span>";
 			this.label10.UseMarkup = true;
 			this.hbox3.Add (this.label10);
 			global::Gtk.Box.BoxChild w33 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.label10]));
@@ -407,8 +407,8 @@ namespace SoundCenSeGTK
 			// Container child vbox5.Gtk.Box+BoxChild
 			this.label11 = new global::Gtk.Label ();
 			this.label11.Name = "label11";
-			this.label11.LabelProp = global::Mono.Unix.Catalog.GetString ("<span font_size=\"large\"><span font_weight=\"bold\" font_size=\"large\">jecowa</span> " +
-			"for his very helpful testing on OSX</span>");
+			this.label11.LabelProp = "<span font_size=\"large\"><span font_weight=\"bold\" font_size=\"large\">jecowa</span> " +
+			"for his very helpful testing on OSX</span>";
 			this.label11.UseMarkup = true;
 			this.vbox5.Add (this.label11);
 			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.label11]));
@@ -422,7 +422,7 @@ namespace SoundCenSeGTK
 			// Notebook tab
 			this.label2 = new global::Gtk.Label ();
 			this.label2.Name = "label2";
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Credits");
+			this.label2.LabelProp = "Credits";
 			this.notebook1.SetTabLabel (this.vbox5, this.label2);
 			this.label2.ShowAll ();
 			// Notebook tab
@@ -431,7 +431,7 @@ namespace SoundCenSeGTK
 			this.notebook1.Add (w37);
 			this.label9 = new global::Gtk.Label ();
 			this.label9.Name = "label9";
-			this.label9.LabelProp = global::Mono.Unix.Catalog.GetString ("Debug");
+			this.label9.LabelProp = "Debug";
 			this.notebook1.SetTabLabel (w37, this.label9);
 			this.label9.ShowAll ();
 			this.vbox1.Add (this.notebook1);

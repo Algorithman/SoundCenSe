@@ -8,7 +8,7 @@
     <widget-library name="../../SoundCenSeGUI/bin/Debug/SoundCenSeGUI.dll" />
     <widget-library name="../bin/Debug/SoundCenSeGTK.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="SoundCenSeGTK.MainWindow" design-size="534 771">
+  <widget class="Gtk.Window" id="SoundCenSeGTK.MainWindow" design-size="419 626">
     <property name="MemberName" />
     <property name="Title" translatable="yes">SoundCenSe GTK</property>
     <property name="Icon">resource:SoundCenSeGTK.Program.ico</property>
@@ -21,7 +21,7 @@
         <child>
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
-            <property name="CurrentPage">0</property>
+            <property name="CurrentPage">2</property>
             <property name="ShowBorder">False</property>
             <property name="Scrollable">True</property>
             <child>
@@ -78,7 +78,6 @@
                       <widget class="Gtk.ScrolledWindow" id="scrolledwindow1">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
-                        <property name="ShadowType">In</property>
                         <child>
                           <widget class="Gtk.Viewport" id="GtkViewport1">
                             <property name="MemberName" />
@@ -189,7 +188,6 @@
               <widget class="Gtk.ScrolledWindow" id="scrolledwindow2">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="ShadowType">In</property>
                 <child>
                   <widget class="Gtk.Viewport" id="GtkViewport2">
                     <property name="MemberName" />

@@ -101,7 +101,7 @@ namespace SoundCenSeGTK
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 0;
+			this.notebook1.CurrentPage = 2;
 			this.notebook1.ShowBorder = false;
 			this.notebook1.Scrollable = true;
 			// Container child notebook1.Gtk.Notebook+NotebookChild
@@ -145,7 +145,6 @@ namespace SoundCenSeGTK
 			this.scrolledwindow1 = new global::Gtk.ScrolledWindow ();
 			this.scrolledwindow1.CanFocus = true;
 			this.scrolledwindow1.Name = "scrolledwindow1";
-			this.scrolledwindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child scrolledwindow1.Gtk.Container+ContainerChild
 			global::Gtk.Viewport w5 = new global::Gtk.Viewport ();
 			w5.ShadowType = ((global::Gtk.ShadowType)(0));
@@ -219,7 +218,6 @@ namespace SoundCenSeGTK
 			this.scrolledwindow2 = new global::Gtk.ScrolledWindow ();
 			this.scrolledwindow2.CanFocus = true;
 			this.scrolledwindow2.Name = "scrolledwindow2";
-			this.scrolledwindow2.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child scrolledwindow2.Gtk.Container+ContainerChild
 			global::Gtk.Viewport w16 = new global::Gtk.Viewport ();
 			w16.ShadowType = ((global::Gtk.ShadowType)(0));
@@ -469,8 +467,8 @@ namespace SoundCenSeGTK
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 534;
-			this.DefaultHeight = 771;
+			this.DefaultWidth = 419;
+			this.DefaultHeight = 626;
 			this.progressbar1.Hide ();
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);

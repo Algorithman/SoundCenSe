@@ -7,6 +7,7 @@ using System.IO;
 using Misc;
 using SoundCenSeGTK;
 using System.Linq;
+using System.Reflection;
 
 namespace SoundCenSeGTK
 {
@@ -20,6 +21,12 @@ namespace SoundCenSeGTK
         {
             Build();
             Config.Load(@"Configuration.json");
+            this.Title="SoundCenSe GTK " +
+                string.Join(".",
+                    FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location)
+                    .FileVersion.Split('.')
+                    .Take(3)
+                    .ToArray());
 
             // Set AutoDetect to false when not running on windows
             Config.Instance.autoDetect &= System.IO.Path.DirectorySeparatorChar == '\\';

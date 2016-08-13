@@ -7,7 +7,7 @@ using System.Linq;
 using NLog;
 using System.Threading;
 using System.Threading.Tasks;
-using SeasideResearch.LibCurlNet;
+using Gtk;
 
 namespace SoundCenSeGTK
 {
@@ -48,7 +48,6 @@ namespace SoundCenSeGTK
             FilesToDownload = new Queue<IDownloadEntry>();
             FilesInProgress = new List<IDownloadEntry>();
             FinishedFile += FileDownloaded;
-            Curl.GlobalInit((int)CURLinitFlag.CURL_GLOBAL_ALL);
         }
 
         #region IStoppable Members
@@ -74,7 +73,7 @@ namespace SoundCenSeGTK
         private void CheckAndDeleteFiles()
         {
             string[] files = Directory.GetFiles(Path.GetFullPath(Config.Instance.soundpacksPath), "*.*",
-                                 SearchOption.AllDirectories);
+                                     SearchOption.AllDirectories);
 
             List<string> fullPaths = new List<string>();
             string soundpacksPath = Path.GetFullPath(Config.Instance.soundpacksPath);
@@ -82,8 +81,8 @@ namespace SoundCenSeGTK
             {
                 string destPath = Path.Combine(soundpacksPath, dd.RelativePath, dd.Filename)
                         .Replace(
-                                      Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar + "packs",
-                                      Path.DirectorySeparatorChar + "packs");
+                                          Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar + "packs",
+                                          Path.DirectorySeparatorChar + "packs");
                 fullPaths.Add(NormalizePath(Path.GetFullPath(destPath)));
             }
 
@@ -123,7 +122,7 @@ namespace SoundCenSeGTK
             if (evArgs.File.StatusCode == HttpStatusCode.OK)
             {
                 if (string.IsNullOrEmpty(evArgs.File.ExpectedSHA) ||
-                    (UpdateParser.SHA1Checksum(evArgs.File.TempFileName) == evArgs.File.ExpectedSHA))
+                        (UpdateParser.SHA1Checksum(evArgs.File.TempFileName) == evArgs.File.ExpectedSHA))
                 {
                     if (!string.IsNullOrEmpty(evArgs.File.DestinationPath))
                     {
@@ -209,7 +208,7 @@ namespace SoundCenSeGTK
             {
                 RemoveEmptyFolders(directory);
                 if (Directory.GetFiles(directory).Length == 0 &&
-                    Directory.GetDirectories(directory).Length == 0)
+                        Directory.GetDirectories(directory).Length == 0)
                 {
                     Directory.Delete(directory, false);
                 }
@@ -227,27 +226,6 @@ namespace SoundCenSeGTK
                 try
                 {
                     file.StatusCode = HttpStatusCode.OK;
-                    try
-                    {
-                        Easy easydl = new Easy();
-                        Easy.WriteFunction wf = (byte[] buf, int size, int nmemb, object extraData) => 
-                        {
-                            FileStream fs = new FileStream(file.TempFileName, FileMode.OpenOrCreate);
-                            fs.Seek(0, SeekOrigin.End);
-                            fs.Write(buf, 0, size);
-                            fs.Close();
-                            return size;
-                        };
-                        easydl.SetOpt(CURLoption.CURLOPT_URL, Uri.EscapeUriString(dl));
-                        easydl.SetOpt(CURLoption.CURLOPT_WRITEFUNCTION, wf);
-                        easydl.Perform();
-                        easydl.Dispose();
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Warn("Download error: "+ex.Message);
-                        logger.Warn(ex.StackTrace);
-                    }
                     using (WebClient webClient = new WebClient())
                     {
                         webClient.DownloadFile(Uri.EscapeUriString(dl), file.TempFileName);
@@ -334,9 +312,9 @@ namespace SoundCenSeGTK
             {
                 string destPath = Path.Combine(soundpacksPath, dd.RelativePath, dd.Filename)
                         .Replace(
-                                      Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar + "packs" +
-                                      Path.DirectorySeparatorChar,
-                                      Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar);
+                                          Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar + "packs" +
+                                          Path.DirectorySeparatorChar,
+                                          Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar);
                 if (Config.Instance.replaceFiles || !File.Exists(destPath))
                 {
                     string sha1 = UpdateParser.SHA1Checksum(destPath);

@@ -66,7 +66,7 @@ namespace SoundCenSeGTK
         public void Play(ISound sound, long x, long y, long z)
         {
             SoundSoundFile sf = new SoundSoundFile((Sound)sound, ((Sound)sound).GetRandomSoundFile());
-            if (sf.SoundFile == null)
+            if ((sf.SoundFile == null) && (sf.Sound.loop==Loop.Start_Looping))
             {
                 return;
             }
@@ -149,6 +149,16 @@ namespace SoundCenSeGTK
         public void PlaySound(SoundSoundFile sf, string channel, float volume = 1.0f, bool mute = false)
         {
             FMOD.Sound newSound;
+            if (sf.Sound.loop == Loop.Stop_Looping)
+            {
+                fmodChannelSound chan = FmodChannelPool.Instance.GetSingleChannel(channel.ToLower());
+                if (chan != null)
+                {
+                    chan.SoundSoundFile = sf;
+                    chan.StopLooping();
+                }
+            }
+
             if (sf.SoundFile == null)
             {
                 sf.SoundFile = ((Sound)sf.Sound).GetRandomSoundFile();

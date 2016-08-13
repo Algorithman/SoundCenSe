@@ -8,6 +8,7 @@ using Misc;
 using SoundCenSeGTK;
 using System.Linq;
 using System.Reflection;
+using NLog;
 
 namespace SoundCenSeGTK
 {
@@ -15,7 +16,7 @@ namespace SoundCenSeGTK
     {
         private Dictionary<string,SoundPanelEntry> panelEntries = new Dictionary<string, SoundPanelEntry>();
         private static PackDownloader PD = null;
-
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public MainWindow()
             : base(Gtk.WindowType.Toplevel)
         {
@@ -59,7 +60,7 @@ namespace SoundCenSeGTK
 
             cbThreshold.Active = (int)Config.Instance.playbackThreshold;
 
-            List<string> temp = new List<string>() { "SFX", "Music", "Weather", "Swords", "Trading" };
+            List<string> temp = new List<string>() { "SFX", "Music", "Weather", "Swords", "Trade" };
             AddSoundPanelEntries(temp);
             // ShowAll();
 
@@ -113,8 +114,8 @@ namespace SoundCenSeGTK
                 image1.Pixbuf = Image.LoadFromResource("SoundCenSeGTK.SignalGreen.png").Pixbuf;
 
                 runState = RunState.PlayingDF;
-                SP = new SoundProcessor(allSounds);
                 Dictionary<string, Sound> oldMusic = GetOldMusic(allSounds);
+                SP = new SoundProcessor(allSounds);
                 LL = new LogFileListener(Config.Instance.gamelogPath, true);
 
                 LL.GamelogEvent += SP.ProcessLine;
@@ -344,8 +345,9 @@ namespace SoundCenSeGTK
                             return;
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        logger.Info(ex.StackTrace);
                     }
                 }
             }

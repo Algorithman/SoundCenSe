@@ -144,7 +144,10 @@ namespace SoundCenSeGTK
                             // Console.WriteLine("Callback called for " + SoundSoundFile.SoundFile.Filename);
                             //Console.WriteLine("System ptr: " + FmodSystem.System.getRaw());
                             //Console.WriteLine("Thread id: " + Thread.CurrentThread.ManagedThreadId + " " + Thread.CurrentThread.IsThreadPoolThread);
-                            Application.Invoke(delegate{OnSoundEnded();});
+                            Application.Invoke(delegate
+                                {
+                                    OnSoundEnded();
+                                });
                         }
                         //Console.WriteLine("System ptr: " + FmodSystem.System.getRaw());
                     }
@@ -266,6 +269,16 @@ namespace SoundCenSeGTK
 
         public void StopLooping()
         {
+            float freq;
+            FmodSystem.ERRCHECK(Channel.getFrequency(out freq));
+            ulong dspC1;
+            ulong dspC2;
+            FmodSystem.ERRCHECK(Channel.getDSPClock(out dspC1, out dspC2));
+            ulong newDelay = Convert.ToUInt64(5000 * freq / 500);
+            ChannelGroup cg;
+            Channel.getChannelGroup(out cg);
+            Channel.addFadePoint(dspC2, this.Volume);
+            Channel.addFadePoint(dspC2 + newDelay, 0.0f);
         }
     }
 }

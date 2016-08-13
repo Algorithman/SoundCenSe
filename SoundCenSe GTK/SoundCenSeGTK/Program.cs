@@ -7,10 +7,11 @@ namespace SoundCenSeGTK
 {
     class MainClass
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger;
 
         public static void Main(string[] args)
         {
+            logger = LogManager.GetCurrentClassLogger();
             if (System.IO.Path.DirectorySeparatorChar == '\\')
             {
                 if (!VCRedist120())

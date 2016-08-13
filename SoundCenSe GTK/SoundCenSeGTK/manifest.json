@@ -1,0 +1,10 @@
+﻿{
+    "author": "Algorithman",
+    "content_version": "1.4.0",
+    "df_min_version": "0.34.11",
+    "df_max_version": "",
+    "title": "SoundCenSe GTK",
+    "tooltip": "A c# audio engine for Dwarf Fortress based on Zweistein's SoundSense",
+	"win_exe": "SoundCenSeGTK.exe",
+	"readme": "README.html"
+}

@@ -11,9 +11,9 @@ namespace SoundCenSeGTK
 
         public static void Main(string[] args)
         {
-            logger = LogManager.GetCurrentClassLogger();
             if (System.IO.Path.DirectorySeparatorChar == '\\')
             {
+                logger = LogManager.GetCurrentClassLogger();
                 if (!VCRedist120())
                 {
                     logger.Fatal("Microsoft Visual C++ Redistributable 2013 is not installed.");

@@ -6,8 +6,8 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../../SoundCenSeGUI/bin/Debug/SoundCenSeGUI.dll" />
-    <widget-library name="../bin/Debug/SoundCenSeGTK.exe" internal="true" />
+    <widget-library name="../../SoundCenSeGUI/bin/Release/SoundCenSeGUI.dll" />
+    <widget-library name="../bin/Release/SoundCenSeGTK.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="SoundCenSeGTK.MainWindow" design-size="419 626">
     <property name="MemberName" />

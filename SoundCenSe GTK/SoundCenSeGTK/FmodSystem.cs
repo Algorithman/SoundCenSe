@@ -39,7 +39,8 @@ namespace SoundCenSeGTK
                     RESULT r = _system.init(32, INITFLAGS.NORMAL, IntPtr.Zero);
                     if (r != RESULT.OK)
                     {
-                        MessageBox.Show("Failed: " + r);
+                        MessageBox.Show("Failed to initialize FMOD sound system: " + r);
+                        return null;
                     }
                 }
                 return _system;

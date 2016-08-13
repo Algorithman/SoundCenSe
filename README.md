@@ -8,7 +8,7 @@ Windows:
 
 - .NET 4.0 ([https://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe](https://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe))
 - GTK-Sharp ([http://download.xamarin.com/GTKforWindows/Windows/gtk-sharp-2.12.38.msi](http://download.xamarin.com/GTKforWindows/Windows/gtk-sharp-2.12.38.msi))
-- Microsoft Visual c++ runtime redistributables 2013 ([https://download.microsoft.com/download/3/8/7/387A0F10-C0C1-4C74-82A9-4BB741342366/vcredist_x86.exe](https://download.microsoft.com/download/3/8/7/387A0F10-C0C1-4C74-82A9-4BB741342366/vcredist_x86.exe))
+- Microsoft Visual c++ runtime redistributables 2013 ([https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe](https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe))
 
 If it doesn't seem to start, please check the Log.txt, there might be clues to what is missing.
 

@@ -7,7 +7,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>SoundCenSeGTK</RootNamespace>
     <AssemblyName>SoundCenSeGTK</AssemblyName>
-    <ReleaseVersion>1.3.0</ReleaseVersion>
+    <ReleaseVersion>1.4.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>

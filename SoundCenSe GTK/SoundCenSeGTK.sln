@@ -179,6 +179,9 @@ Global
 		$26.NamingStyle = PascalCase
 		$26.IncludeInstanceMembers = True
 		$26.IncludeStaticEntities = True
-		version = 1.3.0
+		$0.VersionControlPolicy = $28
+		$28.inheritsSet = Mono
+		description = SoundCenSe, a audio engine for Dwarf Fortress, based on ZweiStein's SoundSense
+		version = 1.4.0
 	EndGlobalSection
 EndGlobal

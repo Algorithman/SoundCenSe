@@ -182,6 +182,6 @@ Global
 		$0.VersionControlPolicy = $28
 		$28.inheritsSet = Mono
 		description = SoundCenSe, a audio engine for Dwarf Fortress, based on ZweiStein's SoundSense
-		version = 1.4.1
+		version = 1.4.2
 	EndGlobalSection
 EndGlobal

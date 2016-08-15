@@ -151,11 +151,14 @@ namespace SoundCenSeGTK
             FMOD.Sound newSound;
             if (sf.Sound.loop == Loop.Stop_Looping)
             {
-                fmodChannelSound chan = FmodChannelPool.Instance.GetSingleChannel(channel.ToLower());
-                if (chan != null)
+                if (!string.IsNullOrEmpty(channel))
                 {
-                    chan.SoundSoundFile = sf;
-                    chan.StopLooping();
+                    fmodChannelSound chan = FmodChannelPool.Instance.GetSingleChannel(channel.ToLower());
+                    if (chan != null)
+                    {
+                        chan.SoundSoundFile = sf;
+                        chan.StopLooping();
+                    }
                 }
             }
 

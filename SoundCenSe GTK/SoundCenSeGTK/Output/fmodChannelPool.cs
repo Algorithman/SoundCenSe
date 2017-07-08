@@ -112,14 +112,6 @@ namespace SoundCenSeGTK
                             return true;
                         }
                     }
-                    else
-                    {
-                        logger.Log(LogLevel.Fatal, "sf.SoundSoundFile.SoundFile is NULL while looking for " + filename);
-                    }
-                }
-                else
-                {
-                    logger.Log(LogLevel.Fatal, "sf.SoundSoundFile is NULL while looking for " + filename);
                 }
             }
             

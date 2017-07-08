@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Misc;
+using NLog;
 
 namespace SoundCenSeGTK
 {
@@ -10,6 +11,7 @@ namespace SoundCenSeGTK
         #region Fields and Constants
 
         private static FmodChannelPool instance;
+        public static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private readonly Dictionary<KeyValuePair<int, string>, fmodChannelSound> channels =
             new Dictionary<KeyValuePair<int, string>, fmodChannelSound>();
@@ -94,13 +96,33 @@ namespace SoundCenSeGTK
 
         public bool IsSoundPlaying(string filename)
         {
-            foreach (var sf in channels.Values)
+            List<fmodChannelSound> channelsounds = null;
+            lock (channels)
             {
-                if (sf.SoundSoundFile.SoundFile.Filename == filename)
+                channelsounds = channels.Values.ToList();
+            }
+            foreach (var sf in channelsounds)
+            {
+                if (sf.SoundSoundFile != null)
                 {
-                    return true;
+                    if (sf.SoundSoundFile.SoundFile != null)
+                    {
+                        if (sf.SoundSoundFile.SoundFile.Filename == filename)
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        logger.Log(LogLevel.Fatal, "sf.SoundSoundFile.SoundFile is NULL while looking for " + filename);
+                    }
+                }
+                else
+                {
+                    logger.Log(LogLevel.Fatal, "sf.SoundSoundFile is NULL while looking for " + filename);
                 }
             }
+            
             return false;
         }
     }

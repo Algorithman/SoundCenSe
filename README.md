@@ -1,4 +1,4 @@
-# SoundCenSe v1.4.3 #
+# SoundCenSe v1.4.4 #
 
 SoundCenSe is a audio engine for Dwarf Fortress based on ZweiStein's SoundSense written in c#/gtk.
 
@@ -59,4 +59,4 @@ Credits:
 - jecowa for his efforts on OSX testing
 
 
-Last changed: 8/13/2016 6:45:56 PM 
+Last changed: 9/7/2017 10:20:32 AM 

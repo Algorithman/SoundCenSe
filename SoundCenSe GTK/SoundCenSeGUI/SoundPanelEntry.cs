@@ -168,12 +168,15 @@ namespace SoundCenSeGUI
 
         public void SetValues(string filename, uint soundLength, bool muted, double volume, bool looping)
         {
-            Filename = filename;
-            Length = soundLength;
-            Volume = volume;
-            Mute = muted;
-            btnFastForward.Visible = looping;
-            AddEntry(filename);
+            Gtk.Application.Invoke(delegate
+            {
+                Filename = filename;
+                Length = soundLength;
+                Volume = volume;
+                Mute = muted;
+                btnFastForward.Visible = looping;
+                AddEntry(filename);
+            });
         }
 
         protected void btnMuteClicked(object sender, EventArgs e)

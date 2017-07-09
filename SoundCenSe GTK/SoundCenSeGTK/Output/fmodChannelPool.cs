@@ -68,7 +68,13 @@ namespace SoundCenSeGTK
                 }
             }
             KeyValuePair<int, string> kv = new KeyValuePair<int, string>(channel.Id, channel.ChannelName);
-            channels.Add(kv, channel);
+            lock (channels)
+            {
+                if (channels.All(x => x.Key.Key != channel.Id))
+                {
+                    channels.Add(kv, channel);
+                }
+            }
         }
 
         public void StopAll()

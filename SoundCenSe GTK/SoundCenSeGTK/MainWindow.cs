@@ -478,5 +478,10 @@ namespace SoundCenSeGTK
             }
             fileChooser.Destroy();
         }
+
+        protected void debugButtonClicked (object sender, EventArgs e)
+        {
+
+        }
     }
 }

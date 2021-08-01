@@ -30,6 +30,12 @@ namespace SoundCenSe.Utility
 
         private static string GetExePath(Process p)
         {
+            if ( p.HasExited )
+            {
+                logger.Info($"Finding that DF-proccess {p.Id} just has ended");
+                return null;
+            }
+
             Exception ex1, ex2;
 
             try

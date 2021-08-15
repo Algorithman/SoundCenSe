@@ -55,17 +55,14 @@ namespace SoundCenSe.GUI
             int rowCount = 0;
             this.InvokeIfRequired(() =>
             {
+                tablePanel.Controls.Clear();
                 foreach (string s in channelNames)
                 {
                     SoundPanelEntry spe = new SoundPanelEntry();
                     spe.ChannelName = s.Capitalize();
-                    spe.Dock = DockStyle.Fill;
-                    // spe.Width = this.tablePanel.Width;
-                    if (s.ToLower() == "sfx")
-                    {
-                        spe.IsSFXPanel = true;
-                    }
-                    ChannelData cd = Config.Instance.Channels.FirstOrDefault(x => x.Channel == s.ToLower());
+                    spe.IsSFXPanel = (string.Equals(s, "sfx", StringComparison.OrdinalIgnoreCase));
+
+                    ChannelData cd = Config.Instance.Channels.FirstOrDefault(x => string.Equals(x.Channel, s, StringComparison.OrdinalIgnoreCase));
                     if (cd != null)
                     {
                         spe.VolumeBar.Value = (int) (cd.Volume*100);
@@ -77,9 +74,13 @@ namespace SoundCenSe.GUI
                     spe.Muting += MutingInternal;
                     spe.VolumeChanged += VolumeChangedInternal;
                     spe.SoundDisabled += SoundDisabledInternal;
-                    spe.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-
+                    
                     tablePanel.Controls.Add(spe, 0, rowCount++);
+                    
+                     //spe.Width = this.tablePanel.Width;
+                     //spe.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                   spe.Dock = DockStyle.Fill;
+
                 }
             });
         }

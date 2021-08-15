@@ -36,13 +36,15 @@
             this.labelLength = new System.Windows.Forms.Label();
             this.labelChannel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.VolumeBar = new System.Windows.Forms.TrackBar();
             this.tablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.btnMute = new System.Windows.Forms.CheckBox();
             this.btnFastForward = new System.Windows.Forms.Button();
             this.btnDwnUp = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panelControls = new System.Windows.Forms.Panel();
+            this.VolumeBar = new System.Windows.Forms.TrackBar();
+            this.panelControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,19 +99,6 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Channel:";
             // 
-            // VolumeBar
-            // 
-            this.VolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.VolumeBar.Location = new System.Drawing.Point(310, -1);
-            this.VolumeBar.Maximum = 100;
-            this.VolumeBar.Name = "VolumeBar";
-            this.VolumeBar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.VolumeBar.Size = new System.Drawing.Size(45, 93);
-            this.VolumeBar.TabIndex = 9;
-            this.VolumeBar.TickFrequency = 10;
-            this.toolTip1.SetToolTip(this.VolumeBar, "Volume");
-            this.VolumeBar.ValueChanged += new System.EventHandler(this.VolumeBarValueChanged);
-            // 
             // tablePanel
             // 
             this.tablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -126,11 +115,11 @@
             // 
             // btnMute
             // 
-            this.btnMute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMute.Appearance = System.Windows.Forms.Appearance.Button;
             this.btnMute.AutoSize = true;
             this.btnMute.Image = global::SoundCenSe.Properties.Resources.Mute;
-            this.btnMute.Location = new System.Drawing.Point(356, 44);
+            this.btnMute.Location = new System.Drawing.Point(51, 46);
             this.btnMute.Name = "btnMute";
             this.btnMute.Size = new System.Drawing.Size(38, 38);
             this.btnMute.TabIndex = 8;
@@ -140,9 +129,8 @@
             // 
             // btnFastForward
             // 
-            this.btnFastForward.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFastForward.Image = global::SoundCenSe.Properties.Resources.FastForward;
-            this.btnFastForward.Location = new System.Drawing.Point(356, 3);
+            this.btnFastForward.Location = new System.Drawing.Point(51, -1);
             this.btnFastForward.Name = "btnFastForward";
             this.btnFastForward.Size = new System.Drawing.Size(38, 38);
             this.btnFastForward.TabIndex = 6;
@@ -172,15 +160,37 @@
             this.imageList1.Images.SetKeyName(0, "ArrowDown.png");
             this.imageList1.Images.SetKeyName(1, "ArrowUp.png");
             // 
+            // panelControls
+            // 
+            this.panelControls.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panelControls.Controls.Add(this.VolumeBar);
+            this.panelControls.Controls.Add(this.btnFastForward);
+            this.panelControls.Controls.Add(this.btnMute);
+            this.panelControls.Location = new System.Drawing.Point(177, 3);
+            this.panelControls.Name = "panelControls";
+            this.panelControls.Size = new System.Drawing.Size(94, 87);
+            this.panelControls.TabIndex = 12;
+            // 
+            // VolumeBar
+            // 
+            this.VolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.VolumeBar.Location = new System.Drawing.Point(0, 0);
+            this.VolumeBar.Maximum = 100;
+            this.VolumeBar.Name = "VolumeBar";
+            this.VolumeBar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.VolumeBar.Size = new System.Drawing.Size(45, 84);
+            this.VolumeBar.TabIndex = 10;
+            this.VolumeBar.TickFrequency = 10;
+            this.toolTip1.SetToolTip(this.VolumeBar, "Volume");
+            // 
             // SoundPanelEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panelControls);
             this.Controls.Add(this.btnDwnUp);
             this.Controls.Add(this.tablePanel);
-            this.Controls.Add(this.VolumeBar);
-            this.Controls.Add(this.btnMute);
-            this.Controls.Add(this.btnFastForward);
             this.Controls.Add(this.labelChannel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelLength);
@@ -189,6 +199,8 @@
             this.Controls.Add(this.label1);
             this.Name = "SoundPanelEntry";
             this.Size = new System.Drawing.Size(397, 121);
+            this.panelControls.ResumeLayout(false);
+            this.panelControls.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -204,11 +216,12 @@
         private System.Windows.Forms.Label labelChannel;
         private System.Windows.Forms.Label label4;
         internal System.Windows.Forms.CheckBox btnMute;
-        internal System.Windows.Forms.TrackBar VolumeBar;
         internal System.Windows.Forms.Button btnFastForward;
         private System.Windows.Forms.TableLayoutPanel tablePanel;
         private System.Windows.Forms.Button btnDwnUp;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel panelControls;
+        internal System.Windows.Forms.TrackBar VolumeBar;
     }
 }

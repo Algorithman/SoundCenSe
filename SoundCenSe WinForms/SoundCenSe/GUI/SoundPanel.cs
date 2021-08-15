@@ -37,7 +37,7 @@ namespace SoundCenSe.GUI
 
         public void Clear()
         {
-            tablePanel.Controls.Clear();
+            this.InvokeIfRequired(() => tablePanel.Controls.Clear());
         }
 
         private void FastForwardInternal(object sender, ChannelFastForwardEventArgs channelFastForwardEventArgs)
@@ -52,10 +52,9 @@ namespace SoundCenSe.GUI
 
         public void FillEntries(List<string> channelNames)
         {
-            int rowCount = 0;
+            Clear();
             this.InvokeIfRequired(() =>
             {
-                tablePanel.Controls.Clear();
                 foreach (string s in channelNames)
                 {
                     SoundPanelEntry spe = new SoundPanelEntry();
@@ -75,7 +74,7 @@ namespace SoundCenSe.GUI
                     spe.VolumeChanged += VolumeChangedInternal;
                     spe.SoundDisabled += SoundDisabledInternal;
                     
-                    tablePanel.Controls.Add(spe, 0, rowCount++);
+                    tablePanel.Controls.Add(spe);
                     
                      //spe.Width = this.tablePanel.Width;
                      //spe.Anchor = AnchorStyles.Left | AnchorStyles.Right;

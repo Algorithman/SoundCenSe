@@ -18,5 +18,11 @@ namespace SoundCenSe.Configuration
         public float Volume { get; set; }
 
         #endregion
+
+        public override string ToString()
+        {
+            string vol = Mute ? "muted" : Volume.ToString();
+            return $"Channel {Channel} {vol}";
+        }
     }
 }

@@ -136,8 +136,8 @@ namespace SoundCenSe.GUI
                 btnDwnUp.ImageIndex = 0;
                 this.Height = 121;
             }
-            this.ResumeLayout(true);
             isDown = !isDown;
+            this.ResumeLayout(true);
         }
 
         private void FastForwardClick(object sender, EventArgs e)

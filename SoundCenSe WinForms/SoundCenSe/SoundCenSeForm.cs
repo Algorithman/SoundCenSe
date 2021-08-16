@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using FMOD;
+using NLog;
 using SoundCenSe.Configuration.Sounds;
 using SoundCenSe.Enums;
 using SoundCenSe.Events;
@@ -51,6 +52,8 @@ namespace SoundCenSe
 
         readonly List<Control> wereEnabled = new List<Control>();
 
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         #endregion
 
         public SoundCenSeForm()
@@ -75,9 +78,9 @@ namespace SoundCenSe
             FillThresholdCombo();
 #if __MonoCS__
 #else
-            lbGamelogpath.Visible = false;
-            btnSelectGamelogPath.Visible = false;
-            tbGamelogPath.Visible = false;
+            //lbGamelogpath.Visible = false;
+            //btnSelectGamelogPath.Visible = false;
+            //tbGamelogPath.Visible = false;
 #endif
 
             cbDeleteFiles.Checked = Config.Instance.deleteFiles;

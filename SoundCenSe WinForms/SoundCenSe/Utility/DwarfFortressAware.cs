@@ -101,20 +101,7 @@ namespace SoundCenSe.Utility
                     {
                     }
 
-                    string processPath = "";
-                    string processName = "";
-                    try
-                    {
-                        processPath = Path.GetDirectoryName(p.MainModule.FileName);
-                        processName = p.ProcessName;
-                    }
-                    catch (Exception)
-                    {
-                        // In case Process stops while reading data
-                    }
-
-                    if ((p == null) || (processName != dwarfFortressProcessName) ||
-                        (processPath != dwarfFortressProcessPath))
+                    if (p == null || p.HasExited)
                     {
                         dwarfFortressProcessId = -1;
                         dwarfFortressProcessName = null;
@@ -143,14 +130,23 @@ namespace SoundCenSe.Utility
             List<Process> df = Process.GetProcessesByName(DFName).ToList();
             foreach (Process p in df)
             {
-                string path = Path.GetDirectoryName(p.MainModule.FileName);
+                string path;
+                try
+                {
+                    path = Path.GetDirectoryName(p.MainModule.FileName);
+                }
+                catch (System.ComponentModel.Win32Exception)
+                {
+                    // 32-bit process cannot access 64-bit process MainModule
+                    continue;
+                }
 
                 if (!File.Exists(Path.Combine(path, RelPathGamelog)))
                 {
                     continue;
                 }
 
-                GameLogPath = Path.Combine(Path.GetDirectoryName(p.MainModule.FileName), RelPathGamelog);
+                GameLogPath = Path.Combine(path, RelPathGamelog);
                 processName = p.ProcessName;
                 processPath = path;
                 return p.Id;
